@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ReviewTime — Impact Factor 检索</title>
+  <meta name="description" content="ReviewTime Impact Factor 检索工具：基于 OpenAlex 查询期刊 2-Year Mean Citedness、h-index，并结合本地审稿中位天数进行选刊辅助。"/>
+  <meta name="keywords" content="Impact Factor, OpenAlex, 期刊选刊, 审稿周期, h-index, ReviewTime"/>
+  <meta property="og:title" content="ReviewTime — Impact Factor 检索"/>
+  <meta property="og:description" content="查询期刊影响力指标，并结合审稿周期辅助选刊。"/>
+  <meta property="og:type" content="website"/>
+  <meta name="twitter:card" content="summary"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"/>
+  <link rel="stylesheet" href="../assets/css/app.css"/>
+  <style>
+    .metric-card { text-align:center; padding:1rem; }
+    .metric-card .val { font-size:1.8rem; font-weight:700; }
+    .metric-card .lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.04em; color:#626976; }
+    .scatter-container { height: 520px; width:100%; }
+    .journal-badge { display:inline-block; padding:2px 8px; border-radius:4px;
+      background:#e7f1ff; color:#206bc4; font-size:0.75rem; font-weight:500; margin:2px; }
+    #suggestions-impact { position:absolute; z-index:200; background:#fff; border:1px solid #e0e0e0;
+      border-radius:6px; max-height:200px; overflow-y:auto; min-width:260px;
+      box-shadow:0 4px 12px rgba(0,0,0,.1); }
+    #suggestions-impact .s-item { padding:7px 14px; cursor:pointer; font-size:0.85rem; }
+    #suggestions-impact .s-item:hover { background:#f0f4ff; }
+    .helper-note { font-size: .78rem; color:#626976; }
+    .quad-legend { display:flex; gap:8px; flex-wrap:wrap; font-size:.78rem; color:#626976; }
+    .quad-pill { padding:2px 8px; border-radius:999px; background:#f6f8fb; border:1px solid #e9edf3; }
+  </style>
+</head>
+<body class="antialiased">
+
+<!-- Navbar -->
+<header class="navbar navbar-expand-md navbar-light d-print-none sticky-top bg-white border-bottom">
+  <div class="container-xl">
+    <a href="../index.html" class="navbar-brand navbar-brand-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="me-2 text-primary"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <strong>ReviewTime</strong>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="../index.html">📊 Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="../leaderboard.html">🏆 榜单</a></li>
+        <li class="nav-item"><a class="nav-link" href="../explorer.html">🔍 期刊浏览</a></li>
+        <li class="nav-item"><a class="nav-link" href="../compare.html">⚖️ 对比</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">🔬 工具</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="citation.html">Citation Checker</a></li>
+            <li><a class="dropdown-item active" href="impact.html">Impact Factor 检索</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrapper">
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row align-items-center">
+        <div class="col">
+          <h2 class="page-title">📈 Impact Factor 检索</h2>
+          <div class="text-muted fs-6">查询期刊影响力指标，结合审稿周期辅助选刊</div>
+        </div>
+        <div class="col-auto">
+          <span class="badge bg-blue-lt">Phase 2 工具 · 数据来自 OpenAlex</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container-xl">
+
+      <div class="alert alert-info mb-3" style="font-size:0.82rem;">
+        <strong>说明：</strong>
+        数据来自 <a href="https://openalex.org" target="_blank">OpenAlex</a>（CC0 公共领域）。
+        <code>2year_mean_citedness</code> 为近似 Impact Factor（过去两年发文的平均被引次数）。
+        数据每月更新，与 Clarivate JCR 可能存在差异，仅供参考。
+      </div>
+
+      <!-- Tabs -->
+      <ul class="nav nav-tabs mb-4" id="impactTabs">
+        <li class="nav-item"><a class="nav-link active" href="#" onclick="switchTab('single',this)">🔍 期刊查询</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="switchTab('matrix',this)">📊 选刊辅助矩阵</a></li>
+      </ul>
+
+      <!-- ── Tab: Single journal lookup ── -->
+      <div id="tab-single">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row g-2 align-items-end">
+              <div class="col-12 col-md-7" style="position:relative;">
+                <label class="form-label fw-bold">输入期刊名称或 ISSN</label>
+                <input type="text" class="form-control" id="impact-input"
+                  placeholder="e.g. 2075-4426 或 Journal of Personalized Medicine"
+                  oninput="showImpactSuggestions()"
+                  onkeydown="if(event.key==='Enter')lookupImpact()"
+                  autocomplete="off">
+                <div id="suggestions-impact" style="display:none"></div>
+              </div>
+              <div class="col-auto">
+                <button class="btn btn-primary" onclick="lookupImpact()" id="btn-impact">
+                  <span id="btn-impact-spinner" class="spinner-border spinner-border-sm me-1" style="display:none"></span>
+                  查询
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="impact-result"></div>
+      </div>
+
+      <!-- ── Tab: Selection matrix ── -->
+      <div id="tab-matrix" style="display:none">
+        <div class="card mb-3">
+          <div class="card-body">
+            <p class="text-muted small mb-2">
+              下图以<strong>中位审稿天数</strong>（X轴，来自本地数据）vs
+              <strong>2年均引次数</strong>（Y轴，来自 OpenAlex）绘制散点图，帮助找到 <span class="badge bg-success-lt">快速且高影响</span> 的期刊。
+              点击"加载矩阵"将为本地数据中有 ISSN 的期刊批量查询 OpenAlex（可能需要 1–2 分钟）。
+            </p>
+            <div class="d-flex gap-2 align-items-center flex-wrap">
+              <div class="filter-item">
+                <label>学科筛选</label>
+                <select class="form-select form-select-sm" id="matrix-subject">
+                  <option value="">全部</option>
+                </select>
+              </div>
+              <div class="filter-item">
+                <label>最小样本量</label>
+                <input type="number" class="form-control form-control-sm" id="matrix-mincount" value="3" min="1" style="width:70px">
+              </div>
+              <div class="filter-item" style="align-self:flex-end;">
+                <button class="btn btn-primary btn-sm" onclick="loadMatrix()" id="btn-matrix">
+                  <span id="btn-matrix-spinner" class="spinner-border spinner-border-sm me-1" style="display:none"></span>
+                  加载矩阵
+                </button>
+              </div>
+              <div class="filter-item" style="align-self:flex-end;">
+                <button class="btn btn-outline-secondary btn-sm" onclick="exportMatrixCSV()" id="btn-matrix-export" style="display:none">⬇ 导出</button>
+              </div>
+            </div>
+            <div id="matrix-progress" style="display:none" class="mt-2">
+              <div class="progress mb-1" style="height:6px">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" id="matrix-bar" style="width:0%"></div>
+              </div>
+              <small class="text-muted" id="matrix-progress-text">正在查询 OpenAlex…</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scatter chart -->
+        <div class="card" id="matrix-card" style="display:none">
+          <div class="card-header">
+            <h3 class="card-title">审稿效率 × 影响因子 散点图</h3>
+            <div class="card-options">
+              <small class="text-muted">悬停查看详情；左上象限 = 更快且更高影响</small>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div id="chart-scatter" class="scatter-container"></div>
+          </div>
+          <div class="card-footer py-2">
+            <div class="quad-legend">
+              <span class="quad-pill">左上：更快 + 更高影响（优先候选）</span>
+              <span class="quad-pill">右上：较慢 + 更高影响（质量优先）</span>
+              <span class="quad-pill">左下：更快 + 较低影响（速度优先）</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Matrix table -->
+        <div class="card mt-3" id="matrix-table-card" style="display:none">
+          <div class="card-header"><h3 class="card-title">候选期刊列表</h3></div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-sm table-vcenter" id="matrix-data-table">
+                <thead>
+                  <tr>
+                    <th>期刊</th>
+                    <th>ISSN</th>
+                    <th>学科</th>
+                    <th>中位审稿(天)</th>
+                    <th>2yr IF</th>
+                    <th>h-index</th>
+                    <th>总被引</th>
+                    <th>发文总量</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="matrix-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer footer-transparent d-print-none">
+    <div class="container-xl">
+      <div class="footer-note">ReviewTime — Impact 数据来自 OpenAlex (CC0)，仅供参考。</div>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="../assets/js/data-loader.js"></script>
+<script src="../assets/js/charts.js"></script>
+<script>
+// ── Cache ─────────────────────────────────────────────────────────────────────
+const CACHE_TTL = 24 * 60 * 60 * 1000;
+const OA_UA_EMAIL = 'reviewtime.local';
+
+function escapeHTML(v) {
+  return String(v ?? '').replace(/[&<>"']/g, ch => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  }[ch]));
+}
+function escapeJSString(v) {
+  return String(v ?? '')
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/\r?\n/g, ' ');
+}
+function safeUrl(url) {
+  if (!url) return '';
+  try {
+    const u = new URL(url);
+    return /^https?:$/i.test(u.protocol) ? u.toString() : '';
+  } catch {
+    return '';
+  }
+}
+
+function normalizeISSN(value) {
+  const v = String(value || '').trim().toUpperCase();
+  if (/^\d{4}-\d{3}[\dX]$/.test(v)) return v;
+  if (/^\d{7}[\dX]$/.test(v)) return v.slice(0,4) + '-' + v.slice(4);
+  return null;
+}
+
+function cacheGet(key) {
+  try {
+    const item = JSON.parse(localStorage.getItem('rt_' + key));
+    if (item && Date.now() - item.ts < CACHE_TTL) return item.data;
+  } catch {}
+  return null;
+}
+function cacheSet(key, data) {
+  try { localStorage.setItem('rt_' + key, JSON.stringify({ ts: Date.now(), data })); } catch {}
+}
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let ALL_JOURNALS = [];
+let matrixData   = []; // [{label, issn, subject, median, impact, hIndex, citedBy, worksCount}]
+let scatterChart = null;
+
+// ── Tab switch ────────────────────────────────────────────────────────────────
+function switchTab(name, el) {
+  ['single','matrix'].forEach(t =>
+    document.getElementById('tab-'+t).style.display = t===name ? '' : 'none');
+  document.querySelectorAll('#impactTabs .nav-link').forEach(a=>a.classList.remove('active'));
+  el.classList.add('active');
+  return false;
+}
+
+// ── OpenAlex API helpers ──────────────────────────────────────────────────────
+async function fetchOASourceByISSN(issn) {
+  const key = 'oa_src_' + issn;
+  const cached = cacheGet(key);
+  if (cached) return cached;
+  const url = `https://api.openalex.org/sources?filter=issn:${encodeURIComponent(issn)}&per-page=1&mailto=${encodeURIComponent(OA_UA_EMAIL)}`;
+  const resp = await fetch(url);
+  if (!resp.ok) {
+    if (resp.status === 429) throw new Error('OpenAlex 请求过于频繁，请稍后重试');
+    return null;
+  }
+  const data = await resp.json();
+  const result = data.results?.[0] || null;
+  if (result) cacheSet(key, result);
+  return result;
+}
+
+async function fetchOASourceByName(name) {
+  const key = 'oa_src_name_' + name.slice(0,50);
+  const cached = cacheGet(key);
+  if (cached) return cached;
+  const url = `https://api.openalex.org/sources?search=${encodeURIComponent(name)}&per-page=5&mailto=${encodeURIComponent(OA_UA_EMAIL)}`;
+  const resp = await fetch(url);
+  if (!resp.ok) {
+    if (resp.status === 429) throw new Error('OpenAlex 请求过于频繁，请稍后重试');
+    return null;
+  }
+  const data = await resp.json();
+  const results = data.results || [];
+  if (results.length) cacheSet(key, results);
+  return results;
+}
+
+// ── Single journal lookup ─────────────────────────────────────────────────────
+let impactSuggestions = [];
+
+function showImpactSuggestions() {
+  const q = document.getElementById('impact-input').value.toLowerCase().trim();
+  const box = document.getElementById('suggestions-impact');
+  if (!q || q.length < 2) { box.style.display='none'; return; }
+
+  // Match from local journals by ISSN or name
+  const matches = ALL_JOURNALS
+    .filter(j => j.label.toLowerCase().includes(q) || (j.issn||'').includes(q) ||
+                 (j.name||'').toLowerCase().includes(q))
+    .slice(0, 8);
+
+  if (!matches.length) { box.style.display='none'; return; }
+  box.innerHTML = matches.map(j =>
+    `<div class="s-item" onclick="document.getElementById('impact-input').value='${escapeJSString(j.issn||j.label)}';document.getElementById('suggestions-impact').style.display='none';lookupImpact()">
+      <strong>${escapeHTML(j.label)}</strong>
+      <small class="text-muted ms-2">${escapeHTML(j.issn||'')}</small>
+    </div>`
+  ).join('');
+  box.style.display = 'block';
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#impact-input') && !e.target.closest('#suggestions-impact'))
+    document.getElementById('suggestions-impact').style.display='none';
+});
+
+async function lookupImpact() {
+  const raw = document.getElementById('impact-input').value.trim();
+  if (!raw) return;
+  const spinner = document.getElementById('btn-impact-spinner');
+  const btn = document.getElementById('btn-impact');
+  spinner.style.display = 'inline-block';
+  btn.disabled = true;
+  document.getElementById('impact-result').innerHTML = '';
+
+  try {
+    let source = null;
+    const issn = normalizeISSN(raw);
+    // Try ISSN first
+    if (issn) {
+      source = await fetchOASourceByISSN(issn);
+    }
+    // Try name search
+    if (!source) {
+      const results = await fetchOASourceByName(raw);
+      if (results && results.length) source = results[0];
+    }
+    // Also try from local journals
+    if (!source) {
+      const localJ = ALL_JOURNALS.find(j=>j.label.toLowerCase()===raw.toLowerCase() ||
+                                          (j.name||'').toLowerCase()===raw.toLowerCase());
+      if (localJ && localJ.issn) source = await fetchOASourceByISSN(localJ.issn);
+    }
+
+    if (!source) throw new Error('OpenAlex 未找到该期刊，请尝试 ISSN 查询');
+
+    renderImpactCard(source, raw);
+  } catch(err) {
+    document.getElementById('impact-result').innerHTML =
+      `<div class="alert alert-danger"><strong>查询失败：</strong>${escapeHTML(err.message || '网络异常，请稍后重试')}</div>`;
+  } finally {
+    spinner.style.display = 'none';
+    btn.disabled = false;
+  }
+}
+
+function renderImpactCard(src, query) {
+  const rawName    = src.display_name || query;
+  const name       = escapeHTML(rawName);
+  const issn       = escapeHTML((src.issn || []).join(' / ') || '—');
+  const if2yr      = (src['2yr_mean_citedness'] ?? src.summary_stats?.['2yr_mean_citedness'] ?? 0).toFixed(3);
+  const hIdx       = src.summary_stats?.h_index ?? src.h_index ?? '—';
+  const cited      = (src.cited_by_count || 0).toLocaleString();
+  const works      = (src.works_count || 0).toLocaleString();
+  const concepts   = (src.x_concepts || src.topics || []).slice(0,6).map(c=>
+    `<span class="journal-badge">${escapeHTML(c.display_name||c.name||'')}</span>`).join('');
+  const oaPage     = safeUrl(src.id);
+  const homePage   = safeUrl(src.homepage_url);
+  const oaLink     = oaPage ? `<a href="${oaPage}" target="_blank" rel="noopener noreferrer">🔗 OpenAlex</a>` : '';
+  const homepage   = homePage ? `<a href="${homePage}" target="_blank" rel="noopener noreferrer">🌐 主页</a>` : '';
+
+  // Find local review time data
+  const localJ = ALL_JOURNALS.find(j => {
+    const issnNorm = (j.issn||'').replace('-','');
+    const srcIssnNorm = (src.issn||[]).map(x=>x.replace('-','')).join(',');
+    return srcIssnNorm.includes(issnNorm) || j.label.toLowerCase().includes(rawName.toLowerCase().slice(0,15));
+  });
+  const reviewBlock = localJ ? `
+    <div class="col-6 col-md-3 metric-card">
+      <div class="lbl">本地中位审稿</div>
+      <div class="val">${localJ.median}</div>
+      <div class="text-muted small">天 (n=${localJ.count})</div>
+    </div>
+    <div class="col-6 col-md-3 metric-card">
+      <div class="lbl">P25–P75</div>
+      <div class="val fs-5">${localJ.p25}–${localJ.p75}</div>
+      <div class="text-muted small">天</div>
+    </div>` : '';
+
+  const html = `
+    <div class="tool-result-card status-ok">
+      <div class="d-flex align-items-start justify-content-between flex-wrap gap-2 mb-3">
+        <div>
+          <h3 class="mb-0">${name}</h3>
+          <div class="text-muted small">ISSN: ${issn}</div>
+          <div class="mt-1">${oaLink} ${homepage}</div>
+          <div class="helper-note mt-1">提示：2yr Mean Citedness 为 OpenAlex 指标，可近似理解为 IF 趋势，不等同于 JCR 官方 IF。</div>
+        </div>
+      </div>
+
+      <div class="row g-2 mb-3">
+        <div class="col-6 col-md-3 metric-card">
+          <div class="lbl">2yr Mean Citedness<br/><span style="font-size:.65rem">(近似 Impact Factor)</span></div>
+          <div class="val" style="color:${parseFloat(if2yr)>5?'#206bc4':parseFloat(if2yr)>2?'#2fb344':'#626976'}">${if2yr}</div>
+        </div>
+        <div class="col-6 col-md-3 metric-card">
+          <div class="lbl">h-index</div>
+          <div class="val">${hIdx}</div>
+        </div>
+        <div class="col-6 col-md-3 metric-card">
+          <div class="lbl">总被引次数</div>
+          <div class="val fs-5">${cited}</div>
+        </div>
+        <div class="col-6 col-md-3 metric-card">
+          <div class="lbl">发文总量</div>
+          <div class="val fs-5">${works}</div>
+        </div>
+        ${reviewBlock}
+      </div>
+
+      ${concepts ? `<div class="mb-2"><span class="text-muted small">主题分类：</span> ${concepts}</div>` : ''}
+
+      <div class="mt-2 d-flex gap-2 flex-wrap">
+        ${localJ ? `<a href="../explorer.html?issn=${encodeURIComponent(localJ.issn)}" class="btn btn-sm btn-outline-primary">📊 查看审稿详情</a>` : ''}
+        ${localJ ? `<a href="../compare.html?add=${encodeURIComponent(localJ.label)}" class="btn btn-sm btn-outline-secondary">+ 添加到对比</a>` : ''}
+        <button class="btn btn-sm btn-outline-secondary" onclick="switchTab('matrix',document.querySelectorAll('#impactTabs .nav-link')[1])">📊 打开选刊矩阵</button>
+      </div>
+    </div>`;
+
+  document.getElementById('impact-result').innerHTML = html;
+}
+
+// ── Selection matrix ──────────────────────────────────────────────────────────
+async function loadMatrix() {
+  const subjectFilter = document.getElementById('matrix-subject').value;
+  const minCount = parseInt(document.getElementById('matrix-mincount').value) || 3;
+  const spinner  = document.getElementById('btn-matrix-spinner');
+  const btn      = document.getElementById('btn-matrix');
+
+  let journals = ALL_JOURNALS.filter(j => j.count >= minCount && j.issn);
+  if (subjectFilter) journals = journals.filter(j => j.subject === subjectFilter);
+
+  if (!journals.length) {
+    alert('没有符合条件的期刊（需要有 ISSN）');
+    return;
+  }
+
+  spinner.style.display = 'inline-block';
+  btn.disabled = true;
+  document.getElementById('matrix-progress').style.display = '';
+  matrixData = [];
+
+  for (let i = 0; i < journals.length; i++) {
+    const pct = Math.round((i / journals.length) * 100);
+    document.getElementById('matrix-bar').style.width = pct + '%';
+    document.getElementById('matrix-progress-text').textContent =
+      `查询 ${i+1}/${journals.length}: ${journals[i].label.slice(0,30)}…`;
+
+    const j = journals[i];
+    try {
+      const src = await fetchOASourceByISSN(j.issn);
+      if (src) {
+        const if2yr = src['2yr_mean_citedness']
+          ?? src.summary_stats?.['2yr_mean_citedness'] ?? 0;
+        matrixData.push({
+          label:      j.label,
+          issn:       j.issn,
+          subject:    j.subject,
+          median:     j.median,
+          impact:     parseFloat(if2yr.toFixed(3)),
+          hIndex:     src.summary_stats?.h_index ?? 0,
+          citedBy:    src.cited_by_count || 0,
+          worksCount: src.works_count || 0,
+          count:      j.count,
+        });
+      }
+    } catch {}
+    // Rate limit
+    await new Promise(r => setTimeout(r, 120));
+  }
+
+  document.getElementById('matrix-bar').style.width = '100%';
+  document.getElementById('matrix-progress-text').textContent = `完成！${matrixData.length} 本期刊`;
+
+  if (matrixData.length === 0) {
+    alert('未能获取任何期刊的 OpenAlex 数据，请检查网络连接');
+    spinner.style.display = 'none';
+    btn.disabled = false;
+    return;
+  }
+
+  renderScatter();
+  renderMatrixTable();
+  document.getElementById('matrix-card').style.display = '';
+  document.getElementById('matrix-table-card').style.display = '';
+  document.getElementById('btn-matrix-export').style.display = '';
+  spinner.style.display = 'none';
+  btn.disabled = false;
+}
+
+function renderScatter() {
+  if (!scatterChart) {
+    scatterChart = echarts.init(document.getElementById('chart-scatter'));
+    window.addEventListener('resize', () => scatterChart.resize());
+  }
+  scatterChart.setOption(Charts.ifScatter(matrixData), true);
+}
+
+function renderMatrixTable() {
+  const sorted = [...matrixData].sort((a,b) => {
+    // Score: lower median + higher impact = better
+    const scoreA = (a.impact || 0) / Math.max(a.median, 1);
+    const scoreB = (b.impact || 0) / Math.max(b.median, 1);
+    return scoreB - scoreA;
+  });
+
+  const tbody = document.getElementById('matrix-tbody');
+  tbody.innerHTML = sorted.map((r, i) => `<tr>
+    <td><a href="../explorer.html?issn=${encodeURIComponent(r.issn)}"><strong>${escapeHTML(r.label)}</strong></a></td>
+    <td><small>${escapeHTML(r.issn)}</small></td>
+    <td><small>${escapeHTML(r.subject || '—')}</small></td>
+    <td><strong>${r.median}</strong> 天</td>
+    <td><strong style="color:${r.impact>5?'#206bc4':r.impact>2?'#2fb344':'#626976'}">${r.impact.toFixed(3)}</strong></td>
+    <td>${r.hIndex}</td>
+    <td>${r.citedBy.toLocaleString()}</td>
+    <td>${r.worksCount.toLocaleString()}</td>
+    <td><a href="../compare.html?add=${encodeURIComponent(r.label)}" class="btn btn-xs btn-outline-primary">+ 对比</a></td>
+  </tr>`).join('');
+}
+
+function exportMatrixCSV() {
+  if (!matrixData.length) return;
+  const rows = [['期刊','ISSN','学科','中位审稿(天)','2yr IF','h-index','总被引','发文量','样本量']];
+  matrixData.forEach(r => rows.push([
+    r.label, r.issn, r.subject, r.median, r.impact, r.hIndex, r.citedBy, r.worksCount, r.count
+  ]));
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), 'Matrix');
+  XLSX.writeFile(wb, 'reviewtime_impact_matrix.xlsx');
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+async function main() {
+  try {
+    const { journals, stats } = await DataLoader.load();
+    ALL_JOURNALS = journals;
+
+    // Populate subject filter for matrix
+    const subSel = document.getElementById('matrix-subject');
+    stats.subjects.forEach(s => {
+      const o = document.createElement('option'); o.value=s; o.textContent=s;
+      subSel.appendChild(o);
+    });
+
+    // Pre-fill from URL ?issn=
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('issn')) {
+      document.getElementById('impact-input').value = params.get('issn');
+      lookupImpact();
+    }
+  } catch(err) {
+    console.warn('Local data load failed:', err.message);
+    // Tool still works without local data
+  }
+}
+
+main();
+</script>
+</body>
+</html>

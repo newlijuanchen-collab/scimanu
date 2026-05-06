@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "brand": "ReviewTime",
+    "dashboard": "Dashboard",
+    "leaderboard": "Leaderboard",
+    "explorer": "Journal Explorer",
+    "compare": "Compare",
+    "tools": "Tools",
+    "citation": "Citation Checker",
+    "impact": "Impact Factor Lookup"
+  },
+  "dashboard": {
+    "title": "Dashboard Overview",
+    "subtitle": "Multi-dimensional analysis of academic journal review cycles",
+    "refresh": "Refresh",
+    "dataUpdated": "Updated {date}",
+    "kpi": {
+      "journals": "Journals Tracked",
+      "journalsSub": "journals tracked",
+      "articles": "Valid Samples",
+      "articlesSub": "articles analyzed",
+      "median": "Global Median Review",
+      "medianSub": "days (P25–P75: {iqr})",
+      "fastest": "Fastest Journal",
+      "fastestSub": "{days} days median"
+    },
+    "filter": {
+      "publisher": "Publisher",
+      "subject": "Subject",
+      "minCount": "Min. Sample Size",
+      "topN": "Show Top N",
+      "apply": "Apply Filters",
+      "all": "All"
+    },
+    "charts": {
+      "boxplot": "Review Cycle Distribution (Boxplot)",
+      "boxplotSub": "Sorted by median, color indicates speed tier",
+      "trend": "Global Review Trend",
+      "trendSub": "Monthly median with P25–P75 band",
+      "heatmap": "Journal × Month Heatmap",
+      "heatmapSub": "Last 24 months, cells with ≥3 samples; green=fast, red=slow"
+    }
+  },
+  "leaderboard": {
+    "title": "Review Cycle Leaderboard",
+    "subtitle": "Find the fastest, slowest journals and improving trends",
+    "tabs": {
+      "fastest": "Fastest Journals",
+      "slowest": "Slowest Journals",
+      "trend": "Improving Trend"
+    },
+    "table": {
+      "rank": "Rank",
+      "journal": "Journal",
+      "issn": "ISSN",
+      "publisher": "Publisher",
+      "subject": "Subject",
+      "median": "Median Days",
+      "p25": "P25",
+      "p75": "P75",
+      "count": "Samples",
+      "speed": "Speed",
+      "action": "Action",
+      "med6": "6-Month Median",
+      "med24": "24-Month Median",
+      "change": "Change (days)",
+      "changeRate": "Change Rate"
+    },
+    "exportCSV": "Export CSV",
+    "addCompare": "+ Compare",
+    "fastestTitle": "Fastest Journals",
+    "slowestTitle": "Slowest Journals",
+    "trendTitle": "Most Improved Journals",
+    "trendNote": "6-month vs 24-month median, ≥3 samples each required"
+  },
+  "explorer": {
+    "title": "Journal Explorer",
+    "subtitle": "Search and filter journals, expand for timeline and article details",
+    "searchPlaceholder": "Search journal name / ISSN…",
+    "quality": "Data Quality",
+    "qualityAll": "All",
+    "qualityHigh": "High Confidence Only",
+    "results": "{count} journals found",
+    "table": {
+      "journal": "Journal",
+      "issn": "ISSN",
+      "publisher": "Publisher",
+      "subject": "Subject",
+      "median": "Median (days)",
+      "iqr": "P25–P75",
+      "count": "Samples",
+      "trend": "Trend",
+      "speed": "Speed",
+      "action": "Action"
+    },
+    "detail": {
+      "timeline": "Monthly Median Review Days (last 18 months)",
+      "articles": "Article-level Data Preview (last 20 articles)",
+      "title": "Title",
+      "received": "Received",
+      "accepted": "Accepted",
+      "days": "Days",
+      "doi": "DOI"
+    }
+  },
+  "compare": {
+    "title": "Journal Comparison",
+    "subtitle": "Compare up to 8 journals side by side",
+    "searchPlaceholder": "Enter journal name or ISSN…",
+    "addLabel": "Add journals to comparison",
+    "clearAll": "Clear All",
+    "exportExcel": "Export Excel",
+    "selectedCount": "Selected ({count}/8)",
+    "maxLimit": "Maximum 8 journals can be compared",
+    "emptyHint": "Add at least 2 journals to start comparison",
+    "window": "Time Window:",
+    "charts": {
+      "boxplot": "Review Cycle Distribution Comparison",
+      "trend": "Monthly Median Trend Comparison"
+    },
+    "summary": {
+      "title": "Statistical Summary",
+      "journal": "Journal",
+      "median": "Median Days",
+      "p25": "P25",
+      "p75": "P75",
+      "min": "Min",
+      "max": "Max",
+      "count": "Samples",
+      "med6": "6-Month Median",
+      "med24": "24-Month Median",
+      "trendChange": "Trend Change",
+      "speedLevel": "Speed Level"
+    }
+  },
+  "tools": {
+    "citation": {
+      "title": "Citation Checker",
+      "subtitle": "Verify reference accuracy and detect retracted papers"
+    },
+    "impact": {
+      "title": "Impact Factor Lookup",
+      "subtitle": "Query journal impact metrics to assist in journal selection"
+    }
+  },
+  "speed": {
+    "vfast": "Very Fast",
+    "fast": "Fast",
+    "good": "Above Average",
+    "normal": "Normal",
+    "slow": "Slow",
+    "vslow": "Very Slow"
+  },
+  "trend": {
+    "up": "↑+{days}d (slowing)",
+    "down": "↓{days}d (speeding)",
+    "flat": "→ Stable"
+  },
+  "common": {
+    "loading": "Loading data, please wait…",
+    "error": "Load failed",
+    "errorDetail": "Please ensure data.xlsx exists in the web/ directory",
+    "noData": "No data matching current filters",
+    "days": "days",
+    "unknown": "—",
+    "search": "Search"
+  },
+  "footer": {
+    "note": "ReviewTime — Data sourced from PubMed/PMC/Crossref, for reference only.",
+    "openSource": "Open Source Libraries"
+  },
+  "meta": {
+    "home": {
+      "title": "ReviewTime — Academic Journal Review Cycle Visualization",
+      "description": "ReviewTime aggregates real review cycle data from PubMed/PMC/Crossref to help researchers find fast and high-quality journals."
+    },
+    "leaderboard": {
+      "title": "Review Cycle Leaderboard — ReviewTime",
+      "description": "Browse rankings of fastest and slowest peer review journals based on real PubMed data."
+    },
+    "explorer": {
+      "title": "Journal Explorer — ReviewTime",
+      "description": "Search and browse review cycle data for all tracked journals, filterable by publisher and subject."
+    },
+    "compare": {
+      "title": "Journal Comparison — ReviewTime",
+      "description": "Compare review cycle distributions of multiple journals side by side with timeline trends."
+    }
+  }
+}

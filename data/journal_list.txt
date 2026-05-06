@@ -1,0 +1,547 @@
+1. mdpi
+https://www.mdpi.com/about/journals 
+
+#	Journal Name	ISSN	Launched	IF	Cite
+Score	Current Issue	Upcoming Articles	Total Articles	RSS
+ 	
+ 	 	 	 	 	 
+1.	Accounting and Auditing	3042-6618	2025	-	-	v.2(1), Mar 2026	1	18	rss_feed
+2.	Acoustics	2624-599X	2019	1.2	2.6	v.8(1), Mar 2026	9	449	rss_feed
+3.	Acta Microbiologica Hellenica	2813-9054	1956	-	0.2	v.71(1), Mar 2026	2	86	rss_feed
+4.	Actuators	2076-0825	2012	2.3	4.3	v.15(4), Apr 2026	36	3,026	rss_feed
+5.	Adhesives	3042-6081	2025	-	-	v.2(1), Mar 2026	4	25	rss_feed
+6.	Administrative Sciences	2076-3387	2011	3.1	5.6	v.16(4), Apr 2026	25	2,087	rss_feed
+7.	Adolescents	2673-7051	2021	0.8	1.8	v.6(2), Apr 2026	4	290	rss_feed
+8.	Advances in Respiratory Medicine	2543-6031	1909	2.3	3.5	v.94(2), Apr 2026	4	1,648	rss_feed
+9.	Aerobiology	2813-5075	2023	-	-	v.4(1), Mar 2026	3	38	rss_feed
+10.	Aerospace	2226-4310	2014	2.2	4.0	v.13(4), Apr 2026	40	5,482	rss_feed
+11.	Agriculture	2077-0472	2011	3.6	6.3	v.16(8), Apr 2026	96	13,217	rss_feed
+12.	AgriEngineering	2624-7402	2019	3.0	4.7	v.8(4), Apr 2026	22	1,270	rss_feed
+13.	Agrochemicals	2813-3145	2022	-	-	v.5(1), Mar 2026	10	102	rss_feed
+14.	Agronomy	2073-4395	2011	3.4	6.7	v.16(8), Apr 2026	90	19,349	rss_feed
+15.	AI	2673-2688	2020	5.0	6.9	v.7(4), Apr 2026	11	824	rss_feed
+16.	AI Chemistry	3042-6723	2026	-	-	v.1(1), Mar 2026	2	7	rss_feed
+17.	AI for Engineering	3042-8831	2026	-	-	Forthcoming Issue	2	2	rss_feed
+18.	AI in Education	3042-8130	2025	-	-	v.2(1), Mar 2026	7	19	rss_feed
+19.	AI in Medicine	3042-6707	2026	-	-	v.1(1), Mar 2026	2	11	rss_feed
+20.	AI Materials	3042-6715	2026	-	-	Forthcoming Issue	4	4	rss_feed
+21.	AI Sensors	3042-5999	2025	-	-	v.2(1), Mar 2026	1	13	rss_feed
+22.	Air	2813-4168	2023	-	-	v.4(1), Mar 2026	2	87	rss_feed
+23.	Algorithms	1999-4893	2008	2.1	4.5	v.19(4), Apr 2026	41	4,571	rss_feed
+24.	Allergies	2313-5786	2021	-	-	v.6(1), Mar 2026	5	126	rss_feed
+25.	Alloys	2674-063X	2022	-	3.2	v.5(1), Mar 2026	2	97	rss_feed
+26.	Analog	3042-8491	2026	-	-	Forthcoming Issue	2	2	rss_feed
+27.	Analytica	2673-4532	2020	3.6	3.7	v.7(1), Mar 2026	8	226	rss_feed
+28.	Analytics	2813-2203	2022	-	-	v.5(1), Mar 2026	3	142	rss_feed
+29.	Anatomia	2813-0545	2022	-	-	v.5(1), Mar 2026	4	111	rss_feed
+30.	Anesthesia Research	2813-5806	2024	-	-	v.3(1), Mar 2026	4	60	rss_feed
+31.	Animals	2076-2615	2011	2.7	5.2	v.16(8), Apr 2026	130	24,189	rss_feed
+32.	Antibiotics	2079-6382	2012	4.6	8.7	v.15(4), Apr 2026	44	9,657	rss_feed
+33.	Antibodies	2073-4468	2012	2.7	4.5	v.15(2), Apr 2026	0	772	rss_feed
+34.	Antioxidants	2076-3921	2012	6.6	12.4	v.15(4), Apr 2026	60	12,797	rss_feed
+35.	Applied Biosciences	2813-0464	2022	-	2.9	v.5(1), Mar 2026	16	194	rss_feed
+36.	Applied Mechanics	2673-3161	2020	1.5	3.5	v.7(1), Mar 2026	15	404	rss_feed
+37.	Applied Microbiology	2673-8007	2021	-	2.8	v.6(4), Apr 2026	3	538	rss_feed
+38.	Applied Nano	2673-3501	2020	-	4.6	v.7(1), Mar 2026	1	125	rss_feed
+39.	Applied Sciences	2076-3417	2011	2.5	5.5	v.16(8), Apr 2026	470	87,922	rss_feed
+40.	Applied System Innovation	2571-5577	2018	3.7	9.9	v.9(4), Apr 2026	13	907	rss_feed
+41.	AppliedChem	2673-9623	2021	-	2.9	v.6(1), Mar 2026	12	158	rss_feed
+42.	AppliedMath	2673-9909	2021	0.7	1.1	v.6(4), Apr 2026	7	440	rss_feed
+43.	AppliedPhys	3042-6553	2025	-	-	v.2(1), Mar 2026	1	10	rss_feed
+44.	Aquaculture Journal	2673-9496	2021	-	-	v.6(1), Mar 2026	4	107	rss_feed
+45.	Architecture	2673-8945	2021	1.4	2.2	v.6(1), Mar 2026	21	358	rss_feed
+46.	Arthropoda	2813-3323	2023	-	-	v.4(1), Mar 2026	2	64	rss_feed
+47.	Arts	2076-0752	2012	0.3	-	v.15(4), Apr 2026	12	1,419	rss_feed
+48.	Astronautics	3042-7576	2026	-	-	v.1(1), Mar 2026	1	9	rss_feed
+49.	Astronomy	2674-0346	2022	-	2.3	v.5(1), Mar 2026	2	90	rss_feed
+50.	Atmosphere	2073-4433	2010	2.3	4.9	v.17(4), Apr 2026	47	12,488	rss_feed
+51.	Atoms	2218-2004	2013	1.5	3.1	v.14(4), Apr 2026	5	1,037	rss_feed
+52.	Audiology Research	2039-4349	2011	1.8	3.0	v.16(2), Apr 2026	6	685	rss_feed
+53.	Automation	2673-4052	2020	2.0	4.1	v.7(2), Apr 2026	4	276	rss_feed
+54.	Axioms	2075-1680	2012	1.6	-	v.15(4), Apr 2026	38	4,930	rss_feed
+55.	Bacteria	2674-1334	2022	-	2.8	v.5(1), Mar 2026	5	155	rss_feed
+56.	Batteries	2313-0105	2015	4.8	6.6	v.12(4), Apr 2026	13	2,352	rss_feed
+57.	Behavioral Sciences	2076-328X	2011	2.5	3.1	v.16(4), Apr 2026	82	6,122	rss_feed
+58.	Beverages	2306-5710	2015	2.7	4.6	v.12(4), Apr 2026	4	996	rss_feed
+59.	Big Data and Cognitive Computing	2504-2289	2017	4.4	9.8	v.10(4), Apr 2026	14	1,232	rss_feed
+60.	BioChem	2673-6411	2021	-	-	v.6(1), Mar 2026	2	122	rss_feed
+61.	Bioengineering	2306-5354	2014	3.7	5.3	v.13(4), Apr 2026	51	6,261	rss_feed
+62.	Biologics	2673-8449	2021	-	7.2	v.6(1), Mar 2026	4	144	rss_feed
+63.	Biology	2079-7737	2012	3.5	7.4	v.15(8), Apr 2026	66	9,317	rss_feed
+64.	Biology and Life Sciences Forum *	2673-9976	2021	-	-	Forthcoming Volume	N/A	1,649	rss_feed
+65.	Biomass	2673-8783	2021	-	4.2	v.6(2), Apr 2026	2	245	rss_feed
+66.	Biomechanics	2673-7078	2021	1.4	2.4	v.6(1), Mar 2026	12	335	rss_feed
+67.	BioMed	2673-8430	2021	-	-	v.6(1), Mar 2026	3	170	rss_feed
+68.	Biomedicines	2227-9059	2013	3.9	6.8	v.14(4), Apr 2026	98	16,701	rss_feed
+69.	BioMedInformatics	2673-7426	2021	-	3.4	v.6(2), Apr 2026	3	359	rss_feed
+70.	Biomimetics	2313-7673	2016	3.9	4.2	v.11(4), Apr 2026	31	3,115	rss_feed
+71.	Biomolecules	2218-273X	2011	4.8	9.2	v.16(4), Apr 2026	64	12,922	rss_feed
+72.	Biophysica	2673-4125	2021	1.4	2.3	v.6(2), Apr 2026	1	274	rss_feed
+73.	Bioresources and Bioproducts	3042-8092	2025	-	-	v.2(1), Mar 2026	3	16	rss_feed
+74.	Biosensors	2079-6374	2011	5.6	9.8	v.16(4), Apr 2026	35	5,242	rss_feed
+75.	Biosphere	3042-6111	2025	-	-	v.2(1), Mar 2026	0	10	rss_feed
+76.	BioTech	2673-6284	2012	3.1	4.8	v.15(1), Mar 2026	6	563	rss_feed
+77.	Birds	2673-6004	2020	1.4	2.7	v.7(1), Mar 2026	5	247	rss_feed
+78.	Blockchains	2813-5288	2023	-	-	v.4(1), Mar 2026	1	47	rss_feed
+79.	Brain Sciences	2076-3425	2011	2.8	5.6	v.16(4), Apr 2026	69	10,308	rss_feed
+80.	Buildings	2075-5309	2011	3.1	4.4	v.16(8), Apr 2026	196	17,620	rss_feed
+81.	Businesses	2673-7116	2021	-	-	v.6(1), Mar 2026	7	218	rss_feed
+82.	C	2311-5629	2015	2.9	3.4	v.12(1), Mar 2026	9	834	rss_feed
+83.	Cancers	2072-6694	2009	4.4	8.8	v.18(8), Apr 2026	161	35,855	rss_feed
+84.	Cardiogenetics	2035-8148	2011	0.9	1.4	v.16(1), Mar 2026	3	222	rss_feed
+85.	Cardiovascular Medicine	1664-204X	1998	-	0.4	v.29(1), Mar 2026	4	1,401	rss_feed
+86.	Catalysts	2073-4344	2011	4.0	7.6	v.16(4), Apr 2026	55	11,413	rss_feed
+87.	Cells	2073-4409	2012	5.2	10.5	v.15(8), Apr 2026	105	20,573	rss_feed
+88.	Ceramics	2571-6131	2018	2.0	3.7	v.9(4), Apr 2026	6	734	rss_feed
+89.	Challenges	2078-1547	2010	-	-	v.17(1), Mar 2026	3	536	rss_feed
+90.	ChemEngineering	2305-7084	2017	3.4	4.9	v.10(4), Apr 2026	2	876	rss_feed
+91.	Chemistry	2624-8549	2019	2.4	3.9	v.8(4), Apr 2026	8	837	rss_feed
+92.	Chemistry Proceedings *	2673-4583	2020	-	-	Forthcoming Volume	N/A	1,133	rss_feed
+93.	Chemosensors	2227-9040	2013	3.7	7.3	v.14(4), Apr 2026	10	2,684	rss_feed
+94.	Children	2227-9067	2014	2.1	3.8	v.13(4), Apr 2026	65	9,907	rss_feed
+95.	Chips	2674-0729	2022	-	-	v.5(1), Mar 2026	2	114	rss_feed
+96.	CivilEng	2673-4109	2020	2.0	4.0	v.7(1), Mar 2026	8	366	rss_feed
+97.	Clean Technologies	2571-8797	2019	4.7	8.3	v.8(2), Apr 2026	6	516	rss_feed
+98.	Climate	2225-1154	2013	3.2	5.7	v.14(4), Apr 2026	12	1,851	rss_feed
+99.	Clinical and Translational Neuroscience	2514-183X	2017	1.1	-	v.10(1), Mar 2026	2	287	rss_feed
+100.	Clinical Bioenergetics	3042-5158	2025	-	-	v.2(1), Mar 2026	3	19	rss_feed
+101.	Clinics and Practice	2039-7283	2011	2.2	2.8	v.16(4), Apr 2026	9	1,421	rss_feed
+102.	Clocks & Sleep	2624-5175	2019	2.1	4.2	v.8(1), Mar 2026	10	378	rss_feed
+103.	Coasts	2673-964X	2021	-	-	v.6(1), Mar 2026	6	155	rss_feed
+104.	Coatings	2079-6412	2011	2.8	5.4	v.16(4), Apr 2026	46	12,396	rss_feed
+105.	Colloids and Interfaces	2504-5377	2017	3.2	4.4	v.10(2), Apr 2026	5	611	rss_feed
+106.	Colorants	2079-6447	2022	-	-	v.5(1), Mar 2026	6	139	rss_feed
+107.	Commodities	2813-2432	2022	-	-	v.5(1), Mar 2026	2	103	rss_feed
+108.	Complexities	3042-6448	2025	-	-	v.2(1), Mar 2026	5	19	rss_feed
+109.	Complications	2813-4966	2024	-	-	v.3(1), Mar 2026	2	52	rss_feed
+110.	Compounds	2673-6918	2021	2.3	3.8	v.6(1), Mar 2026	5	223	rss_feed
+111.	Computation	2079-3197	2013	1.9	4.1	v.14(4), Apr 2026	11	1,670	rss_feed
+112.	Computer Sciences & Mathematics Forum *	2813-0324	2022	-	-	Forthcoming Volume	N/A	304	rss_feed
+113.	Computers	2073-431X	2012	4.2	7.5	v.15(4), Apr 2026	32	2,186	rss_feed
+114.	Condensed Matter	2410-3896	2016	1.5	2.7	v.11(1), Mar 2026	6	647	rss_feed
+115.	Conservation	2673-7159	2021	1.9	3.2	v.6(1), Mar 2026	20	307	rss_feed
+116.	Construction Materials	2673-7108	2021	-	3.1	v.6(2), Apr 2026	3	230	rss_feed
+117.	Corrosion and Materials Degradation	2624-5558	2020	2.4	5.2	v.7(1), Mar 2026	7	260	rss_feed
+118.	Cosmetics	2079-9284	2014	3.2	6.0	v.13(2), Apr 2026	12	1,454	rss_feed
+119.	COVID	2673-8112	2021	1.0	2.3	v.6(4), Apr 2026	7	743	rss_feed
+120.	Craniomaxillofacial Trauma & Reconstruction	1943-3883	2008	0.4	-	v.19(1), Mar 2026	6	873	rss_feed
+121.	Crops	2673-7655	2021	1.9	2.4	v.6(2), Apr 2026	1	268	rss_feed
+122.	Cryo	3042-4860	2025	-	-	v.2(1), Mar 2026	2	20	rss_feed
+123.	Cryptography	2410-387X	2017	2.1	5.0	v.10(2), Apr 2026	3	467	rss_feed
+124.	Crystals	2073-4352	2011	2.4	5.0	v.16(4), Apr 2026	28	10,733	rss_feed
+125.	Culture	3042-8165	2025	-	-	v.2(1), Mar 2026	4	15	rss_feed
+126.	Current Issues in Molecular Biology	1467-3045	1999	3.0	3.7	v.48(4), Apr 2026	49	4,043	rss_feed
+127.	Current Oncology	1718-7729	1994	3.4	4.9	v.33(4), Apr 2026	29	5,407	rss_feed
+128.	Dairy	2624-862X	2020	3.1	4.9	v.7(2), Apr 2026	6	354	rss_feed
+129.	Data	2306-5729	2016	2.0	5.0	v.11(4), Apr 2026	13	1,370	rss_feed
+130.	Dentistry Journal	2304-6767	2013	3.1	4.1	v.14(4), Apr 2026	24	2,427	rss_feed
+131.	Dermato	2673-6179	2021	-	-	v.6(1), Mar 2026	7	99	rss_feed
+132.	Dermatopathology	2296-3529	2014	1.7	-	v.13(1), Mar 2026	6	258	rss_feed
+133.	Designs	2411-9660	2017	-	4.8	v.10(2), Apr 2026	3	857	rss_feed
+134.	Diabetology	2673-4540	2020	2.2	3.7	v.7(4), Apr 2026	7	432	rss_feed
+135.	Diagnostics	2075-4418	2011	3.3	5.9	v.16(8), Apr 2026	146	18,475	rss_feed
+136.	Dietetics	2674-0311	2022	-	-	v.5(1), Mar 2026	10	176	rss_feed
+137.	Digital	2673-6470	2021	-	4.8	v.6(1), Mar 2026	9	217	rss_feed
+138.	Digital Health and Innovation	3042-9315	2026	-	-	Forthcoming Issue	2	2	rss_feed
+139.	Disabilities	2673-7272	2021	1.4	1.9	v.6(2), Apr 2026	2	366	rss_feed
+140.	Diseases	2079-9721	2013	3.0	3.7	v.14(4), Apr 2026	10	1,655	rss_feed
+141.	Diversity	1424-2818	2009	2.1	4.0	v.18(4), Apr 2026	37	6,172	rss_feed
+142.	DNA	2673-8856	2021	-	-	v.6(1), Mar 2026	6	166	rss_feed
+143.	Drones	2504-446X	2017	4.8	7.4	v.10(4), Apr 2026	35	3,516	rss_feed
+144.	Drugs and Drug Candidates	2813-2998	2022	-	-	v.5(1), Mar 2026	7	189	rss_feed
+145.	Dynamics	2673-8716	2021	0.9	1.7	v.6(1), Mar 2026	3	200	rss_feed
+146.	Earth	2673-4834	2020	3.4	5.9	v.7(2), Apr 2026	5	478	rss_feed
+147.	Ecologies	2673-4133	2020	1.9	3.0	v.7(1), Mar 2026	11	285	rss_feed
+148.	Econometrics	2225-1146	2013	1.4	2.2	v.14(1), Mar 2026	6	536	rss_feed
+149.	Economies	2227-7099	2013	2.1	4.7	v.14(4), Apr 2026	11	2,127	rss_feed
+150.	Education Sciences	2227-7102	2011	2.6	5.5	v.16(4), Apr 2026	63	8,004	rss_feed
+151.	Electricity	2673-4826	2020	1.8	5.1	v.7(1), Mar 2026	16	259	rss_feed
+152.	Electrochem	2673-3293	2020	-	7.4	v.7(1), Mar 2026	3	253	rss_feed
+153.	Electronic Materials	2673-3978	2020	-	3.9	v.7(1), Mar 2026	2	138	rss_feed
+154.	Electronics	2079-9292	2012	2.6	6.1	v.15(8), Apr 2026	185	29,016	rss_feed
+155.	Emergency Care and Medicine	2813-7914	2024	-	-	v.3(1), Mar 2026	5	118	rss_feed
+156.	Encyclopedia	2673-8392	2021	-	-	v.6(4), Apr 2026	9	790	rss_feed
+157.	Endocrines	2673-396X	2020	-	2.4	v.7(1), Mar 2026	6	300	rss_feed
+158.	Energies	1996-1073	2008	3.2	7.3	v.19(8), Apr 2026	218	62,226	rss_feed
+159.	Energy Storage and Applications	3042-4011	2024	-	-	v.3(1), Mar 2026	1	30	rss_feed
+160.	Eng	2673-4117	2020	2.4	3.2	v.7(4), Apr 2026	33	1,054	rss_feed
+161.	Engineering Proceedings *	2673-4591	2020	-	1.2	Forthcoming Volume	N/A	7,167	rss_feed
+162.	Entropic and Disordered Matter	3042-7592	2026	-	-	Forthcoming Issue	1	1	rss_feed
+163.	Entropy	1099-4300	1999	2.0	5.2	v.28(4), Apr 2026	42	14,679	rss_feed
+164.	Environmental and Earth Sciences Proceedings *	3042-5743	2020	-	-	Forthcoming Volume	N/A	1,744	rss_feed
+165.	Environmental Remediation	3042-903X	2026	-	-	Forthcoming Issue	2	2	rss_feed
+166.	Environments	2076-3298	2014	3.7	5.7	v.13(4), Apr 2026	26	2,133	rss_feed
+167.	Epidemiologia	2673-3986	2020	2.2	4.3	v.7(2), Apr 2026	6	346	rss_feed
+168.	Epigenomes	2075-4655	2017	3.5	4.4	v.10(1), Mar 2026	7	325	rss_feed
+169.	European Burn Journal	2673-1991	2020	1.2	1.7	v.7(1), Mar 2026	4	238	rss_feed
+170.	European Journal of Investigation in Health, Psychology and Education	2254-9625	2011	2.6	5.1	v.16(4), Apr 2026	8	1,232	rss_feed
+171.	Family Sciences	3042-6693	2025	-	-	v.2(1), Mar 2026	4	28	rss_feed
+172.	Fermentation	2311-5637	2015	3.3	5.7	v.12(4), Apr 2026	20	4,130	rss_feed
+173.	Fibers	2079-6439	2013	3.9	7.4	v.14(4), Apr 2026	10	1,075	rss_feed
+174.	FinTech	2674-1032	2022	-	6.2	v.5(1), Mar 2026	13	217	rss_feed
+175.	Fire	2571-6255	2018	2.7	3.9	v.9(4), Apr 2026	16	2,137	rss_feed
+176.	Fishes	2410-3888	2016	2.4	3.0	v.11(4), Apr 2026	19	2,723	rss_feed
+177.	Fluids	2311-5521	2016	1.8	4.0	v.11(4), Apr 2026	10	2,593	rss_feed
+178.	Foods	2304-8158	2012	5.1	8.7	v.15(8), Apr 2026	139	25,100	rss_feed
+179.	Forecasting	2571-9394	2019	3.2	7.1	v.8(2), Apr 2026	4	367	rss_feed
+180.	Forensic Sciences	2673-6756	2021	-	2.9	v.6(1), Mar 2026	8	291	rss_feed
+181.	Forests	1999-4907	2010	2.5	4.6	v.17(4), Apr 2026	48	15,925	rss_feed
+182.	Fossil Studies	2813-6284	2023	-	-	v.4(1), Mar 2026	3	50	rss_feed
+183.	Foundations	2673-9321	2021	-	-	v.6(1), Mar 2026	4	239	rss_feed
+184.	Fractal and Fractional	2504-3110	2017	3.3	6.0	v.10(4), Apr 2026	38	3,978	rss_feed
+185.	Fuels	2673-3994	2020	2.8	-	v.7(1), Mar 2026	9	281	rss_feed
+186.	Future	2813-2882	2023	-	-	v.4(1), Mar 2026	5	67	rss_feed
+187.	Future Internet	1999-5903	2009	3.6	8.3	v.18(4), Apr 2026	21	3,415	rss_feed
+188.	Future Pharmacology	2673-9879	2021	2.7	-	v.6(1), Mar 2026	12	257	rss_feed
+189.	Future Transportation	2673-7590	2021	1.7	3.8	v.6(2), Apr 2026	9	557	rss_feed
+190.	Galaxies	2075-4434	2013	3.8	6.3	v.14(2), Apr 2026	4	1,188	rss_feed
+191.	Games	2073-4336	2010	0.5	1.5	v.17(2), Apr 2026	3	846	rss_feed
+192.	Gases	2673-5628	2021	-	5.4	v.6(1), Mar 2026	5	110	rss_feed
+193.	Gastroenterology Insights	2036-7422	2009	0.7	2.7	v.17(1), Mar 2026	9	376	rss_feed
+194.	Gastrointestinal Disorders	2624-5647	2019	0.8	1.2	v.8(1), Mar 2026	7	344	rss_feed
+195.	Gastronomy	2813-513X	2023	-	-	v.4(1), Mar 2026	2	49	rss_feed
+196.	Gels	2310-2861	2015	5.3	7.6	v.12(4), Apr 2026	49	4,648	rss_feed
+197.	Genealogy	2313-5778	2017	0.6	0.7	v.10(1), Mar 2026	18	928	rss_feed
+198.	Genes	2073-4425	2010	2.8	5.5	v.17(4), Apr 2026	55	14,470	rss_feed
+199.	Geographies	2673-7086	2021	1.7	2.9	v.6(1), Mar 2026	11	278	rss_feed
+200.	GeoHazards	2624-795X	2020	1.6	2.2	v.7(1), Mar 2026	15	288	rss_feed
+201.	Geomatics	2673-7418	2021	2.8	5.1	v.6(2), Apr 2026	5	235	rss_feed
+202.	Geometry	3042-402X	2024	-	-	v.3(1), Mar 2026	2	34	rss_feed
+203.	Geosciences	2076-3263	2011	2.1	5.1	v.16(4), Apr 2026	19	4,189	rss_feed
+204.	Geotechnics	2673-7094	2021	1.9	3.6	v.6(1), Mar 2026	13	346	rss_feed
+205.	Geriatrics	2308-3417	2016	2.1	3.4	v.11(2), Apr 2026	5	1,118	rss_feed
+206.	Germs	2248-2997	2011	1.7	3.6	v.16(1), Mar 2026	2	486	rss_feed
+207.	Glacies	2813-8740	2024	-	-	v.3(1), Mar 2026	0	29	rss_feed
+208.	Gout, Urate, and Crystal Deposition Disease	2813-4583	2023	-	1.5	v.4(1), Mar 2026	2	76	rss_feed
+209.	Grasses	2813-3463	2022	-	-	v.5(1), Mar 2026	4	123	rss_feed
+210.	Green	3042-9242	2026	-	-	Forthcoming Issue	2	2	rss_feed
+211.	Green Health	3042-5832	2025	-	-	v.2(1), Mar 2026	4	36	rss_feed
+212.	Hardware	2813-6640	2023	-	-	v.4(1), Mar 2026	3	46	rss_feed
+213.	Healthcare	2227-9032	2013	2.7	4.7	v.14(8), Apr 2026	127	15,919	rss_feed
+214.	Hearts	2673-3846	2020	-	-	v.7(1), Mar 2026	4	189	rss_feed
+215.	Hemato	2673-6357	2020	1.0	2.0	v.7(1), Mar 2026	6	238	rss_feed
+216.	Hematology Reports	2038-8330	2009	1.2	1.4	v.18(2), Apr 2026	2	614	rss_feed
+217.	Heritage	2571-9408	2018	1.9	3.7	v.9(4), Apr 2026	25	2,243	rss_feed
+218.	Histories	2409-9252	2021	0.2	-	v.6(1), Mar 2026	5	211	rss_feed
+219.	Horticulturae	2311-7524	2015	3.0	5.1	v.12(4), Apr 2026	54	6,974	rss_feed
+220.	Hospitals	2813-4524	2024	-	-	v.3(1), Mar 2026	4	55	rss_feed
+221.	Humanities	2076-0787	2012	0.3	0.5	v.15(4), Apr 2026	3	1,706	rss_feed
+222.	Humans	2673-9461	2021	-	-	v.6(1), Mar 2026	4	125	rss_feed
+223.	Hydrobiology	2673-9917	2022	-	3.7	v.5(1), Mar 2026	3	139	rss_feed
+224.	Hydrogen	2673-4141	2020	3.0	5.5	v.7(1), Mar 2026	19	366	rss_feed
+225.	Hydrology	2306-5338	2014	3.2	5.9	v.13(4), Apr 2026	6	1,726	rss_feed
+226.	Hydropower	3042-8432	2026	-	-	Forthcoming Issue	3	3	rss_feed
+227.	Hygiene	2673-947X	2021	-	2.6	v.6(1), Mar 2026	6	194	rss_feed
+228.	Immuno	2673-5601	2021	2.5	3.7	v.6(1), Mar 2026	12	238	rss_feed
+229.	Industries	3042-9021	2026	-	-	Forthcoming Issue	3	3	rss_feed
+230.	Infectious Disease Reports	2036-7449	2009	2.4	6.0	v.18(2), Apr 2026	6	831	rss_feed
+231.	Inflammation Journal	3043-0348	2026	-	-	Forthcoming Issue	1	1	rss_feed
+232.	Informatics	2227-9709	2014	2.8	8.4	v.13(4), Apr 2026	5	824	rss_feed
+233.	Information	2078-2489	2010	2.9	6.5	v.17(4), Apr 2026	47	5,921	rss_feed
+234.	Infrastructures	2412-3811	2016	2.9	6.0	v.11(4), Apr 2026	16	1,567	rss_feed
+235.	Inorganics	2304-6740	2013	3.0	4.1	v.14(4), Apr 2026	11	2,289	rss_feed
+236.	Insects	2075-4450	2010	2.9	5.6	v.17(4), Apr 2026	32	8,110	rss_feed
+237.	Instruments	2410-390X	2017	-	3.3	v.10(1), Mar 2026	8	429	rss_feed
+238.	Intelligent Infrastructure and Construction	3042-4720	2025	-	-	v.2(1), Mar 2026	2	15	rss_feed
+239.	International Journal of Cognitive Sciences	3042-8084	2025	-	-	v.2(1), Mar 2026	3	14	rss_feed
+240.	International Journal of Environmental Medicine	3042-7681	2026	-	-	v.1(1), Mar 2026	2	7	rss_feed
+241.	International Journal of Environmental Research and Public Health	1660-4601	2004	-	8.5	v.23(4), Apr 2026	68	66,008	rss_feed
+242.	International Journal of Financial Studies	2227-7072	2013	2.2	4.6	v.14(4), Apr 2026	16	1,198	rss_feed
+243.	International Journal of Medical Devices	3042-8890	2026	-	-	Forthcoming Issue	1	1	rss_feed
+244.	International Journal of Molecular Sciences	1422-0067	2000	4.9	9.0	v.27(8), Apr 2026	411	110,185	rss_feed
+245.	International Journal of Neonatal Screening	2409-515X	2015	4.0	6.0	v.12(1), Mar 2026	11	684	rss_feed
+246.	International Journal of Orofacial Myology and Myofunctional Therapy	2694-2526	1975	-	-	v.51(2), Dec 2025	5	501	rss_feed
+247.	International Journal of Plant Biology	2037-0164	2010	-	3.0	v.17(4), Apr 2026	4	534	rss_feed
+248.	International Journal of Topology	2813-9542	2024	-	-	v.3(1), Mar 2026	2	34	rss_feed
+249.	International Journal of Translational Medicine	2673-8937	2021	-	2.2	v.6(1), Mar 2026	9	238	rss_feed
+250.	International Journal of Turbomachinery, Propulsion and Power	2504-186X	2016	1.8	2.4	v.11(1), Mar 2026	4	367	rss_feed
+251.	International Medical Education	2813-141X	2022	-	-	v.5(1), Mar 2026	11	176	rss_feed
+252.	Inventions	2411-5134	2016	1.9	4.9	v.11(2), Apr 2026	3	945	rss_feed
+253.	IoT	2624-831X	2020	2.8	8.7	v.7(1), Mar 2026	10	282	rss_feed
+254.	ISPRS International Journal of Geo-Information	2220-9964	2012	2.8	7.2	v.15(4), Apr 2026	19	5,932	rss_feed
+255.	J	2571-8800	2018	-	-	v.9(1), Mar 2026	2	313	rss_feed
+256.	Journal of Aesthetic Medicine	3042-6774	2025	-	-	v.2(1), Mar 2026	3	19	rss_feed
+257.	Journal of Ageing and Longevity	2673-9259	2021	-	-	v.6(1), Mar 2026	5	187	rss_feed
+258.	Journal of CardioRenal Medicine	3042-6987	2025	-	-	v.2(1), Mar 2026	1	12	rss_feed
+259.	Journal of Cardiovascular Development and Disease	2308-3425	2014	2.3	3.7	v.13(4), Apr 2026	25	2,524	rss_feed
+260.	Journal of Clinical & Translational Ophthalmology	2813-1053	2023	-	-	v.4(1), Mar 2026	4	67	rss_feed
+261.	Journal of Clinical Medicine	2077-0383	2012	2.9	5.2	v.15(8), Apr 2026	341	49,061	rss_feed
+262.	Journal of Composites Science	2504-477X	2017	3.7	5.8	v.10(4), Apr 2026	32	3,140	rss_feed
+263.	Journal of Cybersecurity and Privacy	2624-800X	2021	-	9.1	v.6(2), Apr 2026	6	368	rss_feed
+264.	Journal of Dementia and Alzheimer's Disease	3042-4518	2024	-	-	v.3(1), Mar 2026	5	77	rss_feed
+265.	Journal of Developmental Biology	2221-3759	2013	2.5	4.5	v.14(1), Mar 2026	6	437	rss_feed
+266.	Journal of Experimental and Theoretical Analyses	2813-4648	2023	-	-	v.4(1), Mar 2026	4	78	rss_feed
+267.	Journal of Eye Movement Research	1995-8692	2007	2.8	3.4	v.19(2), Apr 2026	7	642	rss_feed
+268.	Journal of Functional Biomaterials	2079-4983	2010	5.2	6.8	v.17(4), Apr 2026	20	2,513	rss_feed
+269.	Journal of Functional Morphology and Kinesiology	2411-5142	2016	2.5	3.7	v.11(1), Mar 2026	54	1,661	rss_feed
+270.	Journal of Fungi	2309-608X	2015	4.0	8.4	v.12(4), Apr 2026	38	6,521	rss_feed
+271.	Journal of Genome Biotechnology and Genetics	3042-8424	2026	-	-	Forthcoming Issue	7	7	rss_feed
+272.	Journal of Gerontology and Geriatrics	2499-6564	1953	0.5	0.8	v.74(1), Mar 2026	6	211	rss_feed
+273.	Journal of Imaging	2313-433X	2015	3.3	6.7	v.12(4), Apr 2026	20	2,378	rss_feed
+274.	Journal of Innovation	3042-8629	2026	-	-	Forthcoming Issue	1	1	rss_feed
+275.	Journal of Intelligence	2079-3200	2013	3.4	4.7	v.14(4), Apr 2026	7	998	rss_feed
+276.	Journal of Interdisciplinary Research Applied to Medicine	2532-7518	2017	-	-	v.6(1), Mar 2026	3	56	rss_feed
+277.	Journal of Low Power Electronics and Applications	2079-9268	2011	1.8	4.3	v.16(1), Mar 2026	6	589	rss_feed
+278.	Journal of Manufacturing and Materials Processing	2504-4494	2017	3.3	5.2	v.10(4), Apr 2026	17	1,735	rss_feed
+279.	Journal of Marine Science and Engineering	2077-1312	2013	2.8	5.0	v.14(8), Apr 2026	100	13,459	rss_feed
+280.	Journal of Market Access & Health Policy	2001-6689	2013	-	3.3	v.14(1), Mar 2026	11	348	rss_feed
+281.	Journal of Mind and Medical Sciences	2392-7674	2014	-	-	v.13(1), Mar 2026	4	456	rss_feed
+282.	Journal of Molecular Pathology	2673-5261	2020	1.1	2.3	v.7(1), Mar 2026	3	178	rss_feed
+283.	Journal of Nanotheranostics	2624-845X	2020	-	-	v.7(1), Mar 2026	3	117	rss_feed
+284.	Journal of Nuclear Engineering	2673-4362	2020	1.2	2.6	v.7(1), Mar 2026	10	245	rss_feed
+285.	Journal of Otorhinolaryngology, Hearing and Balance Medicine	2504-463X	2018	-	-	v.6(2), Dec 2025	17	100	rss_feed
+286.	Journal of Parks	3042-5689	2026	-	-	v.1(1), Mar 2026	2	8	rss_feed
+287.	Journal of Personalized Medicine	2075-4426	2011	-	6.0	v.16(4), Apr 2026	22	7,792	rss_feed
+288.	Journal of Pharmaceutical and BioTech Industry	2813-9380	2024	-	-	v.3(1), Mar 2026	3	33	rss_feed
+289.	Journal of Phytomedicine	3042-9250	2026	-	-	Forthcoming Issue	4	4	rss_feed
+290.	Journal of Respiration	2673-527X	2021	-	-	v.6(1), Mar 2026	2	109	rss_feed
+291.	Journal of Risk and Financial Management	1911-8074	2008	-	5.0	v.19(4), Apr 2026	33	4,103	rss_feed
+292.	Journal of Sensor and Actuator Networks	2224-2708	2012	4.2	9.4	v.15(2), Apr 2026	1	783	rss_feed
+293.	Journal of Superintelligence	3043-0097	2026	-	-	Forthcoming Issue	2	2	rss_feed
+294.	Journal of the American Podiatric Medical Association	1930-8264	1907	0.6	1.4	v.116(2), Apr 2026	7	3,033	rss_feed
+295.	Journal of the Oman Medical Association	2813-8759	2024	-	-	v.2(2), Dec 2025	7	32	rss_feed
+296.	Journal of Theoretical and Applied Electronic Commerce Research	0718-1876	2006	4.6	11.7	v.21(4), Apr 2026	15	1,419	rss_feed
+297.	Journal of Vascular Diseases	2813-2475	2022	-	0.8	v.5(2), Apr 2026	1	157	rss_feed
+298.	Journal of Xenobiotics	2039-4713	2011	4.4	6.0	v.16(2), Apr 2026	7	584	rss_feed
+299.	Journal of Zoological and Botanical Gardens	2673-5636	2020	1.4	3.5	v.7(1), Mar 2026	2	305	rss_feed
+300.	Journalism and Media	2673-5172	2020	1.5	2.9	v.7(1), Mar 2026	25	611	rss_feed
+301.	Kidney and Dialysis	2673-8236	2021	2.2	2.6	v.6(1), Mar 2026	7	217	rss_feed
+302.	Kinases and Phosphatases	2813-3757	2023	-	-	v.4(1), Mar 2026	2	79	rss_feed
+303.	Knowledge	2673-9585	2021	-	-	v.6(1), Mar 2026	1	161	rss_feed
+304.	LabMed	2813-9038	2024	-	-	v.3(1), Mar 2026	5	46	rss_feed
+305.	Laboratories	2813-8856	2024	-	-	v.3(1), Mar 2026	0	42	rss_feed
+306.	Land	2073-445X	2012	3.2	5.9	v.15(4), Apr 2026	89	12,594	rss_feed
+307.	Languages	2226-471X	2016	1.2	1.8	v.11(4), Apr 2026	7	1,852	rss_feed
+308.	Laws	2075-471X	2012	1.1	3.0	v.15(2), Apr 2026	3	780	rss_feed
+309.	Life	2075-1729	2011	3.4	6.0	v.16(4), Apr 2026	71	11,182	rss_feed
+310.	Lights	3042-7886	2025	-	-	v.2(1), Mar 2026	1	8	rss_feed
+311.	Limnological Review	2300-7575	2001	-	1.4	v.26(1), Mar 2026	7	378	rss_feed
+312.	Lipidology	2813-7086	2024	-	-	v.3(1), Mar 2026	3	49	rss_feed
+313.	Liquids	2673-8015	2021	-	2.9	v.6(1), Mar 2026	4	164	rss_feed
+314.	Literature	2410-9789	2021	-	-	v.6(1), Mar 2026	2	128	rss_feed
+315.	Livers	2673-4389	2021	2.4	3.2	v.6(2), Apr 2026	1	255	rss_feed
+316.	Logics	2813-0405	2023	-	-	v.4(1), Mar 2026	1	38	rss_feed
+317.	Logistics	2305-6290	2017	3.6	8.0	v.10(4), Apr 2026	12	789	rss_feed
+318.	Low-Altitude Economy	3042-934X	2026	-	-	Forthcoming Issue	1	1	rss_feed
+319.	Lubricants	2075-4442	2013	2.9	4.5	v.14(4), Apr 2026	12	2,714	rss_feed
+320.	Lymphatics	2813-3307	2023	-	-	v.4(1), Mar 2026	8	111	rss_feed
+321.	Machine Learning and Knowledge Extraction	2504-4990	2019	6.0	9.9	v.8(4), Apr 2026	12	731	rss_feed
+322.	Machines	2075-1702	2013	2.5	4.7	v.14(4), Apr 2026	51	5,650	rss_feed
+323.	Macromol	2673-6209	2021	4.4	7.1	v.6(1), Mar 2026	8	242	rss_feed
+324.	Magnetism	2673-8724	2021	-	2.0	v.6(1), Mar 2026	2	133	rss_feed
+325.	Magnetochemistry	2312-7481	2015	2.5	4.6	v.12(4), Apr 2026	1	1,150	rss_feed
+326.	Marine Drugs	1660-3397	2003	5.4	10.1	v.24(4), Apr 2026	16	7,618	rss_feed
+327.	Materials	1996-1944	2008	3.2	6.4	v.19(8), Apr 2026	223	55,845	rss_feed
+328.	Materials Proceedings *	2673-4605	2020	-	-	Forthcoming Volume	N/A	972	rss_feed
+329.	Mathematical and Computational Applications	2297-8747	1996	2.1	-	v.31(2), Apr 2026	10	1,751	rss_feed
+330.	Mathematics	2227-7390	2013	2.2	4.6	v.14(8), Apr 2026	157	26,893	rss_feed
+331.	Medical Sciences	2076-3271	2013	4.4	8.7	v.14(1), Mar 2026	79	1,224	rss_feed
+332.	Medical Sciences Forum *	2673-9992	2021	-	-	Forthcoming Volume	N/A	830	rss_feed
+333.	Medicina	1648-9144	1920	2.4	4.1	v.62(4), Apr 2026	85	13,318	rss_feed
+334.	Medicines	2305-6320	2014	-	-	v.13(1), Mar 2026	5	751	rss_feed
+335.	Membranes	2077-0375	2011	3.6	7.9	v.16(4), Apr 2026	15	5,098	rss_feed
+336.	Merits	2673-8104	2021	-	-	v.6(1), Mar 2026	3	151	rss_feed
+337.	Metabolites	2218-1989	2011	3.7	6.9	v.16(4), Apr 2026	28	6,487	rss_feed
+338.	Metals	2075-4701	2011	2.5	5.3	v.16(4), Apr 2026	48	14,952	rss_feed
+339.	Meteorology	2674-0494	2022	-	-	v.5(1), Mar 2026	4	127	rss_feed
+340.	Methane	2674-0389	2022	-	-	v.5(1), Mar 2026	3	135	rss_feed
+341.	Methods and Protocols	2409-9279	2018	2.0	3.9	v.9(2), Apr 2026	7	863	rss_feed
+342.	Metrics	3042-5042	2024	-	-	v.3(1), Mar 2026	2	38	rss_feed
+343.	Metrology	2673-8244	2021	1.5	2.6	v.6(1), Mar 2026	9	217	rss_feed
+344.	Micro	2673-8023	2021	1.9	3.2	v.6(1), Mar 2026	10	272	rss_feed
+345.	Microbiology Research	2036-7481	2010	2.2	2.8	v.17(4), Apr 2026	6	950	rss_feed
+346.	Microelectronics	3042-5344	2025	-	-	v.2(1), Mar 2026	2	14	rss_feed
+347.	Micromachines	2072-666X	2010	3.0	6.0	v.17(4), Apr 2026	68	13,286	rss_feed
+348.	Microorganisms	2076-2607	2013	4.2	7.7	v.14(4), Apr 2026	99	17,844	rss_feed
+349.	Microplastics	2673-8929	2022	5.1	6.8	v.5(1), Mar 2026	25	316	rss_feed
+350.	Microwave	3042-5697	2025	-	-	v.2(1), Mar 2026	3	20	rss_feed
+351.	Minerals	2075-163X	2011	2.2	4.4	v.16(4), Apr 2026	56	10,826	rss_feed
+352.	Mining	2673-6489	2021	-	4.0	v.6(1), Mar 2026	5	288	rss_feed
+353.	Modelling	2673-3951	2020	1.5	2.2	v.7(2), Apr 2026	12	486	rss_feed
+354.	Modern Mathematical Physics	3042-5034	2025	-	-	v.2(1), Mar 2026	1	15	rss_feed
+355.	Molbank	1422-8599	1997	0.4	0.9	v.2026(2), Apr 2026	3	1,893	rss_feed
+356.	Molecules	1420-3049	1996	4.6	8.6	v.31(8), Apr 2026	155	63,827	rss_feed
+357.	Multimedia	3042-6308	2025	-	-	v.2(1), Mar 2026	2	13	rss_feed
+358.	Multimodal Technologies and Interaction	2414-4088	2017	2.4	5.8	v.10(4), Apr 2026	7	876	rss_feed
+359.	Muscles	2813-0413	2022	-	-	v.5(1), Mar 2026	11	177	rss_feed
+360.	Nanoenergy Advances	2673-706X	2021	-	9.0	v.6(1), Mar 2026	3	106	rss_feed
+361.	Nanomanufacturing	2673-687X	2021	-	-	v.6(1), Mar 2026	3	101	rss_feed
+362.	Nanomaterials	2079-4991	2010	4.3	9.2	v.16(8), Apr 2026	69	22,068	rss_feed
+363.	NDT	2813-477X	2023	-	-	v.4(1), Mar 2026	3	81	rss_feed
+364.	Network	2673-8732	2021	3.1	6.5	v.6(1), Mar 2026	10	195	rss_feed
+365.	Neuroglia	2571-6980	2018	-	-	v.7(1), Mar 2026	3	157	rss_feed
+366.	Neuroimaging	3042-8807	2026	-	-	v.1(1), Mar 2026	1	7	rss_feed
+367.	Neurology International	2035-8377	2009	3.0	4.8	v.18(4), Apr 2026	13	928	rss_feed
+368.	NeuroSci	2673-4087	2020	2.0	-	v.7(2), Apr 2026	6	355	rss_feed
+369.	Nitrogen	2504-3129	2020	2.3	2.8	v.7(1), Mar 2026	17	362	rss_feed
+370.	Non-Coding RNA	2311-553X	2015	3.0	7.4	v.12(2), Apr 2026	2	603	rss_feed
+371.	Nursing Reports	2039-4403	2011	2.0	2.8	v.16(4), Apr 2026	7	1,306	rss_feed
+372.	Nutraceuticals	1661-3821	2021	-	-	v.6(1), Mar 2026	9	189	rss_feed
+373.	Nutrients	2072-6643	2009	5.0	9.1	v.18(8), Apr 2026	157	37,768	rss_feed
+374.	Obesities	2673-4168	2021	1.3	1.8	v.6(2), Apr 2026	4	240	rss_feed
+375.	Occupational Health	3042-8637	2026	-	-	v.1(1), Mar 2026	5	18	rss_feed
+376.	Oceans	2673-1924	2020	1.6	3.5	v.7(2), Apr 2026	3	315	rss_feed
+377.	Onco	2673-7523	2021	-	-	v.6(1), Mar 2026	3	153	rss_feed
+378.	Optics	2673-3269	2020	1.6	2.6	v.7(2), Apr 2026	3	278	rss_feed
+379.	Oral	2673-6373	2021	1.1	-	v.6(2), Apr 2026	1	313	rss_feed
+380.	Organics	2673-401X	2020	1.6	2.8	v.7(1), Mar 2026	4	209	rss_feed
+381.	Organoids	2674-1172	2022	-	-	v.5(1), Mar 2026	3	95	rss_feed
+382.	Osteology	2673-4036	2021	-	-	v.6(1), Mar 2026	2	115	rss_feed
+383.	Oxygen	2673-9801	2021	-	8.4	v.6(1), Mar 2026	5	144	rss_feed
+384.	Pandemics	3042-9323	2026	-	-	Forthcoming Issue	5	5	rss_feed
+385.	Parasitologia	2673-6772	2021	1.5	2.4	v.6(2), Apr 2026	1	217	rss_feed
+386.	Particles	2571-712X	2018	2.3	3.0	v.9(1), Mar 2026	19	469	rss_feed
+387.	Pathogens	2076-0817	2012	3.3	6.8	v.15(4), Apr 2026	45	9,376	rss_feed
+388.	Pathophysiology	1873-149X	1994	2.6	4.6	v.33(1), Mar 2026	7	293	rss_feed
+389.	Peace Studies	3042-6529	2026	-	-	v.1(1), Mar 2026	1	6	rss_feed
+390.	Pediatric Reports	2036-7503	2009	1.4	2.4	v.18(2), Apr 2026	5	810	rss_feed
+391.	Pets	2813-9372	2024	-	-	v.3(1), Mar 2026	3	96	rss_feed
+392.	Pharmaceuticals	1424-8247	2004	4.8	7.7	v.19(4), Apr 2026	77	10,587	rss_feed
+393.	Pharmaceutics	1999-4923	2009	5.5	10.0	v.18(4), Apr 2026	59	14,220	rss_feed
+394.	Pharmacoepidemiology	2813-0618	2022	-	-	v.5(1), Mar 2026	4	109	rss_feed
+395.	Pharmacy	2226-4787	2013	1.8	-	v.14(2), Apr 2026	6	1,738	rss_feed
+396.	Philosophies	2409-9287	2016	0.7	1.4	v.11(2), Apr 2026	8	970	rss_feed
+397.	Photochem	2673-7256	2021	2.3	5.0	v.6(1), Mar 2026	7	217	rss_feed
+398.	Photonics	2304-6732	2014	1.9	3.5	v.13(4), Apr 2026	53	6,450	rss_feed
+399.	Phycology	2673-9410	2021	2.9	5.2	v.6(1), Mar 2026	14	238	rss_feed
+400.	Physchem	2673-7167	2021	1.7	2.1	v.6(1), Mar 2026	9	197	rss_feed
+401.	Physical Sciences Forum *	2673-9984	2021	-	-	Forthcoming Volume	N/A	363	rss_feed
+402.	Physics	2624-8174	2019	1.8	3.1	v.8(1), Mar 2026	10	511	rss_feed
+403.	Physiologia	2673-9488	2021	2.3	-	v.6(1), Mar 2026	14	194	rss_feed
+404.	Plants	2223-7747	2012	4.1	7.6	v.15(8), Apr 2026	126	22,260	rss_feed
+405.	Plasma	2571-6182	2018	1.7	3.1	v.9(1), Mar 2026	4	317	rss_feed
+406.	Platforms	2813-4176	2023	-	-	v.4(1), Mar 2026	4	51	rss_feed
+407.	Pollutants	2673-4672	2021	-	-	v.6(1), Mar 2026	6	204	rss_feed
+408.	Polymers	2073-4360	2009	4.9	9.7	v.18(8), Apr 2026	123	31,269	rss_feed
+409.	Polysaccharides	2673-4176	2020	5.5	9.7	v.7(1), Mar 2026	15	353	rss_feed
+410.	Populations	3042-4372	2025	-	-	v.2(1), Mar 2026	1	36	rss_feed
+411.	Poultry	2674-1164	2022	2.1	2.8	v.5(2), Apr 2026	4	190	rss_feed
+412.	Powders	2674-0516	2022	-	-	v.5(1), Mar 2026	4	142	rss_feed
+413.	Precision Oncology	3042-7614	2026	-	-	v.1(1), Mar 2026	2	8	rss_feed
+414.	Primary and Hospital Care	3042-9897	2001	-	-	Forthcoming Issue	3	3	rss_feed
+415.	Proceedings *	2504-3900	2017	-	-	Forthcoming Volume	N/A	9,036	rss_feed
+416.	Processes	2227-9717	2013	2.8	5.5	v.14(8), Apr 2026	161	20,181	rss_feed
+417.	Prosthesis	2673-1592	2019	4.5	4.7	v.8(4), Apr 2026	1	560	rss_feed
+418.	Proteomes	2227-7382	2013	3.6	7.2	v.14(1), Mar 2026	9	527	rss_feed
+419.	Psychiatry International	2673-5318	2020	1.1	2.0	v.7(2), Apr 2026	11	437	rss_feed
+420.	Psychoactives	2813-1851	2022	-	-	v.5(1), Mar 2026	6	125	rss_feed
+421.	Psychology International	2813-9844	2019	-	-	v.8(1), Mar 2026	6	475	rss_feed
+422.	Publications	2304-6775	2013	2.5	10.0	v.14(1), Mar 2026	9	578	rss_feed
+423.	Purification	3042-6197	2025	-	-	v.2(1), Mar 2026	3	14	rss_feed
+424.	Quantum Beam Science	2412-382X	2017	1.7	2.8	v.10(1), Mar 2026	3	290	rss_feed
+425.	Quantum Reports	2624-960X	2019	1.3	3.0	v.8(1), Mar 2026	17	355	rss_feed
+426.	Quaternary	2571-550X	2018	2.1	4.1	v.9(2), Apr 2026	2	431	rss_feed
+427.	Radiation	2673-592X	2021	-	-	v.6(1), Mar 2026	2	154	rss_feed
+428.	Reactions	2624-781X	2020	2.2	3.3	v.7(1), Mar 2026	8	296	rss_feed
+429.	Real Estate	2813-8090	2024	-	-	v.3(1), Mar 2026	2	40	rss_feed
+430.	Receptors	2813-2564	2022	-	-	v.5(1), Mar 2026	6	92	rss_feed
+431.	Recycling	2313-4321	2016	4.6	8.9	v.11(4), Apr 2026	6	897	rss_feed
+432.	Regional Science and Environmental Economics	3042-4658	2024	-	-	v.3(1), Mar 2026	1	51	rss_feed
+433.	Religions	2077-1444	2010	0.6	1.3	v.17(4), Apr 2026	51	10,146	rss_feed
+434.	Remote Sensing	2072-4292	2009	4.1	8.6	v.18(8), Apr 2026	172	41,619	rss_feed
+435.	Reports	2571-841X	2018	0.6	-	v.9(1), Mar 2026	50	768	rss_feed
+436.	Reproductive Medicine	2673-3897	2020	1.3	-	v.7(1), Mar 2026	5	178	rss_feed
+437.	Resources	2079-9276	2012	3.2	7.2	v.15(4), Apr 2026	4	1,490	rss_feed
+438.	Rheumato	2674-0621	2021	-	-	v.6(1), Mar 2026	2	82	rss_feed
+439.	Risks	2227-9091	2013	1.5	5.0	v.14(4), Apr 2026	8	1,845	rss_feed
+440.	Robotics	2218-6581	2012	3.3	7.7	v.15(4), Apr 2026	12	1,344	rss_feed
+441.	Romanian Journal of Preventive Medicine	3091-101X	2022	-	-	v.4(1), Mar 2026	1	36	rss_feed
+442.	Ruminants	2673-933X	2021	1.3	2.0	v.6(1), Mar 2026	11	225	rss_feed
+443.	Safety	2313-576X	2015	1.7	3.7	v.12(2), Apr 2026	2	818	rss_feed
+444.	Sci	2413-4155	2019	-	5.2	v.8(4), Apr 2026	10	564	rss_feed
+445.	Scientia Pharmaceutica	2218-0532	1930	2.5	4.6	v.94(1), Mar 2026	10	1,606	rss_feed
+446.	Sclerosis	2813-3064	2023	-	-	v.4(1), Mar 2026	2	91	rss_feed
+447.	Seeds	2674-1024	2022	-	2.8	v.5(2), Apr 2026	5	204	rss_feed
+448.	Semiconductors and Heterogeneous Integration	3042-9013	2026	-	-	Forthcoming Issue	3	3	rss_feed
+449.	Sensors	1424-8220	2001	3.5	8.2	v.26(8), Apr 2026	306	77,620	rss_feed
+450.	Separations	2297-8739	2014	2.7	4.5	v.13(4), Apr 2026	13	2,464	rss_feed
+451.	Sexes	2411-5118	2020	0.9	-	v.7(1), Mar 2026	8	274	rss_feed
+452.	Signals	2624-6120	2020	2.6	4.6	v.7(2), Apr 2026	2	326	rss_feed
+453.	Sinusitis	2673-351X	2016	-	-	v.9(2), Dec 2025	9	98	rss_feed
+454.	Smart Cities	2624-6511	2018	5.5	14.7	v.9(4), Apr 2026	8	886	rss_feed
+455.	Social Sciences	2076-0760	2012	1.7	3.1	v.15(4), Apr 2026	25	4,722	rss_feed
+456.	Société Internationale d’Urologie Journal	2563-6499	2020	-	-	v.7(2), Apr 2026	0	386	rss_feed
+457.	Societies	2075-4698	2011	1.6	3.0	v.16(4), Apr 2026	17	1,921	rss_feed
+458.	Software	2674-113X	2022	-	-	v.5(1), Mar 2026	7	124	rss_feed
+459.	Soil Systems	2571-8789	2017	3.5	5.4	v.10(4), Apr 2026	6	839	rss_feed
+460.	Solar	2673-9941	2021	-	4.3	v.6(2), Apr 2026	5	188	rss_feed
+461.	Solids	2673-6497	2020	2.4	4.5	v.7(2), Apr 2026	2	235	rss_feed
+462.	Spectroscopy Journal	2813-446X	2023	-	-	v.4(1), Mar 2026	2	77	rss_feed
+463.	Sports	2075-4663	2013	2.9	4.1	v.14(4), Apr 2026	17	2,421	rss_feed
+464.	Standards	2305-6703	2021	-	-	v.6(1), Mar 2026	7	141	rss_feed
+465.	Stats	2571-905X	2018	1.0	1.8	v.9(2), Apr 2026	2	561	rss_feed
+466.	Stratigraphy and Sedimentology	3042-884X	2026	-	-	Forthcoming Issue	3	3	rss_feed
+467.	Stresses	2673-7140	2021	-	6.9	v.6(1), Mar 2026	10	274	rss_feed
+468.	Surfaces	2571-9637	2018	2.9	3.4	v.9(1), Mar 2026	13	403	rss_feed
+469.	Surgeries	2673-4095	2020	1.1	1.3	v.7(1), Mar 2026	15	414	rss_feed
+470.	Surgical Techniques Development	2038-9582	2011	0.3	-	v.15(1), Mar 2026	4	187	rss_feed
+471.	Sustainability	2071-1050	2009	3.3	7.7	v.18(8), Apr 2026	391	104,075	rss_feed
+472.	Sustainable Chemistry	2673-4079	2020	4.2	10.7	v.7(1), Mar 2026	7	218	rss_feed
+473.	Swiss Archives of Neurology, Psychiatry and Psychotherapy	2297-7007	1917	-	-	v.176(1), Jun 2026	1	2,235	rss_feed
+474.	Symmetry	2073-8994	2009	2.2	5.3	v.18(4), Apr 2026	87	17,292	rss_feed
+475.	SynBio	2674-0583	2023	-	-	v.4(1), Mar 2026	2	68	rss_feed
+476.	Systems	2079-8954	2013	3.1	4.1	v.14(4), Apr 2026	55	3,466	rss_feed
+477.	Targets	2813-3137	2023	-	-	v.4(1), Mar 2026	4	86	rss_feed
+478.	Taxonomy	2673-6500	2021	1.5	2.4	v.6(1), Mar 2026	6	240	rss_feed
+479.	Technologies	2227-7080	2013	3.6	8.5	v.14(4), Apr 2026	37	2,008	rss_feed
+480.	Telecom	2673-4001	2020	2.4	5.4	v.7(2), Apr 2026	4	342	rss_feed
+481.	Textiles	2673-7248	2021	4.9	-	v.6(1), Mar 2026	18	255	rss_feed
+482.	Thalassemia Reports	2039-4365	2011	1.2	-	v.16(1), Mar 2026	2	281	rss_feed
+483.	Theoretical and Applied Ergonomics	3042-7126	2025	-	-	v.2(1), Mar 2026	3	19	rss_feed
+484.	Therapeutics	2813-9909	2024	-	-	v.3(1), Mar 2026	3	43	rss_feed
+485.	Thermo	2673-7264	2021	2.3	3.9	v.6(1), Mar 2026	11	212	rss_feed
+486.	Time and Space	2813-9526	2025	-	-	v.2(1), Mar 2026	2	9	rss_feed
+487.	Tomography	2379-139X	2015	2.2	3.5	v.12(4), Apr 2026	5	1,074	rss_feed
+488.	Tourism and Hospitality	2673-5768	2020	-	3.7	v.7(4), Apr 2026	12	621	rss_feed
+489.	Toxics	2305-6304	2013	4.1	6.4	v.14(4), Apr 2026	44	5,000	rss_feed
+490.	Toxins	2072-6651	2009	4.0	8.2	v.18(4), Apr 2026	25	7,808	rss_feed
+491.	Transplantology	2673-3943	2020	-	1.4	v.7(1), Mar 2026	2	189	rss_feed
+492.	Trauma Care	2673-866X	2021	-	-	v.6(1), Mar 2026	2	160	rss_feed
+493.	Trends in Higher Education	2813-4346	2022	-	-	v.5(1), Mar 2026	9	232	rss_feed
+494.	Trends in Public Health	3042-8181	2026	-	-	Forthcoming Issue	5	5	rss_feed
+495.	Tropical Medicine and Infectious Disease	2414-6366	2016	2.6	4.7	v.11(4), Apr 2026	11	2,503	rss_feed
+496.	Universe	2218-1997	2015	2.6	5.2	v.12(4), Apr 2026	15	3,470	rss_feed
+497.	Urban Science	2413-8851	2017	2.9	3.7	v.10(4), Apr 2026	30	1,729	rss_feed
+498.	Uro	2673-4397	2021	-	-	v.6(1), Mar 2026	3	136	rss_feed
+499.	Vaccines	2076-393X	2013	3.4	9.9	v.14(4), Apr 2026	50	9,993	rss_feed
+500.	Vehicles	2624-8921	2019	2.2	5.3	v.8(4), Apr 2026	7	650	rss_feed
+501.	Venereology	2674-0710	2022	-	-	v.5(1), Mar 2026	3	82	rss_feed
+502.	Veterinary Sciences	2306-7381	2014	2.3	3.5	v.13(4), Apr 2026	45	4,658	rss_feed
+503.	Vibration	2571-631X	2018	1.6	3.4	v.9(1), Mar 2026	9	418	rss_feed
+504.	Virtual Worlds	2813-2084	2022	-	-	v.5(1), Mar 2026	5	142	rss_feed
+505.	Viruses	1999-4915	2009	3.5	7.7	v.18(4), Apr 2026	54	17,434	rss_feed
+506.	Vision	2411-5150	2017	1.8	2.9	v.10(1), Mar 2026	9	599	rss_feed
+507.	Waste	2813-0391	2023	-	-	v.4(1), Mar 2026	4	141	rss_feed
+508.	Water	2073-4441	2009	3.0	6.0	v.18(8), Apr 2026	117	31,138	rss_feed
+509.	Welding	3042-9617	2026	-	-	Forthcoming Issue	1	1	rss_feed
+510.	Wild	3042-4526	2024	-	-	v.3(1), Mar 2026	4	74	rss_feed
+511.	Wind	2674-032X	2021	1.7	2.9	v.6(1), Mar 2026	6	153	rss_feed
+512.	Women	2673-4184	2021	1.6	-	v.6(1), Mar 2026	8	220	rss_feed
+513.	World	2673-4060	2020	1.9	-	v.7(4), Apr 2026	6	480	rss_feed
+514.	World Electric Vehicle Journal	2032-6653	2007	2.6	5.0	v.17(4), Apr 2026	23	3,352	rss_feed
+515.	Youth	2673-995X	2021	1.5	-	v.6(1), Mar 2026	20	456	rss_feed
+516.	Zoonotic Diseases	2813-0227	2021	-	-	v.6(1), Mar 2026	5	133	rss_feed
+
+
+
+2. Cell Press
+no 
+3. springer journal
+
+https://link.springer.com/brands/springer/journals
+
+4. PLOS 
+
+/ BMJ 
+
+
+/ OUP 
+
+
+/ Wiley
+
+
+JAMA / Science / NEJM：不适合把“完整稿件历史”当稳定抓取字段
+
+
+

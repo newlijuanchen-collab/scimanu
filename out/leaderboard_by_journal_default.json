@@ -1,0 +1,10 @@
+{
+  "journals": {
+    "Genome biology": {
+      "sample_size": 2,
+      "median_days_received_to_accepted": 248.5,
+      "min": 244,
+      "max": 253
+    }
+  }
+}

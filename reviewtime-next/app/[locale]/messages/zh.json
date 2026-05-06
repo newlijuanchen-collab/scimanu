@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "brand": "ReviewTime",
+    "dashboard": "总览",
+    "leaderboard": "榜单",
+    "explorer": "期刊浏览",
+    "compare": "对比",
+    "tools": "工具",
+    "citation": "Citation Checker",
+    "impact": "Impact Factor 检索"
+  },
+  "dashboard": {
+    "title": "总览 Dashboard",
+    "subtitle": "从多维度分析学术期刊审稿周期",
+    "refresh": "刷新",
+    "dataUpdated": "数据更新于 {date}",
+    "kpi": {
+      "journals": "覆盖期刊数",
+      "journalsSub": "journals tracked",
+      "articles": "有效样本量",
+      "articlesSub": "articles analyzed",
+      "median": "全局中位审稿",
+      "medianSub": "天 (P25–P75: {iqr})",
+      "fastest": "最快期刊",
+      "fastestSub": "{days} 天中位数"
+    },
+    "filter": {
+      "publisher": "出版商",
+      "subject": "学科",
+      "minCount": "最小样本量",
+      "topN": "显示数量",
+      "apply": "应用筛选",
+      "all": "全部"
+    },
+    "charts": {
+      "boxplot": "期刊审稿周期分布（箱线图）",
+      "boxplotSub": "按中位数排序，颜色表示速度等级",
+      "trend": "全局审稿趋势",
+      "trendSub": "月度中位数及P25–P75区间",
+      "heatmap": "期刊 × 月份 审稿天数热力图",
+      "heatmapSub": "近 24 个月，样本量≥3 的单元格可见，绿=快 红=慢"
+    }
+  },
+  "leaderboard": {
+    "title": "审稿周期榜单",
+    "subtitle": "快速找到最快、最慢期刊和改善趋势",
+    "tabs": {
+      "fastest": "最快期刊",
+      "slowest": "最慢期刊",
+      "trend": "改善趋势"
+    },
+    "table": {
+      "rank": "排名",
+      "journal": "期刊",
+      "issn": "ISSN",
+      "publisher": "出版商",
+      "subject": "学科",
+      "median": "中位天数",
+      "p25": "P25",
+      "p75": "P75",
+      "count": "样本量",
+      "speed": "速度",
+      "action": "操作",
+      "med6": "近6月中位(天)",
+      "med24": "近24月中位(天)",
+      "change": "变化(天)",
+      "changeRate": "变化率"
+    },
+    "exportCSV": "导出 CSV",
+    "addCompare": "+ 对比",
+    "fastestTitle": "最快审稿期刊",
+    "slowestTitle": "审稿最慢期刊",
+    "trendTitle": "审稿效率改善趋势榜",
+    "trendNote": "近6月中位 vs 近24月中位，需各≥3篇样本"
+  },
+  "explorer": {
+    "title": "期刊浏览器",
+    "subtitle": "搜索、筛选期刊，展开查看详情与时序图",
+    "searchPlaceholder": "搜索期刊名 / ISSN…",
+    "quality": "数据质量",
+    "qualityAll": "全部",
+    "qualityHigh": "仅高置信度",
+    "results": "共 {count} 本期刊",
+    "table": {
+      "journal": "期刊名",
+      "issn": "ISSN",
+      "publisher": "出版商",
+      "subject": "学科",
+      "median": "中位(天)",
+      "iqr": "P25–P75",
+      "count": "样本量",
+      "trend": "趋势",
+      "speed": "速度",
+      "action": "操作"
+    },
+    "detail": {
+      "timeline": "月度中位审稿天数（近18个月）",
+      "articles": "文章级数据预览（最近20篇）",
+      "title": "标题",
+      "received": "收稿日",
+      "accepted": "接受日",
+      "days": "天数",
+      "doi": "DOI"
+    }
+  },
+  "compare": {
+    "title": "期刊横向对比",
+    "subtitle": "最多选择 8 本期刊进行并排对比",
+    "searchPlaceholder": "输入期刊名称或ISSN…",
+    "addLabel": "添加期刊到对比列表",
+    "clearAll": "清空",
+    "exportExcel": "导出 Excel",
+    "selectedCount": "已选期刊（{count}/8）",
+    "maxLimit": "最多同时对比 8 本期刊",
+    "emptyHint": "请先添加至少 2 本期刊以开始对比",
+    "window": "时序窗口：",
+    "charts": {
+      "boxplot": "审稿周期分布对比（箱线图）",
+      "trend": "月度中位审稿趋势对比"
+    },
+    "summary": {
+      "title": "统计汇总",
+      "journal": "期刊",
+      "median": "中位天数",
+      "p25": "P25",
+      "p75": "P75",
+      "min": "最小",
+      "max": "最大",
+      "count": "样本量",
+      "med6": "近6月中位",
+      "med24": "近24月中位",
+      "trendChange": "趋势变化",
+      "speedLevel": "速度等级"
+    }
+  },
+  "tools": {
+    "citation": {
+      "title": "Citation Checker",
+      "subtitle": "验证参考文献准确性，检测撤稿文献"
+    },
+    "impact": {
+      "title": "Impact Factor 检索",
+      "subtitle": "查询期刊影响力指标，辅助选刊决策"
+    }
+  },
+  "speed": {
+    "vfast": "极快",
+    "fast": "快速",
+    "good": "正常偏快",
+    "normal": "正常",
+    "slow": "偏慢",
+    "vslow": "慢速"
+  },
+  "trend": {
+    "up": "↑+{days}天 (减速)",
+    "down": "↓{days}天 (加速)",
+    "flat": "→ 稳定"
+  },
+  "common": {
+    "loading": "正在加载数据，请稍候…",
+    "error": "加载失败",
+    "errorDetail": "请确保 data.xlsx 存在于 web/ 目录下",
+    "noData": "暂无符合条件的数据",
+    "days": "天",
+    "unknown": "—",
+    "search": "搜索"
+  },
+  "footer": {
+    "note": "ReviewTime — 数据来自 PubMed/PMC/Crossref，仅供参考。",
+    "openSource": "开源库"
+  },
+  "meta": {
+    "home": {
+      "title": "ReviewTime — 学术期刊审稿周期可视化",
+      "description": "ReviewTime 汇聚来自 PubMed/PMC/Crossref 的真实审稿周期数据，帮助研究者快速选刊、对比审稿效率。"
+    },
+    "leaderboard": {
+      "title": "审稿周期榜单 — ReviewTime",
+      "description": "查看最快、最慢审稿期刊排名及改善趋势，基于真实 PubMed 数据。"
+    },
+    "explorer": {
+      "title": "期刊浏览器 — ReviewTime",
+      "description": "搜索浏览所有期刊的审稿周期数据，支持按出版商、学科筛选。"
+    },
+    "compare": {
+      "title": "期刊横向对比 — ReviewTime",
+      "description": "并排对比多本期刊审稿周期分布，支持时序趋势对比。"
+    }
+  }
+}

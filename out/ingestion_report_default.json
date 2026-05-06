@@ -1,0 +1,15 @@
+{
+  "total_input": 5,
+  "valid_records": 5,
+  "invalid_records": 0,
+  "coverage_days_received_to_accepted": 0.4,
+  "by_extraction_status": {
+    "ok": 3,
+    "metadata_only": 2
+  },
+  "by_source_channel": {
+    "pmc_xml": 3,
+    "pubmed_metadata": 2
+  },
+  "invalid_examples": []
+}

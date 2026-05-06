@@ -1,0 +1,634 @@
+{
+  "journals": {
+    "Advances in respiratory medicine": {
+      "sample_size": 48,
+      "median_days_received_to_accepted": 47.5,
+      "min": 9,
+      "max": 96
+    },
+    "Animals : an open access journal from MDPI": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 37.0,
+      "min": 1,
+      "max": 87
+    },
+    "Antibiotics (Basel, Switzerland)": {
+      "sample_size": 39,
+      "median_days_received_to_accepted": 38.0,
+      "min": 24,
+      "max": 138
+    },
+    "Antibodies (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 48.0,
+      "min": 20,
+      "max": 241
+    },
+    "Antioxidants (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 38.0,
+      "min": 2,
+      "max": 70
+    },
+    "Audiology research": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 47.0,
+      "min": 2,
+      "max": 187
+    },
+    "Behavioral sciences (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 65.5,
+      "min": 25,
+      "max": 205
+    },
+    "Bioengineering (Basel, Switzerland)": {
+      "sample_size": 46,
+      "median_days_received_to_accepted": 36.5,
+      "min": 3,
+      "max": 153
+    },
+    "Biology": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 39.0,
+      "min": 17,
+      "max": 97
+    },
+    "Biomedicines": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 41.0,
+      "min": 0,
+      "max": 105
+    },
+    "Biomimetics (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 32.5,
+      "min": 10,
+      "max": 84
+    },
+    "Biomolecules": {
+      "sample_size": 49,
+      "median_days_received_to_accepted": 39.0,
+      "min": 17,
+      "max": 289
+    },
+    "Biosensors": {
+      "sample_size": 38,
+      "median_days_received_to_accepted": 39.0,
+      "min": 19,
+      "max": 92
+    },
+    "Biotech (Basel (Switzerland))": {
+      "sample_size": 49,
+      "median_days_received_to_accepted": 46.0,
+      "min": 19,
+      "max": 114
+    },
+    "Brain sciences": {
+      "sample_size": 48,
+      "median_days_received_to_accepted": 37.5,
+      "min": 15,
+      "max": 116
+    },
+    "Cancers": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 33.5,
+      "min": 1,
+      "max": 83
+    },
+    "Cells": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 35.5,
+      "min": 1,
+      "max": 91
+    },
+    "Children (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 38.0,
+      "min": 3,
+      "max": 80
+    },
+    "Clinics and practice": {
+      "sample_size": 41,
+      "median_days_received_to_accepted": 51.0,
+      "min": 11,
+      "max": 220
+    },
+    "Clocks & sleep": {
+      "sample_size": 49,
+      "median_days_received_to_accepted": 63.0,
+      "min": 2,
+      "max": 153
+    },
+    "Craniomaxillofacial trauma & reconstruction": {
+      "sample_size": 49,
+      "median_days_received_to_accepted": 68.0,
+      "min": 15,
+      "max": 157
+    },
+    "Eye (London, England)": {
+      "sample_size": 2,
+      "median_days_received_to_accepted": 165.5,
+      "min": 42,
+      "max": 289
+    },
+    "Current issues in molecular biology": {
+      "sample_size": 49,
+      "median_days_received_to_accepted": 34.0,
+      "min": 18,
+      "max": 64
+    },
+    "Current oncology (Toronto, Ont.)": {
+      "sample_size": 49,
+      "median_days_received_to_accepted": 43.0,
+      "min": 9,
+      "max": 69
+    },
+    "Dentistry journal": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 56.5,
+      "min": 17,
+      "max": 114
+    },
+    "Dermatopathology (Basel, Switzerland)": {
+      "sample_size": 48,
+      "median_days_received_to_accepted": 52.5,
+      "min": 13,
+      "max": 157
+    },
+    "Diagnostics (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 44.0,
+      "min": 0,
+      "max": 97
+    },
+    "Diseases (Basel, Switzerland)": {
+      "sample_size": 37,
+      "median_days_received_to_accepted": 47.0,
+      "min": 10,
+      "max": 152
+    },
+    "Entropy (Basel, Switzerland)": {
+      "sample_size": 48,
+      "median_days_received_to_accepted": 50.5,
+      "min": 4,
+      "max": 197
+    },
+    "Epidemiologia (Basel, Switzerland)": {
+      "sample_size": 42,
+      "median_days_received_to_accepted": 62.5,
+      "min": 11,
+      "max": 365
+    },
+    "Epigenomes": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 54.5,
+      "min": 20,
+      "max": 134
+    },
+    "European burn journal": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 50.5,
+      "min": 0,
+      "max": 126
+    },
+    "European journal of investigation in health, psychology and education": {
+      "sample_size": 47,
+      "median_days_received_to_accepted": 59.0,
+      "min": 16,
+      "max": 255
+    },
+    "Foods (Basel, Switzerland)": {
+      "sample_size": 49,
+      "median_days_received_to_accepted": 36.0,
+      "min": 21,
+      "max": 95
+    },
+    "Gels (Basel, Switzerland)": {
+      "sample_size": 48,
+      "median_days_received_to_accepted": 29.0,
+      "min": 1,
+      "max": 89
+    },
+    "Genes": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 31.5,
+      "min": 12,
+      "max": 92
+    },
+    "Geriatrics (Basel, Switzerland)": {
+      "sample_size": 48,
+      "median_days_received_to_accepted": 51.5,
+      "min": 21,
+      "max": 183
+    },
+    "Germs": {
+      "sample_size": 39,
+      "median_days_received_to_accepted": 56.0,
+      "min": 11,
+      "max": 470
+    },
+    "Healthcare (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 47.0,
+      "min": 5,
+      "max": 141
+    },
+    "Hematology reports": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 56.5,
+      "min": 24,
+      "max": 159
+    },
+    "Infectious disease reports": {
+      "sample_size": 48,
+      "median_days_received_to_accepted": 61.0,
+      "min": 20,
+      "max": 119
+    },
+    "Insects": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 41.5,
+      "min": 18,
+      "max": 125
+    },
+    "International journal of environmental research and public health": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 48.5,
+      "min": 20,
+      "max": 86
+    },
+    "International journal of molecular sciences": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 37.5,
+      "min": 6,
+      "max": 163
+    },
+    "International journal of neonatal screening": {
+      "sample_size": 18,
+      "median_days_received_to_accepted": 54.5,
+      "min": 28,
+      "max": 161
+    },
+    "Journal of cardiovascular development and disease": {
+      "sample_size": 42,
+      "median_days_received_to_accepted": 43.0,
+      "min": 16,
+      "max": 86
+    },
+    "Journal of clinical medicine": {
+      "sample_size": 48,
+      "median_days_received_to_accepted": 36.0,
+      "min": 7,
+      "max": 73
+    },
+    "Equine veterinary journal": {
+      "sample_size": 1,
+      "median_days_received_to_accepted": 320.0,
+      "min": 320,
+      "max": 320
+    },
+    "Journal of developmental biology": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 72.5,
+      "min": 27,
+      "max": 316
+    },
+    "Journal of eye movement research": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 57.0,
+      "min": 17,
+      "max": 321
+    },
+    "Journal of functional biomaterials": {
+      "sample_size": 37,
+      "median_days_received_to_accepted": 36.0,
+      "min": 6,
+      "max": 88
+    },
+    "Journal of functional morphology and kinesiology": {
+      "sample_size": 48,
+      "median_days_received_to_accepted": 38.5,
+      "min": 16,
+      "max": 77
+    },
+    "Journal of fungi (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 41.0,
+      "min": 4,
+      "max": 141
+    },
+    "Journal of imaging": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 41.0,
+      "min": 13,
+      "max": 95
+    },
+    "Journal of Intelligence": {
+      "sample_size": 49,
+      "median_days_received_to_accepted": 73.0,
+      "min": 33,
+      "max": 133
+    },
+    "Journal of the American Medical Informatics Association : JAMIA": {
+      "sample_size": 1,
+      "median_days_received_to_accepted": 159.0,
+      "min": 159,
+      "max": 159
+    },
+    "Journal of market access & health policy": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 83.0,
+      "min": 30,
+      "max": 327
+    },
+    "Journal of personalized medicine": {
+      "sample_size": 48,
+      "median_days_received_to_accepted": 50.0,
+      "min": 1,
+      "max": 178
+    },
+    "Journal of the American Podiatric Medical Association": {
+      "sample_size": 28,
+      "median_days_received_to_accepted": 127.5,
+      "min": 14,
+      "max": 350
+    },
+    "Journal of xenobiotics": {
+      "sample_size": 43,
+      "median_days_received_to_accepted": 33.0,
+      "min": 12,
+      "max": 161
+    },
+    "Life (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 31.0,
+      "min": 0,
+      "max": 283
+    },
+    "Marine drugs": {
+      "sample_size": 41,
+      "median_days_received_to_accepted": 37.0,
+      "min": 8,
+      "max": 101
+    },
+    "Materials (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 32.5,
+      "min": 4,
+      "max": 92
+    },
+    "Medical sciences (Basel, Switzerland)": {
+      "sample_size": 27,
+      "median_days_received_to_accepted": 36.0,
+      "min": 13,
+      "max": 76
+    },
+    "Medicina (Kaunas, Lithuania)": {
+      "sample_size": 49,
+      "median_days_received_to_accepted": 37.0,
+      "min": 5,
+      "max": 77
+    },
+    "Medicines (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 88.0,
+      "min": 4,
+      "max": 193
+    },
+    "Membranes": {
+      "sample_size": 45,
+      "median_days_received_to_accepted": 36.0,
+      "min": 4,
+      "max": 123
+    },
+    "Metabolites": {
+      "sample_size": 42,
+      "median_days_received_to_accepted": 30.5,
+      "min": 5,
+      "max": 65
+    },
+    "Methods and protocols": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 58.0,
+      "min": 25,
+      "max": 134
+    },
+    "Micromachines": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 28.0,
+      "min": 9,
+      "max": 63
+    },
+    "Microorganisms": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 32.0,
+      "min": 3,
+      "max": 92
+    },
+    "Molecules (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 44.0,
+      "min": 15,
+      "max": 96
+    },
+    "Muscles (Basel, Switzerland)": {
+      "sample_size": 49,
+      "median_days_received_to_accepted": 65.0,
+      "min": 22,
+      "max": 220
+    },
+    "Nanomaterials (Basel, Switzerland)": {
+      "sample_size": 36,
+      "median_days_received_to_accepted": 26.0,
+      "min": 7,
+      "max": 77
+    },
+    "Neurology international": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 40.0,
+      "min": 19,
+      "max": 113
+    },
+    "NeuroSci": {
+      "sample_size": 35,
+      "median_days_received_to_accepted": 55.0,
+      "min": 23,
+      "max": 139
+    },
+    "Non-coding RNA": {
+      "sample_size": 49,
+      "median_days_received_to_accepted": 73.0,
+      "min": 6,
+      "max": 248
+    },
+    "Nursing reports (Pavia, Italy)": {
+      "sample_size": 33,
+      "median_days_received_to_accepted": 39.0,
+      "min": 23,
+      "max": 81
+    },
+    "Nutrients": {
+      "sample_size": 47,
+      "median_days_received_to_accepted": 35.0,
+      "min": 9,
+      "max": 100
+    },
+    "Pathogens (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 31.0,
+      "min": 13,
+      "max": 111
+    },
+    "Pathophysiology : the official journal of the International Society for Pathophysiology": {
+      "sample_size": 44,
+      "median_days_received_to_accepted": 62.5,
+      "min": 4,
+      "max": 207
+    },
+    "Pediatric reports": {
+      "sample_size": 41,
+      "median_days_received_to_accepted": 40.0,
+      "min": 5,
+      "max": 106
+    },
+    "Pharmaceuticals (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 32.0,
+      "min": 10,
+      "max": 92
+    },
+    "Pharmaceutics": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 36.0,
+      "min": 0,
+      "max": 74
+    },
+    "Pharmacy (Basel, Switzerland)": {
+      "sample_size": 49,
+      "median_days_received_to_accepted": 45.0,
+      "min": 19,
+      "max": 95
+    },
+    "Plants (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 34.5,
+      "min": 7,
+      "max": 133
+    },
+    "Polymers": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 28.5,
+      "min": 15,
+      "max": 112
+    },
+    "Journal for immunotherapy of cancer": {
+      "sample_size": 1,
+      "median_days_received_to_accepted": 166.0,
+      "min": 166,
+      "max": 166
+    },
+    "Cancer immunology research": {
+      "sample_size": 1,
+      "median_days_received_to_accepted": 154.0,
+      "min": 154,
+      "max": 154
+    },
+    "Proteomes": {
+      "sample_size": 48,
+      "median_days_received_to_accepted": 56.5,
+      "min": 7,
+      "max": 161
+    },
+    "Proceedings of the National Academy of Sciences of the United States of America": {
+      "sample_size": 1,
+      "median_days_received_to_accepted": 199.0,
+      "min": 199,
+      "max": 199
+    },
+    "Acta crystallographica. Section D, Structural biology": {
+      "sample_size": 1,
+      "median_days_received_to_accepted": 251.0,
+      "min": 251,
+      "max": 251
+    },
+    "Life science alliance": {
+      "sample_size": 1,
+      "median_days_received_to_accepted": 41.0,
+      "min": 41,
+      "max": 41
+    },
+    "Nature": {
+      "sample_size": 1,
+      "median_days_received_to_accepted": 205.0,
+      "min": 205,
+      "max": 205
+    },
+    "Reports (MDPI)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 42.5,
+      "min": 1,
+      "max": 101
+    },
+    "Sensors (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 39.5,
+      "min": 16,
+      "max": 98
+    },
+    "Sports (Basel, Switzerland)": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 42.5,
+      "min": 20,
+      "max": 106
+    },
+    "Tomography (Ann Arbor, Mich.)": {
+      "sample_size": 45,
+      "median_days_received_to_accepted": 49.0,
+      "min": 2,
+      "max": 102
+    },
+    "Toxics": {
+      "sample_size": 45,
+      "median_days_received_to_accepted": 34.0,
+      "min": 18,
+      "max": 70
+    },
+    "Toxins": {
+      "sample_size": 39,
+      "median_days_received_to_accepted": 37.0,
+      "min": 17,
+      "max": 195
+    },
+    "Tropical medicine and infectious disease": {
+      "sample_size": 34,
+      "median_days_received_to_accepted": 53.0,
+      "min": 32,
+      "max": 144
+    },
+    "Vaccines": {
+      "sample_size": 48,
+      "median_days_received_to_accepted": 38.0,
+      "min": 20,
+      "max": 110
+    },
+    "Veterinary sciences": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 34.5,
+      "min": 18,
+      "max": 97
+    },
+    "Viruses": {
+      "sample_size": 50,
+      "median_days_received_to_accepted": 35.0,
+      "min": 1,
+      "max": 94
+    },
+    "Vision (Basel, Switzerland)": {
+      "sample_size": 37,
+      "median_days_received_to_accepted": 40.0,
+      "min": 20,
+      "max": 155
+    }
+  }
+}

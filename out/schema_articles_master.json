@@ -1,0 +1,36 @@
+{
+  "table": "articles_master",
+  "description": "Article-level master dataset for any downstream analytics",
+  "key_fields": [
+    "item_id",
+    "dedup_key",
+    "pmid",
+    "pmcid",
+    "doi"
+  ],
+  "time_fields": [
+    "publication_date",
+    "received_date",
+    "revised_first_date",
+    "revised_last_date",
+    "accepted_date",
+    "collection_date",
+    "online_date"
+  ],
+  "metric_fields": [
+    "days_received_to_accepted",
+    "days_revised_last_to_accepted"
+  ],
+  "quality_fields": [
+    "source_channel",
+    "source_url",
+    "extraction_status",
+    "error_code",
+    "retry_count",
+    "confidence_score",
+    "parse_method",
+    "parser_version",
+    "fetched_at",
+    "updated_at"
+  ]
+}

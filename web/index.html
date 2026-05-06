@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ReviewTime — 期刊审稿周期可视化</title>
+  <!-- Tabler CSS (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"/>
+  <link rel="stylesheet" href="assets/css/app.css"/>
+</head>
+<body class="antialiased">
+
+<!-- Loading overlay -->
+<div id="loading-overlay">
+  <div class="spinner-border text-primary" style="width:3rem;height:3rem;"></div>
+  <div class="text-muted mt-2">正在加载数据，请稍候…</div>
+</div>
+
+<!-- Navbar -->
+<header class="navbar navbar-expand-md navbar-light d-print-none sticky-top bg-white border-bottom">
+  <div class="container-xl">
+    <a href="index.html" class="navbar-brand navbar-brand-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="me-2 text-primary"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <strong>ReviewTime</strong>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="index.html">📊 Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="leaderboard.html">🏆 榜单</a></li>
+        <li class="nav-item"><a class="nav-link" href="explorer.html">🔍 期刊浏览</a></li>
+        <li class="nav-item"><a class="nav-link" href="compare.html">⚖️ 对比</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">🔬 工具</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="tools/citation.html">Citation Checker</a></li>
+            <li><a class="dropdown-item" href="tools/impact.html">Impact Factor 检索</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<!-- Page content -->
+<div class="page-wrapper">
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row align-items-center">
+        <div class="col">
+          <h2 class="page-title">总览 Dashboard</h2>
+          <div class="text-muted mt-1 fs-6">从多维度分析学术期刊审稿周期</div>
+        </div>
+        <div class="col-auto ms-auto">
+          <div class="d-flex gap-2 align-items-center">
+            <span class="text-muted small" id="data-update-time"></span>
+            <button class="btn btn-sm btn-outline-primary" onclick="location.reload()">↺ 刷新</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container-xl">
+
+      <!-- KPI Cards -->
+      <div class="row row-cards g-3 mb-3" id="kpi-row">
+        <div class="col-6 col-md-3">
+          <div class="card kpi-card">
+            <div class="card-body">
+              <div class="kpi-label">覆盖期刊数</div>
+              <div class="kpi-value" id="kpi-journals">—</div>
+              <div class="kpi-sub">journals tracked</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card kpi-card" style="border-color:#2fb344">
+            <div class="card-body">
+              <div class="kpi-label">有效样本量</div>
+              <div class="kpi-value" id="kpi-articles">—</div>
+              <div class="kpi-sub">articles analyzed</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card kpi-card" style="border-color:#f59f00">
+            <div class="card-body">
+              <div class="kpi-label">全局中位审稿</div>
+              <div class="kpi-value" id="kpi-median">—</div>
+              <div class="kpi-sub">days (P25–P75: <span id="kpi-iqr">—</span>)</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card kpi-card" style="border-color:#2b8a3e">
+            <div class="card-body">
+              <div class="kpi-label">最快期刊</div>
+              <div class="kpi-value fs-5" id="kpi-fastest-name">—</div>
+              <div class="kpi-sub"><span id="kpi-fastest-days">—</span> 天中位数</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="filter-bar" id="filter-bar">
+        <div class="filter-item">
+          <label>出版商</label>
+          <select class="form-select form-select-sm" id="filter-publisher">
+            <option value="">全部</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label>学科</label>
+          <select class="form-select form-select-sm" id="filter-subject">
+            <option value="">全部</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label>最小样本量</label>
+          <input type="number" class="form-control form-control-sm" id="filter-mincount" value="3" min="1" max="100" style="width:80px">
+        </div>
+        <div class="filter-item">
+          <label>显示数量</label>
+          <select class="form-select form-select-sm" id="filter-topn" style="width:90px">
+            <option value="15">Top 15</option>
+            <option value="20" selected>Top 20</option>
+            <option value="30">Top 30</option>
+            <option value="50">Top 50</option>
+          </select>
+        </div>
+        <div class="filter-item" style="justify-content:flex-end;flex-direction:row;align-items:flex-end;">
+          <button class="btn btn-sm btn-primary" onclick="applyFilters()">应用筛选</button>
+        </div>
+      </div>
+
+      <!-- Charts Row 1 -->
+      <div class="row g-3 mb-3">
+        <div class="col-12 col-lg-7">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">期刊审稿周期分布（箱线图）</h3>
+              <div class="card-options">
+                <span class="text-muted small">按中位数排序，颜色表示速度等级</span>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div id="chart-boxplot" class="chart-container chart-lg"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-5">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">全局审稿趋势</h3>
+              <div class="card-options">
+                <span class="text-muted small">月度中位数及P25–P75区间</span>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div id="chart-trend" class="chart-container chart-lg"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Row 2 — Heatmap -->
+      <div class="row g-3">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">期刊 × 月份 审稿天数热力图</h3>
+              <div class="card-options">
+                <span class="text-muted small">近 24 个月，样本量≥3 的单元格可见，绿=快 红=慢</span>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div id="chart-heatmap" class="chart-container" style="height:420px;min-height:200px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.container-xl -->
+  </div><!-- /.page-body -->
+
+  <footer class="footer footer-transparent d-print-none">
+    <div class="container-xl">
+      <div class="footer-note">
+        ReviewTime — 数据来自 PubMed/PMC/Crossref，仅供参考。
+        开源库：<a href="https://tabler.io" target="_blank">Tabler</a> ·
+        <a href="https://echarts.apache.org" target="_blank">ECharts</a> ·
+        <a href="https://sheetjs.com" target="_blank">SheetJS</a>
+      </div>
+    </div>
+  </footer>
+</div><!-- /.page-wrapper -->
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="assets/js/data-loader.js"></script>
+<script src="assets/js/charts.js"></script>
+<script>
+// ── State ─────────────────────────────────────────────────────────────────────
+let ALL_JOURNALS = [];
+let GLOBAL_STATS  = {};
+let chartBoxplot, chartTrend, chartHeatmap;
+
+// ── Init charts ───────────────────────────────────────────────────────────────
+function initCharts() {
+  chartBoxplot = echarts.init(document.getElementById('chart-boxplot'));
+  chartTrend   = echarts.init(document.getElementById('chart-trend'));
+  chartHeatmap = echarts.init(document.getElementById('chart-heatmap'));
+  window.addEventListener('resize', () => {
+    chartBoxplot.resize(); chartTrend.resize(); chartHeatmap.resize();
+  });
+}
+
+// ── Populate KPI ──────────────────────────────────────────────────────────────
+function renderKPI(stats) {
+  document.getElementById('kpi-journals').textContent  = stats.totalJournals.toLocaleString();
+  document.getElementById('kpi-articles').textContent  = stats.totalArticles.toLocaleString();
+  document.getElementById('kpi-median').textContent    = stats.globalMedian + ' 天';
+  document.getElementById('kpi-iqr').textContent       = `${stats.globalP25}–${stats.globalP75}`;
+  if (stats.fastest) {
+    document.getElementById('kpi-fastest-name').textContent = stats.fastest.label;
+    document.getElementById('kpi-fastest-days').textContent = stats.fastest.median;
+  }
+}
+
+// ── Populate filter dropdowns ─────────────────────────────────────────────────
+function populateFilters(stats) {
+  const pubSel = document.getElementById('filter-publisher');
+  const subSel = document.getElementById('filter-subject');
+  stats.publishers.forEach(p => {
+    const o = document.createElement('option'); o.value = p; o.textContent = p;
+    pubSel.appendChild(o);
+  });
+  stats.subjects.forEach(s => {
+    const o = document.createElement('option'); o.value = s; o.textContent = s;
+    subSel.appendChild(o);
+  });
+}
+
+// ── Apply filters & re-render ─────────────────────────────────────────────────
+function applyFilters() {
+  const publisher = document.getElementById('filter-publisher').value;
+  const subject   = document.getElementById('filter-subject').value;
+  const minCount  = parseInt(document.getElementById('filter-mincount').value) || 1;
+  const topN      = parseInt(document.getElementById('filter-topn').value) || 20;
+
+  const filtered = DataLoader.filterJournals(ALL_JOURNALS, {
+    publishers: publisher ? [publisher] : [],
+    subjects:   subject   ? [subject]   : [],
+    minCount,
+  });
+
+  renderCharts(filtered, topN);
+}
+
+// ── Render charts ─────────────────────────────────────────────────────────────
+function renderCharts(journals, topN = 20) {
+  // Boxplot
+  chartBoxplot.setOption(Charts.boxplot(journals, topN), true);
+
+  // Heatmap
+  chartHeatmap.setOption(Charts.heatmap(journals.slice(0, topN)), true);
+
+  // Adjust heatmap height based on journal count
+  const hmCount = Math.min(journals.length, topN);
+  const hmHeight = Math.max(200, Math.min(hmCount * 28 + 100, 700));
+  document.getElementById('chart-heatmap').style.height = hmHeight + 'px';
+  chartHeatmap.resize();
+}
+
+// ── Main ──────────────────────────────────────────────────────────────────────
+async function main() {
+  initCharts();
+  try {
+    const { rows, journals, stats } = await DataLoader.load();
+    ALL_JOURNALS = journals;
+    GLOBAL_STATS = stats;
+
+    renderKPI(stats);
+    populateFilters(stats);
+    renderCharts(journals, 20);
+
+    // Trend always uses global data
+    chartTrend.setOption(Charts.trendLine(stats.globalTimeSeries), true);
+
+    // Data update time
+    document.getElementById('data-update-time').textContent =
+      '数据更新于 ' + new Date().toLocaleDateString('zh-CN');
+  } catch(err) {
+    document.getElementById('loading-overlay').innerHTML =
+      `<div class="alert alert-danger mx-3">
+        <strong>加载失败：</strong>${err.message}<br/>
+        <small>请确保 data.xlsx 存在于 web/ 目录下，且通过 HTTP 服务器访问（不能直接双击打开）。</small>
+       </div>`;
+    return;
+  }
+  // Hide overlay
+  const ov = document.getElementById('loading-overlay');
+  ov.classList.add('hidden');
+  setTimeout(() => ov.style.display='none', 400);
+}
+
+main();
+</script>
+</body>
+</html>

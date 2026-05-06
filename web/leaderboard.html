@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ReviewTime — 审稿周期榜单</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"/>
+  <link rel="stylesheet" href="assets/css/app.css"/>
+</head>
+<body class="antialiased">
+
+<div id="loading-overlay">
+  <div class="spinner-border text-primary" style="width:3rem;height:3rem;"></div>
+  <div class="text-muted mt-2">正在加载数据…</div>
+</div>
+
+<!-- Navbar -->
+<header class="navbar navbar-expand-md navbar-light d-print-none sticky-top bg-white border-bottom">
+  <div class="container-xl">
+    <a href="index.html" class="navbar-brand navbar-brand-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="me-2 text-primary"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <strong>ReviewTime</strong>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link active" href="leaderboard.html">🏆 榜单</a></li>
+        <li class="nav-item"><a class="nav-link" href="explorer.html">🔍 期刊浏览</a></li>
+        <li class="nav-item"><a class="nav-link" href="compare.html">⚖️ 对比</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">🔬 工具</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="tools/citation.html">Citation Checker</a></li>
+            <li><a class="dropdown-item" href="tools/impact.html">Impact Factor 检索</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrapper">
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row align-items-center">
+        <div class="col">
+          <h2 class="page-title">🏆 审稿周期榜单</h2>
+          <div class="text-muted fs-6">快速找到最快、最慢期刊和改善趋势</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container-xl">
+
+      <!-- Filter bar -->
+      <div class="filter-bar">
+        <div class="filter-item">
+          <label>出版商</label>
+          <select class="form-select form-select-sm" id="filter-publisher">
+            <option value="">全部</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label>学科</label>
+          <select class="form-select form-select-sm" id="filter-subject">
+            <option value="">全部</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label>最小样本量</label>
+          <input type="number" class="form-control form-control-sm" id="filter-mincount" value="5" min="1" max="500" style="width:80px">
+        </div>
+        <div class="filter-item" style="flex-direction:row;align-items:flex-end;">
+          <button class="btn btn-sm btn-primary" onclick="applyFilters()">应用</button>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <ul class="nav nav-tabs mb-3" id="lbTabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="#" onclick="switchTab('fastest',this)">🚀 最快期刊</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="switchTab('slowest',this)">🐢 最慢期刊</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="switchTab('trend',this)">📈 改善趋势</a>
+        </li>
+      </ul>
+
+      <!-- Tab content: fastest / slowest (same table, different sort) -->
+      <div id="tab-fastest">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">最快审稿期刊 Top</h3>
+            <div class="card-options">
+              <button class="btn btn-sm btn-outline-secondary" onclick="exportCSV('fastest')">⬇ CSV</button>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table id="table-fastest" class="table table-vcenter table-reviewtime datatable" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>排名</th>
+                    <th>期刊</th>
+                    <th>ISSN</th>
+                    <th>出版商</th>
+                    <th>学科</th>
+                    <th>中位天数</th>
+                    <th>P25</th>
+                    <th>P75</th>
+                    <th>样本量</th>
+                    <th>速度</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-fastest"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-slowest" style="display:none">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">审稿最慢期刊</h3>
+            <div class="card-options">
+              <button class="btn btn-sm btn-outline-secondary" onclick="exportCSV('slowest')">⬇ CSV</button>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table id="table-slowest" class="table table-vcenter table-reviewtime datatable" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>排名</th>
+                    <th>期刊</th>
+                    <th>ISSN</th>
+                    <th>出版商</th>
+                    <th>学科</th>
+                    <th>中位天数</th>
+                    <th>P25</th>
+                    <th>P75</th>
+                    <th>样本量</th>
+                    <th>速度</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-slowest"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-trend" style="display:none">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">审稿效率改善趋势榜</h3>
+            <div class="card-options">
+              <small class="text-muted me-2">近6月中位 vs 近24月中位，需各≥3篇样本</small>
+              <button class="btn btn-sm btn-outline-secondary" onclick="exportCSV('trend')">⬇ CSV</button>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table id="table-trend" class="table table-vcenter table-reviewtime datatable" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>排名</th>
+                    <th>期刊</th>
+                    <th>ISSN</th>
+                    <th>学科</th>
+                    <th>近6月中位(天)</th>
+                    <th>近24月中位(天)</th>
+                    <th>变化(天)</th>
+                    <th>变化率</th>
+                    <th>样本量</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-trend"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer footer-transparent d-print-none">
+    <div class="container-xl">
+      <div class="footer-note">ReviewTime — 数据来自 PubMed/PMC/Crossref，仅供参考。</div>
+    </div>
+  </footer>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="assets/js/data-loader.js"></script>
+<script src="assets/js/charts.js"></script>
+<script>
+let ALL_JOURNALS = [];
+let dtFastest, dtSlowest, dtTrend;
+let currentFiltered = [];
+let currentTab = 'fastest';
+
+function speedBadge(days) {
+  const s = DataLoader.speedLabel(days);
+  const idx = days<=30?0:days<=60?1:days<=90?2:days<=120?3:days<=180?4:5;
+  return `<span class="badge-speed speed-${idx}">${s.label}</span>`;
+}
+
+function trendBadge(delta) {
+  if (Math.abs(delta) < 5) return `<span class="trend-flat">→ ${delta>0?'+':''}${delta}天</span>`;
+  if (delta < 0) return `<span class="trend-down">↓ ${delta}天 (加速)</span>`;
+  return `<span class="trend-up">↑ +${delta}天 (减速)</span>`;
+}
+
+function buildFastestRows(journals) {
+  return journals.map((j, i) => [
+    i + 1,
+    `<a href="explorer.html?issn=${j.issn}">${j.label}</a>`,
+    j.issn || '—',
+    j.publisher || '—',
+    j.subject || '—',
+    `<strong>${j.median}</strong>`,
+    j.p25,
+    j.p75,
+    j.count,
+    speedBadge(j.median),
+    `<a href="compare.html?add=${encodeURIComponent(j.label)}" class="btn btn-xs btn-outline-primary">+ 对比</a>`,
+  ]);
+}
+
+function buildSlowestRows(journals) {
+  const sorted = [...journals].sort((a,b)=>b.median-a.median);
+  return sorted.map((j, i) => [
+    i + 1,
+    `<a href="explorer.html?issn=${j.issn}">${j.label}</a>`,
+    j.issn || '—',
+    j.publisher || '—',
+    j.subject || '—',
+    `<strong>${j.median}</strong>`,
+    j.p25,
+    j.p75,
+    j.count,
+    speedBadge(j.median),
+    `<a href="compare.html?add=${encodeURIComponent(j.label)}" class="btn btn-xs btn-outline-primary">+ 对比</a>`,
+  ]);
+}
+
+function buildTrendRows(journals) {
+  const withTrend = journals.filter(j => j.med6 !== null && j.med24 !== null);
+  const sorted = [...withTrend].sort((a,b)=>a.trend - b.trend); // most improved first
+  return sorted.map((j, i) => {
+    const rate = j.med24 ? ((j.trend / j.med24)*100).toFixed(1) : '—';
+    return [
+      i + 1,
+      `<a href="explorer.html?issn=${j.issn}">${j.label}</a>`,
+      j.issn || '—',
+      j.subject || '—',
+      j.med6,
+      j.med24,
+      trendBadge(j.trend),
+      `${rate}%`,
+      j.count,
+      `<a href="compare.html?add=${encodeURIComponent(j.label)}" class="btn btn-xs btn-outline-primary">+ 对比</a>`,
+    ];
+  });
+}
+
+function initOrRefreshTable(id, tbodyId, rows) {
+  const tbody = document.getElementById(tbodyId);
+  tbody.innerHTML = rows.map(r => '<tr>' + r.map(c => `<td>${c}</td>`).join('') + '</tr>').join('');
+  // Destroy existing DataTable if present
+  if ($.fn.DataTable.isDataTable('#'+id)) {
+    $('#'+id).DataTable().destroy();
+  }
+  return $('#'+id).DataTable({
+    pageLength: 25,
+    order: [[5,id==='table-slowest'?'desc':'asc']],
+    language: {
+      url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/zh.json',
+      emptyTable: '暂无符合条件的数据',
+      zeroRecords: '未找到匹配记录',
+    },
+    columnDefs: [{ orderable: false, targets: -1 }],
+  });
+}
+
+function applyFilters() {
+  const publisher = document.getElementById('filter-publisher').value;
+  const subject   = document.getElementById('filter-subject').value;
+  const minCount  = parseInt(document.getElementById('filter-mincount').value) || 5;
+  currentFiltered = DataLoader.filterJournals(ALL_JOURNALS, {
+    publishers: publisher ? [publisher] : [],
+    subjects:   subject   ? [subject]   : [],
+    minCount,
+  });
+  renderTables();
+}
+
+function renderTables() {
+  dtFastest = initOrRefreshTable('table-fastest','tbody-fastest', buildFastestRows(currentFiltered));
+  dtSlowest = initOrRefreshTable('table-slowest','tbody-slowest', buildSlowestRows(currentFiltered));
+  dtTrend   = initOrRefreshTable('table-trend',  'tbody-trend',   buildTrendRows(currentFiltered));
+}
+
+function switchTab(name, el) {
+  currentTab = name;
+  ['fastest','slowest','trend'].forEach(t => {
+    document.getElementById('tab-'+t).style.display = t===name ? '' : 'none';
+  });
+  document.querySelectorAll('#lbTabs .nav-link').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+  return false;
+}
+
+function exportCSV(type) {
+  const journals = type==='slowest'
+    ? [...currentFiltered].sort((a,b)=>b.median-a.median)
+    : currentFiltered;
+  const rows = [['期刊','ISSN','出版商','学科','中位天数','P25','P75','样本量','近6月中位','近24月中位','趋势变化']];
+  journals.forEach(j => rows.push([
+    j.label, j.issn||'', j.publisher||'', j.subject||'',
+    j.median, j.p25, j.p75, j.count,
+    j.med6||'', j.med24||'', j.trend
+  ]));
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(rows);
+  XLSX.utils.book_append_sheet(wb, ws, 'Leaderboard');
+  XLSX.writeFile(wb, `reviewtime_${type}.xlsx`);
+}
+
+async function main() {
+  try {
+    const { journals, stats } = await DataLoader.load();
+    ALL_JOURNALS = journals;
+    currentFiltered = journals;
+    // populate filters
+    const pubSel = document.getElementById('filter-publisher');
+    const subSel = document.getElementById('filter-subject');
+    stats.publishers.forEach(p => { const o=document.createElement('option');o.value=p;o.textContent=p;pubSel.appendChild(o); });
+    stats.subjects.forEach(s => { const o=document.createElement('option');o.value=s;o.textContent=s;subSel.appendChild(o); });
+    renderTables();
+  } catch(err) {
+    document.getElementById('loading-overlay').innerHTML =
+      `<div class="alert alert-danger mx-3"><strong>加载失败：</strong>${err.message}</div>`;
+    return;
+  }
+  const ov = document.getElementById('loading-overlay');
+  ov.classList.add('hidden');
+  setTimeout(()=>ov.style.display='none',400);
+}
+
+main();
+</script>
+</body>
+</html>

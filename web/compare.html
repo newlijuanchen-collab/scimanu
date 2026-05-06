@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ReviewTime — 期刊对比工具</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"/>
+  <link rel="stylesheet" href="assets/css/app.css"/>
+  <style>
+    #compare-chips { min-height: 40px; display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+    #journal-suggestions { position:absolute; z-index:200; background:#fff; border:1px solid #e0e0e0;
+      border-radius:6px; max-height:220px; overflow-y:auto; min-width:260px;
+      box-shadow:0 4px 12px rgba(0,0,0,.1); }
+    #journal-suggestions .suggestion-item { padding:7px 14px; cursor:pointer; font-size:0.85rem; }
+    #journal-suggestions .suggestion-item:hover { background:#f0f4ff; }
+    .summary-table th, .summary-table td { font-size:0.82rem; text-align:center; }
+    .summary-table th:first-child, .summary-table td:first-child { text-align:left; }
+  </style>
+</head>
+<body class="antialiased">
+
+<div id="loading-overlay">
+  <div class="spinner-border text-primary" style="width:3rem;height:3rem;"></div>
+  <div class="text-muted mt-2">正在加载数据…</div>
+</div>
+
+<!-- Navbar -->
+<header class="navbar navbar-expand-md navbar-light d-print-none sticky-top bg-white border-bottom">
+  <div class="container-xl">
+    <a href="index.html" class="navbar-brand navbar-brand-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="me-2 text-primary"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <strong>ReviewTime</strong>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="leaderboard.html">🏆 榜单</a></li>
+        <li class="nav-item"><a class="nav-link" href="explorer.html">🔍 期刊浏览</a></li>
+        <li class="nav-item"><a class="nav-link active" href="compare.html">⚖️ 对比</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">🔬 工具</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="tools/citation.html">Citation Checker</a></li>
+            <li><a class="dropdown-item" href="tools/impact.html">Impact Factor 检索</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrapper">
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row align-items-center">
+        <div class="col">
+          <h2 class="page-title">⚖️ 期刊横向对比</h2>
+          <div class="text-muted fs-6">最多选择 8 本期刊进行并排对比</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container-xl">
+
+      <!-- Journal selector -->
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="row align-items-end g-2">
+            <div class="col-12 col-md-6" style="position:relative;">
+              <label class="form-label fw-bold">添加期刊到对比列表</label>
+              <input type="text" class="form-control" id="journal-search-input"
+                placeholder="输入期刊名称或ISSN…" oninput="showSuggestions()" autocomplete="off">
+              <div id="journal-suggestions" style="display:none"></div>
+            </div>
+            <div class="col-auto">
+              <div class="d-flex gap-2">
+                <button class="btn btn-outline-danger btn-sm" onclick="clearAll()">✕ 清空</button>
+                <button class="btn btn-outline-secondary btn-sm" onclick="exportCSV()">⬇ 导出 Excel</button>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <div class="text-muted small mb-1">已选期刊（<span id="selected-count">0</span>/8）：</div>
+            <div id="compare-chips"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No selection placeholder -->
+      <div id="empty-state" class="empty-state card py-5">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="#aaa"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        <div class="text-muted">请先添加至少 2 本期刊以开始对比</div>
+      </div>
+
+      <!-- Charts (hidden until 2+ journals selected) -->
+      <div id="compare-content" style="display:none">
+
+        <!-- Time window selector -->
+        <div class="d-flex gap-2 mb-3 align-items-center">
+          <span class="text-muted small">时序窗口：</span>
+          <div class="btn-group btn-group-sm">
+            <button class="btn btn-outline-secondary" onclick="setWindow(6)">6月</button>
+            <button class="btn btn-outline-secondary active" id="btn-w12" onclick="setWindow(12)">12月</button>
+            <button class="btn btn-outline-secondary" onclick="setWindow(24)">24月</button>
+          </div>
+        </div>
+
+        <!-- Row 1: Boxplot + Trend -->
+        <div class="row g-3 mb-3">
+          <div class="col-12 col-lg-6">
+            <div class="card">
+              <div class="card-header"><h3 class="card-title">审稿周期分布对比（箱线图）</h3></div>
+              <div class="card-body p-0">
+                <div id="chart-compare-boxplot" class="chart-container chart-md"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="card">
+              <div class="card-header"><h3 class="card-title">月度中位审稿趋势对比</h3></div>
+              <div class="card-body p-0">
+                <div id="chart-compare-trend" class="chart-container chart-md"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Summary table -->
+        <div class="row g-3">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header"><h3 class="card-title">统计汇总</h3></div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-vcenter summary-table" id="summary-table">
+                    <thead>
+                      <tr>
+                        <th>期刊</th>
+                        <th>中位天数</th>
+                        <th>P25</th>
+                        <th>P75</th>
+                        <th>最小</th>
+                        <th>最大</th>
+                        <th>样本量</th>
+                        <th>近6月中位</th>
+                        <th>近24月中位</th>
+                        <th>趋势变化</th>
+                        <th>速度等级</th>
+                      </tr>
+                    </thead>
+                    <tbody id="summary-tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /#compare-content -->
+
+    </div>
+  </div>
+
+  <footer class="footer footer-transparent d-print-none">
+    <div class="container-xl">
+      <div class="footer-note">ReviewTime — 数据来自 PubMed/PMC/Crossref，仅供参考。</div>
+    </div>
+  </footer>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="assets/js/data-loader.js"></script>
+<script src="assets/js/charts.js"></script>
+<script>
+let ALL_JOURNALS = [];
+let selectedJournals = [];  // array of journal objects
+let trendWindow = 12;
+let chartBoxplot, chartTrend;
+
+// ── Suggestion dropdown ───────────────────────────────────────────────────────
+function showSuggestions() {
+  const q = document.getElementById('journal-search-input').value.toLowerCase().trim();
+  const box = document.getElementById('journal-suggestions');
+  if (!q) { box.style.display='none'; return; }
+  const matches = ALL_JOURNALS
+    .filter(j => j.label.toLowerCase().includes(q) || (j.issn||'').includes(q))
+    .slice(0, 10);
+  if (!matches.length) { box.style.display='none'; return; }
+  box.innerHTML = matches.map(j =>
+    `<div class="suggestion-item" onclick="addJournal('${j.label.replace(/'/g,"\\'")}')">
+      <strong>${j.label}</strong>
+      <small class="text-muted ms-2">${j.issn||''} · ${j.median}天中位</small>
+    </div>`
+  ).join('');
+  box.style.display='block';
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#journal-search-input') && !e.target.closest('#journal-suggestions')) {
+    document.getElementById('journal-suggestions').style.display='none';
+  }
+});
+
+// ── Add / remove ──────────────────────────────────────────────────────────────
+function addJournal(label) {
+  document.getElementById('journal-suggestions').style.display='none';
+  document.getElementById('journal-search-input').value='';
+  if (selectedJournals.length >= 8) { alert('最多同时对比 8 本期刊'); return; }
+  if (selectedJournals.find(j=>j.label===label)) return; // already added
+  const journal = ALL_JOURNALS.find(j=>j.label===label);
+  if (!journal) return;
+  selectedJournals.push(journal);
+  updateUI();
+}
+
+function removeJournal(label) {
+  selectedJournals = selectedJournals.filter(j=>j.label!==label);
+  updateUI();
+}
+
+function clearAll() {
+  selectedJournals = [];
+  updateUI();
+}
+
+// ── Chips ─────────────────────────────────────────────────────────────────────
+function renderChips() {
+  const container = document.getElementById('compare-chips');
+  container.innerHTML = selectedJournals.map((j,i) =>
+    `<span class="journal-chip" style="border-color:${Charts.PALETTE[i%Charts.PALETTE.length]}20">
+      <span style="width:8px;height:8px;border-radius:50%;background:${Charts.PALETTE[i%Charts.PALETTE.length]};display:inline-block;"></span>
+      ${j.label}
+      <span class="chip-remove" onclick="removeJournal('${j.label.replace(/'/g,"\\'")}')">×</span>
+    </span>`
+  ).join('');
+  document.getElementById('selected-count').textContent = selectedJournals.length;
+}
+
+// ── Charts ────────────────────────────────────────────────────────────────────
+function renderCharts() {
+  chartBoxplot.setOption(Charts.compareBoxplot(selectedJournals), true);
+  chartTrend.setOption(Charts.compareTrend(selectedJournals, trendWindow), true);
+}
+
+// ── Summary table ─────────────────────────────────────────────────────────────
+function renderSummary() {
+  const tbody = document.getElementById('summary-tbody');
+  const speedLabels = ['极快','快速','正常偏快','正常','偏慢','慢速'];
+  tbody.innerHTML = selectedJournals.map((j,i) => {
+    const idx = j.median<=30?0:j.median<=60?1:j.median<=90?2:j.median<=120?3:j.median<=180?4:5;
+    const trendHtml = Math.abs(j.trend)<5
+      ? `<span class="trend-flat">→ 稳定</span>`
+      : j.trend<0
+        ? `<span class="trend-down">↓${j.trend}天</span>`
+        : `<span class="trend-up">↑+${j.trend}天</span>`;
+    return `<tr>
+      <td>
+        <span style="width:10px;height:10px;border-radius:50%;background:${Charts.PALETTE[i%Charts.PALETTE.length]};display:inline-block;margin-right:6px;"></span>
+        <strong>${j.label}</strong>
+      </td>
+      <td><strong>${j.median}</strong></td>
+      <td>${j.p25}</td>
+      <td>${j.p75}</td>
+      <td>${j.min}</td>
+      <td>${j.max}</td>
+      <td>${j.count}</td>
+      <td>${j.med6 ?? '—'}</td>
+      <td>${j.med24 ?? '—'}</td>
+      <td>${trendHtml}</td>
+      <td><span class="badge-speed speed-${idx}">${speedLabels[idx]}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── UI coordinator ────────────────────────────────────────────────────────────
+function updateUI() {
+  renderChips();
+  const hasEnough = selectedJournals.length >= 2;
+  document.getElementById('empty-state').style.display    = hasEnough ? 'none' : '';
+  document.getElementById('compare-content').style.display = hasEnough ? '' : 'none';
+  if (hasEnough) {
+    renderCharts();
+    renderSummary();
+  }
+}
+
+function setWindow(months) {
+  trendWindow = months;
+  document.querySelectorAll('.btn-group .btn').forEach(b => b.classList.remove('active'));
+  if (selectedJournals.length >= 2) {
+    chartTrend.setOption(Charts.compareTrend(selectedJournals, months), true);
+  }
+}
+
+function exportCSV() {
+  if (!selectedJournals.length) return;
+  const rows = [['期刊','ISSN','出版商','学科','中位天数','P25','P75','最小','最大','样本量','近6月中位','近24月中位','趋势变化']];
+  selectedJournals.forEach(j => rows.push([
+    j.label, j.issn||'', j.publisher||'', j.subject||'',
+    j.median, j.p25, j.p75, j.min, j.max, j.count,
+    j.med6??'', j.med24??'', j.trend
+  ]));
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(rows);
+  XLSX.utils.book_append_sheet(wb, ws, 'Compare');
+  XLSX.writeFile(wb, 'reviewtime_compare.xlsx');
+}
+
+// ── Main ──────────────────────────────────────────────────────────────────────
+async function main() {
+  chartBoxplot = echarts.init(document.getElementById('chart-compare-boxplot'));
+  chartTrend   = echarts.init(document.getElementById('chart-compare-trend'));
+  window.addEventListener('resize', () => { chartBoxplot.resize(); chartTrend.resize(); });
+
+  try {
+    const { journals } = await DataLoader.load();
+    ALL_JOURNALS = journals;
+
+    // Pre-add journals from URL ?add=JournalName
+    const params = new URLSearchParams(window.location.search);
+    const toAdd = params.getAll('add');
+    toAdd.forEach(name => {
+      const j = journals.find(x => x.label === decodeURIComponent(name));
+      if (j && selectedJournals.length < 8) selectedJournals.push(j);
+    });
+    updateUI();
+  } catch(err) {
+    document.getElementById('loading-overlay').innerHTML =
+      `<div class="alert alert-danger mx-3"><strong>加载失败：</strong>${err.message}</div>`;
+    return;
+  }
+  const ov = document.getElementById('loading-overlay');
+  ov.classList.add('hidden');
+  setTimeout(()=>ov.style.display='none',400);
+}
+
+main();
+</script>
+</body>
+</html>

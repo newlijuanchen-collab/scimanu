@@ -1,0 +1,517 @@
+journal_id,journal_name,issn_print,issn_online,publisher,subject,active
+MDPI_0001,Accounting and Auditing,,3042-6618,MDPI,Multidisciplinary,1
+MDPI_0002,Acoustics,,2624-599X,MDPI,Multidisciplinary,1
+MDPI_0003,Acta Microbiologica Hellenica,,2813-9054,MDPI,Multidisciplinary,1
+MDPI_0004,Actuators,,2076-0825,MDPI,Multidisciplinary,1
+MDPI_0005,Adhesives,,3042-6081,MDPI,Multidisciplinary,1
+MDPI_0006,Administrative Sciences,,2076-3387,MDPI,Multidisciplinary,1
+MDPI_0007,Adolescents,,2673-7051,MDPI,Multidisciplinary,1
+MDPI_0008,Advances in Respiratory Medicine,,2543-6031,MDPI,Multidisciplinary,1
+MDPI_0009,Aerobiology,,2813-5075,MDPI,Multidisciplinary,1
+MDPI_0010,Aerospace,,2226-4310,MDPI,Multidisciplinary,1
+MDPI_0011,Agriculture,,2077-0472,MDPI,Multidisciplinary,1
+MDPI_0012,AgriEngineering,,2624-7402,MDPI,Multidisciplinary,1
+MDPI_0013,Agrochemicals,,2813-3145,MDPI,Multidisciplinary,1
+MDPI_0014,Agronomy,,2073-4395,MDPI,Multidisciplinary,1
+MDPI_0015,AI,,2673-2688,MDPI,Multidisciplinary,1
+MDPI_0016,AI Chemistry,,3042-6723,MDPI,Multidisciplinary,1
+MDPI_0017,AI for Engineering,,3042-8831,MDPI,Multidisciplinary,1
+MDPI_0018,AI in Education,,3042-8130,MDPI,Multidisciplinary,1
+MDPI_0019,AI in Medicine,,3042-6707,MDPI,Multidisciplinary,1
+MDPI_0020,AI Materials,,3042-6715,MDPI,Multidisciplinary,1
+MDPI_0021,AI Sensors,,3042-5999,MDPI,Multidisciplinary,1
+MDPI_0022,Air,,2813-4168,MDPI,Multidisciplinary,1
+MDPI_0023,Algorithms,,1999-4893,MDPI,Multidisciplinary,1
+MDPI_0024,Allergies,,2313-5786,MDPI,Multidisciplinary,1
+MDPI_0025,Alloys,,2674-063X,MDPI,Multidisciplinary,1
+MDPI_0026,Analog,,3042-8491,MDPI,Multidisciplinary,1
+MDPI_0027,Analytica,,2673-4532,MDPI,Multidisciplinary,1
+MDPI_0028,Analytics,,2813-2203,MDPI,Multidisciplinary,1
+MDPI_0029,Anatomia,,2813-0545,MDPI,Multidisciplinary,1
+MDPI_0030,Anesthesia Research,,2813-5806,MDPI,Multidisciplinary,1
+MDPI_0031,Animals,,2076-2615,MDPI,Multidisciplinary,1
+MDPI_0032,Antibiotics,,2079-6382,MDPI,Multidisciplinary,1
+MDPI_0033,Antibodies,,2073-4468,MDPI,Multidisciplinary,1
+MDPI_0034,Antioxidants,,2076-3921,MDPI,Multidisciplinary,1
+MDPI_0035,Applied Biosciences,,2813-0464,MDPI,Multidisciplinary,1
+MDPI_0036,Applied Mechanics,,2673-3161,MDPI,Multidisciplinary,1
+MDPI_0037,Applied Microbiology,,2673-8007,MDPI,Multidisciplinary,1
+MDPI_0038,Applied Nano,,2673-3501,MDPI,Multidisciplinary,1
+MDPI_0039,Applied Sciences,,2076-3417,MDPI,Multidisciplinary,1
+MDPI_0040,Applied System Innovation,,2571-5577,MDPI,Multidisciplinary,1
+MDPI_0041,AppliedChem,,2673-9623,MDPI,Multidisciplinary,1
+MDPI_0042,AppliedMath,,2673-9909,MDPI,Multidisciplinary,1
+MDPI_0043,AppliedPhys,,3042-6553,MDPI,Multidisciplinary,1
+MDPI_0044,Aquaculture Journal,,2673-9496,MDPI,Multidisciplinary,1
+MDPI_0045,Architecture,,2673-8945,MDPI,Multidisciplinary,1
+MDPI_0046,Arthropoda,,2813-3323,MDPI,Multidisciplinary,1
+MDPI_0047,Arts,,2076-0752,MDPI,Multidisciplinary,1
+MDPI_0048,Astronautics,,3042-7576,MDPI,Multidisciplinary,1
+MDPI_0049,Astronomy,,2674-0346,MDPI,Multidisciplinary,1
+MDPI_0050,Atmosphere,,2073-4433,MDPI,Multidisciplinary,1
+MDPI_0051,Atoms,,2218-2004,MDPI,Multidisciplinary,1
+MDPI_0052,Audiology Research,,2039-4349,MDPI,Multidisciplinary,1
+MDPI_0053,Automation,,2673-4052,MDPI,Multidisciplinary,1
+MDPI_0054,Axioms,,2075-1680,MDPI,Multidisciplinary,1
+MDPI_0055,Bacteria,,2674-1334,MDPI,Multidisciplinary,1
+MDPI_0056,Batteries,,2313-0105,MDPI,Multidisciplinary,1
+MDPI_0057,Behavioral Sciences,,2076-328X,MDPI,Multidisciplinary,1
+MDPI_0058,Beverages,,2306-5710,MDPI,Multidisciplinary,1
+MDPI_0059,Big Data and Cognitive Computing,,2504-2289,MDPI,Multidisciplinary,1
+MDPI_0060,BioChem,,2673-6411,MDPI,Multidisciplinary,1
+MDPI_0061,Bioengineering,,2306-5354,MDPI,Multidisciplinary,1
+MDPI_0062,Biologics,,2673-8449,MDPI,Multidisciplinary,1
+MDPI_0063,Biology,,2079-7737,MDPI,Multidisciplinary,1
+MDPI_0064,Biology and Life Sciences Forum *,,2673-9976,MDPI,Multidisciplinary,1
+MDPI_0065,Biomass,,2673-8783,MDPI,Multidisciplinary,1
+MDPI_0066,Biomechanics,,2673-7078,MDPI,Multidisciplinary,1
+MDPI_0067,BioMed,,2673-8430,MDPI,Multidisciplinary,1
+MDPI_0068,Biomedicines,,2227-9059,MDPI,Multidisciplinary,1
+MDPI_0069,BioMedInformatics,,2673-7426,MDPI,Multidisciplinary,1
+MDPI_0070,Biomimetics,,2313-7673,MDPI,Multidisciplinary,1
+MDPI_0071,Biomolecules,,2218-273X,MDPI,Multidisciplinary,1
+MDPI_0072,Biophysica,,2673-4125,MDPI,Multidisciplinary,1
+MDPI_0073,Bioresources and Bioproducts,,3042-8092,MDPI,Multidisciplinary,1
+MDPI_0074,Biosensors,,2079-6374,MDPI,Multidisciplinary,1
+MDPI_0075,Biosphere,,3042-6111,MDPI,Multidisciplinary,1
+MDPI_0076,BioTech,,2673-6284,MDPI,Multidisciplinary,1
+MDPI_0077,Birds,,2673-6004,MDPI,Multidisciplinary,1
+MDPI_0078,Blockchains,,2813-5288,MDPI,Multidisciplinary,1
+MDPI_0079,Brain Sciences,,2076-3425,MDPI,Multidisciplinary,1
+MDPI_0080,Buildings,,2075-5309,MDPI,Multidisciplinary,1
+MDPI_0081,Businesses,,2673-7116,MDPI,Multidisciplinary,1
+MDPI_0082,C,,2311-5629,MDPI,Multidisciplinary,1
+MDPI_0083,Cancers,,2072-6694,MDPI,Multidisciplinary,1
+MDPI_0084,Cardiogenetics,,2035-8148,MDPI,Multidisciplinary,1
+MDPI_0085,Cardiovascular Medicine,,1664-204X,MDPI,Multidisciplinary,1
+MDPI_0086,Catalysts,,2073-4344,MDPI,Multidisciplinary,1
+MDPI_0087,Cells,,2073-4409,MDPI,Multidisciplinary,1
+MDPI_0088,Ceramics,,2571-6131,MDPI,Multidisciplinary,1
+MDPI_0089,Challenges,,2078-1547,MDPI,Multidisciplinary,1
+MDPI_0090,ChemEngineering,,2305-7084,MDPI,Multidisciplinary,1
+MDPI_0091,Chemistry,,2624-8549,MDPI,Multidisciplinary,1
+MDPI_0092,Chemistry Proceedings *,,2673-4583,MDPI,Multidisciplinary,1
+MDPI_0093,Chemosensors,,2227-9040,MDPI,Multidisciplinary,1
+MDPI_0094,Children,,2227-9067,MDPI,Multidisciplinary,1
+MDPI_0095,Chips,,2674-0729,MDPI,Multidisciplinary,1
+MDPI_0096,CivilEng,,2673-4109,MDPI,Multidisciplinary,1
+MDPI_0097,Clean Technologies,,2571-8797,MDPI,Multidisciplinary,1
+MDPI_0098,Climate,,2225-1154,MDPI,Multidisciplinary,1
+MDPI_0099,Clinical and Translational Neuroscience,,2514-183X,MDPI,Multidisciplinary,1
+MDPI_0100,Clinical Bioenergetics,,3042-5158,MDPI,Multidisciplinary,1
+MDPI_0101,Clinics and Practice,,2039-7283,MDPI,Multidisciplinary,1
+MDPI_0102,Clocks & Sleep,,2624-5175,MDPI,Multidisciplinary,1
+MDPI_0103,Coasts,,2673-964X,MDPI,Multidisciplinary,1
+MDPI_0104,Coatings,,2079-6412,MDPI,Multidisciplinary,1
+MDPI_0105,Colloids and Interfaces,,2504-5377,MDPI,Multidisciplinary,1
+MDPI_0106,Colorants,,2079-6447,MDPI,Multidisciplinary,1
+MDPI_0107,Commodities,,2813-2432,MDPI,Multidisciplinary,1
+MDPI_0108,Complexities,,3042-6448,MDPI,Multidisciplinary,1
+MDPI_0109,Complications,,2813-4966,MDPI,Multidisciplinary,1
+MDPI_0110,Compounds,,2673-6918,MDPI,Multidisciplinary,1
+MDPI_0111,Computation,,2079-3197,MDPI,Multidisciplinary,1
+MDPI_0112,Computer Sciences & Mathematics Forum *,,2813-0324,MDPI,Multidisciplinary,1
+MDPI_0113,Computers,,2073-431X,MDPI,Multidisciplinary,1
+MDPI_0114,Condensed Matter,,2410-3896,MDPI,Multidisciplinary,1
+MDPI_0115,Conservation,,2673-7159,MDPI,Multidisciplinary,1
+MDPI_0116,Construction Materials,,2673-7108,MDPI,Multidisciplinary,1
+MDPI_0117,Corrosion and Materials Degradation,,2624-5558,MDPI,Multidisciplinary,1
+MDPI_0118,Cosmetics,,2079-9284,MDPI,Multidisciplinary,1
+MDPI_0119,COVID,,2673-8112,MDPI,Multidisciplinary,1
+MDPI_0120,Craniomaxillofacial Trauma & Reconstruction,,1943-3883,MDPI,Multidisciplinary,1
+MDPI_0121,Crops,,2673-7655,MDPI,Multidisciplinary,1
+MDPI_0122,Cryo,,3042-4860,MDPI,Multidisciplinary,1
+MDPI_0123,Cryptography,,2410-387X,MDPI,Multidisciplinary,1
+MDPI_0124,Crystals,,2073-4352,MDPI,Multidisciplinary,1
+MDPI_0125,Culture,,3042-8165,MDPI,Multidisciplinary,1
+MDPI_0126,Current Issues in Molecular Biology,,1467-3045,MDPI,Multidisciplinary,1
+MDPI_0127,Current Oncology,,1718-7729,MDPI,Multidisciplinary,1
+MDPI_0128,Dairy,,2624-862X,MDPI,Multidisciplinary,1
+MDPI_0129,Data,,2306-5729,MDPI,Multidisciplinary,1
+MDPI_0130,Dentistry Journal,,2304-6767,MDPI,Multidisciplinary,1
+MDPI_0131,Dermato,,2673-6179,MDPI,Multidisciplinary,1
+MDPI_0132,Dermatopathology,,2296-3529,MDPI,Multidisciplinary,1
+MDPI_0133,Designs,,2411-9660,MDPI,Multidisciplinary,1
+MDPI_0134,Diabetology,,2673-4540,MDPI,Multidisciplinary,1
+MDPI_0135,Diagnostics,,2075-4418,MDPI,Multidisciplinary,1
+MDPI_0136,Dietetics,,2674-0311,MDPI,Multidisciplinary,1
+MDPI_0137,Digital,,2673-6470,MDPI,Multidisciplinary,1
+MDPI_0138,Digital Health and Innovation,,3042-9315,MDPI,Multidisciplinary,1
+MDPI_0139,Disabilities,,2673-7272,MDPI,Multidisciplinary,1
+MDPI_0140,Diseases,,2079-9721,MDPI,Multidisciplinary,1
+MDPI_0141,Diversity,,1424-2818,MDPI,Multidisciplinary,1
+MDPI_0142,DNA,,2673-8856,MDPI,Multidisciplinary,1
+MDPI_0143,Drones,,2504-446X,MDPI,Multidisciplinary,1
+MDPI_0144,Drugs and Drug Candidates,,2813-2998,MDPI,Multidisciplinary,1
+MDPI_0145,Dynamics,,2673-8716,MDPI,Multidisciplinary,1
+MDPI_0146,Earth,,2673-4834,MDPI,Multidisciplinary,1
+MDPI_0147,Ecologies,,2673-4133,MDPI,Multidisciplinary,1
+MDPI_0148,Econometrics,,2225-1146,MDPI,Multidisciplinary,1
+MDPI_0149,Economies,,2227-7099,MDPI,Multidisciplinary,1
+MDPI_0150,Education Sciences,,2227-7102,MDPI,Multidisciplinary,1
+MDPI_0151,Electricity,,2673-4826,MDPI,Multidisciplinary,1
+MDPI_0152,Electrochem,,2673-3293,MDPI,Multidisciplinary,1
+MDPI_0153,Electronic Materials,,2673-3978,MDPI,Multidisciplinary,1
+MDPI_0154,Electronics,,2079-9292,MDPI,Multidisciplinary,1
+MDPI_0155,Emergency Care and Medicine,,2813-7914,MDPI,Multidisciplinary,1
+MDPI_0156,Encyclopedia,,2673-8392,MDPI,Multidisciplinary,1
+MDPI_0157,Endocrines,,2673-396X,MDPI,Multidisciplinary,1
+MDPI_0158,Energies,,1996-1073,MDPI,Multidisciplinary,1
+MDPI_0159,Energy Storage and Applications,,3042-4011,MDPI,Multidisciplinary,1
+MDPI_0160,Eng,,2673-4117,MDPI,Multidisciplinary,1
+MDPI_0161,Engineering Proceedings *,,2673-4591,MDPI,Multidisciplinary,1
+MDPI_0162,Entropic and Disordered Matter,,3042-7592,MDPI,Multidisciplinary,1
+MDPI_0163,Entropy,,1099-4300,MDPI,Multidisciplinary,1
+MDPI_0164,Environmental and Earth Sciences Proceedings *,,3042-5743,MDPI,Multidisciplinary,1
+MDPI_0165,Environmental Remediation,,3042-903X,MDPI,Multidisciplinary,1
+MDPI_0166,Environments,,2076-3298,MDPI,Multidisciplinary,1
+MDPI_0167,Epidemiologia,,2673-3986,MDPI,Multidisciplinary,1
+MDPI_0168,Epigenomes,,2075-4655,MDPI,Multidisciplinary,1
+MDPI_0169,European Burn Journal,,2673-1991,MDPI,Multidisciplinary,1
+MDPI_0170,"European Journal of Investigation in Health, Psychology and Education",,2254-9625,MDPI,Multidisciplinary,1
+MDPI_0171,Family Sciences,,3042-6693,MDPI,Multidisciplinary,1
+MDPI_0172,Fermentation,,2311-5637,MDPI,Multidisciplinary,1
+MDPI_0173,Fibers,,2079-6439,MDPI,Multidisciplinary,1
+MDPI_0174,FinTech,,2674-1032,MDPI,Multidisciplinary,1
+MDPI_0175,Fire,,2571-6255,MDPI,Multidisciplinary,1
+MDPI_0176,Fishes,,2410-3888,MDPI,Multidisciplinary,1
+MDPI_0177,Fluids,,2311-5521,MDPI,Multidisciplinary,1
+MDPI_0178,Foods,,2304-8158,MDPI,Multidisciplinary,1
+MDPI_0179,Forecasting,,2571-9394,MDPI,Multidisciplinary,1
+MDPI_0180,Forensic Sciences,,2673-6756,MDPI,Multidisciplinary,1
+MDPI_0181,Forests,,1999-4907,MDPI,Multidisciplinary,1
+MDPI_0182,Fossil Studies,,2813-6284,MDPI,Multidisciplinary,1
+MDPI_0183,Foundations,,2673-9321,MDPI,Multidisciplinary,1
+MDPI_0184,Fractal and Fractional,,2504-3110,MDPI,Multidisciplinary,1
+MDPI_0185,Fuels,,2673-3994,MDPI,Multidisciplinary,1
+MDPI_0186,Future,,2813-2882,MDPI,Multidisciplinary,1
+MDPI_0187,Future Internet,,1999-5903,MDPI,Multidisciplinary,1
+MDPI_0188,Future Pharmacology,,2673-9879,MDPI,Multidisciplinary,1
+MDPI_0189,Future Transportation,,2673-7590,MDPI,Multidisciplinary,1
+MDPI_0190,Galaxies,,2075-4434,MDPI,Multidisciplinary,1
+MDPI_0191,Games,,2073-4336,MDPI,Multidisciplinary,1
+MDPI_0192,Gases,,2673-5628,MDPI,Multidisciplinary,1
+MDPI_0193,Gastroenterology Insights,,2036-7422,MDPI,Multidisciplinary,1
+MDPI_0194,Gastrointestinal Disorders,,2624-5647,MDPI,Multidisciplinary,1
+MDPI_0195,Gastronomy,,2813-513X,MDPI,Multidisciplinary,1
+MDPI_0196,Gels,,2310-2861,MDPI,Multidisciplinary,1
+MDPI_0197,Genealogy,,2313-5778,MDPI,Multidisciplinary,1
+MDPI_0198,Genes,,2073-4425,MDPI,Multidisciplinary,1
+MDPI_0199,Geographies,,2673-7086,MDPI,Multidisciplinary,1
+MDPI_0200,GeoHazards,,2624-795X,MDPI,Multidisciplinary,1
+MDPI_0201,Geomatics,,2673-7418,MDPI,Multidisciplinary,1
+MDPI_0202,Geometry,,3042-402X,MDPI,Multidisciplinary,1
+MDPI_0203,Geosciences,,2076-3263,MDPI,Multidisciplinary,1
+MDPI_0204,Geotechnics,,2673-7094,MDPI,Multidisciplinary,1
+MDPI_0205,Geriatrics,,2308-3417,MDPI,Multidisciplinary,1
+MDPI_0206,Germs,,2248-2997,MDPI,Multidisciplinary,1
+MDPI_0207,Glacies,,2813-8740,MDPI,Multidisciplinary,1
+MDPI_0208,"Gout, Urate, and Crystal Deposition Disease",,2813-4583,MDPI,Multidisciplinary,1
+MDPI_0209,Grasses,,2813-3463,MDPI,Multidisciplinary,1
+MDPI_0210,Green,,3042-9242,MDPI,Multidisciplinary,1
+MDPI_0211,Green Health,,3042-5832,MDPI,Multidisciplinary,1
+MDPI_0212,Hardware,,2813-6640,MDPI,Multidisciplinary,1
+MDPI_0213,Healthcare,,2227-9032,MDPI,Multidisciplinary,1
+MDPI_0214,Hearts,,2673-3846,MDPI,Multidisciplinary,1
+MDPI_0215,Hemato,,2673-6357,MDPI,Multidisciplinary,1
+MDPI_0216,Hematology Reports,,2038-8330,MDPI,Multidisciplinary,1
+MDPI_0217,Heritage,,2571-9408,MDPI,Multidisciplinary,1
+MDPI_0218,Histories,,2409-9252,MDPI,Multidisciplinary,1
+MDPI_0219,Horticulturae,,2311-7524,MDPI,Multidisciplinary,1
+MDPI_0220,Hospitals,,2813-4524,MDPI,Multidisciplinary,1
+MDPI_0221,Humanities,,2076-0787,MDPI,Multidisciplinary,1
+MDPI_0222,Humans,,2673-9461,MDPI,Multidisciplinary,1
+MDPI_0223,Hydrobiology,,2673-9917,MDPI,Multidisciplinary,1
+MDPI_0224,Hydrogen,,2673-4141,MDPI,Multidisciplinary,1
+MDPI_0225,Hydrology,,2306-5338,MDPI,Multidisciplinary,1
+MDPI_0226,Hydropower,,3042-8432,MDPI,Multidisciplinary,1
+MDPI_0227,Hygiene,,2673-947X,MDPI,Multidisciplinary,1
+MDPI_0228,Immuno,,2673-5601,MDPI,Multidisciplinary,1
+MDPI_0229,Industries,,3042-9021,MDPI,Multidisciplinary,1
+MDPI_0230,Infectious Disease Reports,,2036-7449,MDPI,Multidisciplinary,1
+MDPI_0231,Inflammation Journal,,3043-0348,MDPI,Multidisciplinary,1
+MDPI_0232,Informatics,,2227-9709,MDPI,Multidisciplinary,1
+MDPI_0233,Information,,2078-2489,MDPI,Multidisciplinary,1
+MDPI_0234,Infrastructures,,2412-3811,MDPI,Multidisciplinary,1
+MDPI_0235,Inorganics,,2304-6740,MDPI,Multidisciplinary,1
+MDPI_0236,Insects,,2075-4450,MDPI,Multidisciplinary,1
+MDPI_0237,Instruments,,2410-390X,MDPI,Multidisciplinary,1
+MDPI_0238,Intelligent Infrastructure and Construction,,3042-4720,MDPI,Multidisciplinary,1
+MDPI_0239,International Journal of Cognitive Sciences,,3042-8084,MDPI,Multidisciplinary,1
+MDPI_0240,International Journal of Environmental Medicine,,3042-7681,MDPI,Multidisciplinary,1
+MDPI_0241,International Journal of Environmental Research and Public Health,,1660-4601,MDPI,Multidisciplinary,1
+MDPI_0242,International Journal of Financial Studies,,2227-7072,MDPI,Multidisciplinary,1
+MDPI_0243,International Journal of Medical Devices,,3042-8890,MDPI,Multidisciplinary,1
+MDPI_0244,International Journal of Molecular Sciences,,1422-0067,MDPI,Multidisciplinary,1
+MDPI_0245,International Journal of Neonatal Screening,,2409-515X,MDPI,Multidisciplinary,1
+MDPI_0246,International Journal of Orofacial Myology and Myofunctional Therapy,,2694-2526,MDPI,Multidisciplinary,1
+MDPI_0247,International Journal of Plant Biology,,2037-0164,MDPI,Multidisciplinary,1
+MDPI_0248,International Journal of Topology,,2813-9542,MDPI,Multidisciplinary,1
+MDPI_0249,International Journal of Translational Medicine,,2673-8937,MDPI,Multidisciplinary,1
+MDPI_0250,"International Journal of Turbomachinery, Propulsion and Power",,2504-186X,MDPI,Multidisciplinary,1
+MDPI_0251,International Medical Education,,2813-141X,MDPI,Multidisciplinary,1
+MDPI_0252,Inventions,,2411-5134,MDPI,Multidisciplinary,1
+MDPI_0253,IoT,,2624-831X,MDPI,Multidisciplinary,1
+MDPI_0254,ISPRS International Journal of Geo-Information,,2220-9964,MDPI,Multidisciplinary,1
+MDPI_0255,J,,2571-8800,MDPI,Multidisciplinary,1
+MDPI_0256,Journal of Aesthetic Medicine,,3042-6774,MDPI,Multidisciplinary,1
+MDPI_0257,Journal of Ageing and Longevity,,2673-9259,MDPI,Multidisciplinary,1
+MDPI_0258,Journal of CardioRenal Medicine,,3042-6987,MDPI,Multidisciplinary,1
+MDPI_0259,Journal of Cardiovascular Development and Disease,,2308-3425,MDPI,Multidisciplinary,1
+MDPI_0260,Journal of Clinical & Translational Ophthalmology,,2813-1053,MDPI,Multidisciplinary,1
+MDPI_0261,Journal of Clinical Medicine,,2077-0383,MDPI,Multidisciplinary,1
+MDPI_0262,Journal of Composites Science,,2504-477X,MDPI,Multidisciplinary,1
+MDPI_0263,Journal of Cybersecurity and Privacy,,2624-800X,MDPI,Multidisciplinary,1
+MDPI_0264,Journal of Dementia and Alzheimer's Disease,,3042-4518,MDPI,Multidisciplinary,1
+MDPI_0265,Journal of Developmental Biology,,2221-3759,MDPI,Multidisciplinary,1
+MDPI_0266,Journal of Experimental and Theoretical Analyses,,2813-4648,MDPI,Multidisciplinary,1
+MDPI_0267,Journal of Eye Movement Research,,1995-8692,MDPI,Multidisciplinary,1
+MDPI_0268,Journal of Functional Biomaterials,,2079-4983,MDPI,Multidisciplinary,1
+MDPI_0269,Journal of Functional Morphology and Kinesiology,,2411-5142,MDPI,Multidisciplinary,1
+MDPI_0270,Journal of Fungi,,2309-608X,MDPI,Multidisciplinary,1
+MDPI_0271,Journal of Genome Biotechnology and Genetics,,3042-8424,MDPI,Multidisciplinary,1
+MDPI_0272,Journal of Gerontology and Geriatrics,,2499-6564,MDPI,Multidisciplinary,1
+MDPI_0273,Journal of Imaging,,2313-433X,MDPI,Multidisciplinary,1
+MDPI_0274,Journal of Innovation,,3042-8629,MDPI,Multidisciplinary,1
+MDPI_0275,Journal of Intelligence,,2079-3200,MDPI,Multidisciplinary,1
+MDPI_0276,Journal of Interdisciplinary Research Applied to Medicine,,2532-7518,MDPI,Multidisciplinary,1
+MDPI_0277,Journal of Low Power Electronics and Applications,,2079-9268,MDPI,Multidisciplinary,1
+MDPI_0278,Journal of Manufacturing and Materials Processing,,2504-4494,MDPI,Multidisciplinary,1
+MDPI_0279,Journal of Marine Science and Engineering,,2077-1312,MDPI,Multidisciplinary,1
+MDPI_0280,Journal of Market Access & Health Policy,,2001-6689,MDPI,Multidisciplinary,1
+MDPI_0281,Journal of Mind and Medical Sciences,,2392-7674,MDPI,Multidisciplinary,1
+MDPI_0282,Journal of Molecular Pathology,,2673-5261,MDPI,Multidisciplinary,1
+MDPI_0283,Journal of Nanotheranostics,,2624-845X,MDPI,Multidisciplinary,1
+MDPI_0284,Journal of Nuclear Engineering,,2673-4362,MDPI,Multidisciplinary,1
+MDPI_0285,"Journal of Otorhinolaryngology, Hearing and Balance Medicine",,2504-463X,MDPI,Multidisciplinary,1
+MDPI_0286,Journal of Parks,,3042-5689,MDPI,Multidisciplinary,1
+MDPI_0287,Journal of Personalized Medicine,,2075-4426,MDPI,Multidisciplinary,1
+MDPI_0288,Journal of Pharmaceutical and BioTech Industry,,2813-9380,MDPI,Multidisciplinary,1
+MDPI_0289,Journal of Phytomedicine,,3042-9250,MDPI,Multidisciplinary,1
+MDPI_0290,Journal of Respiration,,2673-527X,MDPI,Multidisciplinary,1
+MDPI_0291,Journal of Risk and Financial Management,,1911-8074,MDPI,Multidisciplinary,1
+MDPI_0292,Journal of Sensor and Actuator Networks,,2224-2708,MDPI,Multidisciplinary,1
+MDPI_0293,Journal of Superintelligence,,3043-0097,MDPI,Multidisciplinary,1
+MDPI_0294,Journal of the American Podiatric Medical Association,,1930-8264,MDPI,Multidisciplinary,1
+MDPI_0295,Journal of the Oman Medical Association,,2813-8759,MDPI,Multidisciplinary,1
+MDPI_0296,Journal of Theoretical and Applied Electronic Commerce Research,,0718-1876,MDPI,Multidisciplinary,1
+MDPI_0297,Journal of Vascular Diseases,,2813-2475,MDPI,Multidisciplinary,1
+MDPI_0298,Journal of Xenobiotics,,2039-4713,MDPI,Multidisciplinary,1
+MDPI_0299,Journal of Zoological and Botanical Gardens,,2673-5636,MDPI,Multidisciplinary,1
+MDPI_0300,Journalism and Media,,2673-5172,MDPI,Multidisciplinary,1
+MDPI_0301,Kidney and Dialysis,,2673-8236,MDPI,Multidisciplinary,1
+MDPI_0302,Kinases and Phosphatases,,2813-3757,MDPI,Multidisciplinary,1
+MDPI_0303,Knowledge,,2673-9585,MDPI,Multidisciplinary,1
+MDPI_0304,LabMed,,2813-9038,MDPI,Multidisciplinary,1
+MDPI_0305,Laboratories,,2813-8856,MDPI,Multidisciplinary,1
+MDPI_0306,Land,,2073-445X,MDPI,Multidisciplinary,1
+MDPI_0307,Languages,,2226-471X,MDPI,Multidisciplinary,1
+MDPI_0308,Laws,,2075-471X,MDPI,Multidisciplinary,1
+MDPI_0309,Life,,2075-1729,MDPI,Multidisciplinary,1
+MDPI_0310,Lights,,3042-7886,MDPI,Multidisciplinary,1
+MDPI_0311,Limnological Review,,2300-7575,MDPI,Multidisciplinary,1
+MDPI_0312,Lipidology,,2813-7086,MDPI,Multidisciplinary,1
+MDPI_0313,Liquids,,2673-8015,MDPI,Multidisciplinary,1
+MDPI_0314,Literature,,2410-9789,MDPI,Multidisciplinary,1
+MDPI_0315,Livers,,2673-4389,MDPI,Multidisciplinary,1
+MDPI_0316,Logics,,2813-0405,MDPI,Multidisciplinary,1
+MDPI_0317,Logistics,,2305-6290,MDPI,Multidisciplinary,1
+MDPI_0318,Low-Altitude Economy,,3042-934X,MDPI,Multidisciplinary,1
+MDPI_0319,Lubricants,,2075-4442,MDPI,Multidisciplinary,1
+MDPI_0320,Lymphatics,,2813-3307,MDPI,Multidisciplinary,1
+MDPI_0321,Machine Learning and Knowledge Extraction,,2504-4990,MDPI,Multidisciplinary,1
+MDPI_0322,Machines,,2075-1702,MDPI,Multidisciplinary,1
+MDPI_0323,Macromol,,2673-6209,MDPI,Multidisciplinary,1
+MDPI_0324,Magnetism,,2673-8724,MDPI,Multidisciplinary,1
+MDPI_0325,Magnetochemistry,,2312-7481,MDPI,Multidisciplinary,1
+MDPI_0326,Marine Drugs,,1660-3397,MDPI,Multidisciplinary,1
+MDPI_0327,Materials,,1996-1944,MDPI,Multidisciplinary,1
+MDPI_0328,Materials Proceedings *,,2673-4605,MDPI,Multidisciplinary,1
+MDPI_0329,Mathematical and Computational Applications,,2297-8747,MDPI,Multidisciplinary,1
+MDPI_0330,Mathematics,,2227-7390,MDPI,Multidisciplinary,1
+MDPI_0331,Medical Sciences,,2076-3271,MDPI,Multidisciplinary,1
+MDPI_0332,Medical Sciences Forum *,,2673-9992,MDPI,Multidisciplinary,1
+MDPI_0333,Medicina,,1648-9144,MDPI,Multidisciplinary,1
+MDPI_0334,Medicines,,2305-6320,MDPI,Multidisciplinary,1
+MDPI_0335,Membranes,,2077-0375,MDPI,Multidisciplinary,1
+MDPI_0336,Merits,,2673-8104,MDPI,Multidisciplinary,1
+MDPI_0337,Metabolites,,2218-1989,MDPI,Multidisciplinary,1
+MDPI_0338,Metals,,2075-4701,MDPI,Multidisciplinary,1
+MDPI_0339,Meteorology,,2674-0494,MDPI,Multidisciplinary,1
+MDPI_0340,Methane,,2674-0389,MDPI,Multidisciplinary,1
+MDPI_0341,Methods and Protocols,,2409-9279,MDPI,Multidisciplinary,1
+MDPI_0342,Metrics,,3042-5042,MDPI,Multidisciplinary,1
+MDPI_0343,Metrology,,2673-8244,MDPI,Multidisciplinary,1
+MDPI_0344,Micro,,2673-8023,MDPI,Multidisciplinary,1
+MDPI_0345,Microbiology Research,,2036-7481,MDPI,Multidisciplinary,1
+MDPI_0346,Microelectronics,,3042-5344,MDPI,Multidisciplinary,1
+MDPI_0347,Micromachines,,2072-666X,MDPI,Multidisciplinary,1
+MDPI_0348,Microorganisms,,2076-2607,MDPI,Multidisciplinary,1
+MDPI_0349,Microplastics,,2673-8929,MDPI,Multidisciplinary,1
+MDPI_0350,Microwave,,3042-5697,MDPI,Multidisciplinary,1
+MDPI_0351,Minerals,,2075-163X,MDPI,Multidisciplinary,1
+MDPI_0352,Mining,,2673-6489,MDPI,Multidisciplinary,1
+MDPI_0353,Modelling,,2673-3951,MDPI,Multidisciplinary,1
+MDPI_0354,Modern Mathematical Physics,,3042-5034,MDPI,Multidisciplinary,1
+MDPI_0355,Molbank,,1422-8599,MDPI,Multidisciplinary,1
+MDPI_0356,Molecules,,1420-3049,MDPI,Multidisciplinary,1
+MDPI_0357,Multimedia,,3042-6308,MDPI,Multidisciplinary,1
+MDPI_0358,Multimodal Technologies and Interaction,,2414-4088,MDPI,Multidisciplinary,1
+MDPI_0359,Muscles,,2813-0413,MDPI,Multidisciplinary,1
+MDPI_0360,Nanoenergy Advances,,2673-706X,MDPI,Multidisciplinary,1
+MDPI_0361,Nanomanufacturing,,2673-687X,MDPI,Multidisciplinary,1
+MDPI_0362,Nanomaterials,,2079-4991,MDPI,Multidisciplinary,1
+MDPI_0363,NDT,,2813-477X,MDPI,Multidisciplinary,1
+MDPI_0364,Network,,2673-8732,MDPI,Multidisciplinary,1
+MDPI_0365,Neuroglia,,2571-6980,MDPI,Multidisciplinary,1
+MDPI_0366,Neuroimaging,,3042-8807,MDPI,Multidisciplinary,1
+MDPI_0367,Neurology International,,2035-8377,MDPI,Multidisciplinary,1
+MDPI_0368,NeuroSci,,2673-4087,MDPI,Multidisciplinary,1
+MDPI_0369,Nitrogen,,2504-3129,MDPI,Multidisciplinary,1
+MDPI_0370,Non-Coding RNA,,2311-553X,MDPI,Multidisciplinary,1
+MDPI_0371,Nursing Reports,,2039-4403,MDPI,Multidisciplinary,1
+MDPI_0372,Nutraceuticals,,1661-3821,MDPI,Multidisciplinary,1
+MDPI_0373,Nutrients,,2072-6643,MDPI,Multidisciplinary,1
+MDPI_0374,Obesities,,2673-4168,MDPI,Multidisciplinary,1
+MDPI_0375,Occupational Health,,3042-8637,MDPI,Multidisciplinary,1
+MDPI_0376,Oceans,,2673-1924,MDPI,Multidisciplinary,1
+MDPI_0377,Onco,,2673-7523,MDPI,Multidisciplinary,1
+MDPI_0378,Optics,,2673-3269,MDPI,Multidisciplinary,1
+MDPI_0379,Oral,,2673-6373,MDPI,Multidisciplinary,1
+MDPI_0380,Organics,,2673-401X,MDPI,Multidisciplinary,1
+MDPI_0381,Organoids,,2674-1172,MDPI,Multidisciplinary,1
+MDPI_0382,Osteology,,2673-4036,MDPI,Multidisciplinary,1
+MDPI_0383,Oxygen,,2673-9801,MDPI,Multidisciplinary,1
+MDPI_0384,Pandemics,,3042-9323,MDPI,Multidisciplinary,1
+MDPI_0385,Parasitologia,,2673-6772,MDPI,Multidisciplinary,1
+MDPI_0386,Particles,,2571-712X,MDPI,Multidisciplinary,1
+MDPI_0387,Pathogens,,2076-0817,MDPI,Multidisciplinary,1
+MDPI_0388,Pathophysiology,,1873-149X,MDPI,Multidisciplinary,1
+MDPI_0389,Peace Studies,,3042-6529,MDPI,Multidisciplinary,1
+MDPI_0390,Pediatric Reports,,2036-7503,MDPI,Multidisciplinary,1
+MDPI_0391,Pets,,2813-9372,MDPI,Multidisciplinary,1
+MDPI_0392,Pharmaceuticals,,1424-8247,MDPI,Multidisciplinary,1
+MDPI_0393,Pharmaceutics,,1999-4923,MDPI,Multidisciplinary,1
+MDPI_0394,Pharmacoepidemiology,,2813-0618,MDPI,Multidisciplinary,1
+MDPI_0395,Pharmacy,,2226-4787,MDPI,Multidisciplinary,1
+MDPI_0396,Philosophies,,2409-9287,MDPI,Multidisciplinary,1
+MDPI_0397,Photochem,,2673-7256,MDPI,Multidisciplinary,1
+MDPI_0398,Photonics,,2304-6732,MDPI,Multidisciplinary,1
+MDPI_0399,Phycology,,2673-9410,MDPI,Multidisciplinary,1
+MDPI_0400,Physchem,,2673-7167,MDPI,Multidisciplinary,1
+MDPI_0401,Physical Sciences Forum *,,2673-9984,MDPI,Multidisciplinary,1
+MDPI_0402,Physics,,2624-8174,MDPI,Multidisciplinary,1
+MDPI_0403,Physiologia,,2673-9488,MDPI,Multidisciplinary,1
+MDPI_0404,Plants,,2223-7747,MDPI,Multidisciplinary,1
+MDPI_0405,Plasma,,2571-6182,MDPI,Multidisciplinary,1
+MDPI_0406,Platforms,,2813-4176,MDPI,Multidisciplinary,1
+MDPI_0407,Pollutants,,2673-4672,MDPI,Multidisciplinary,1
+MDPI_0408,Polymers,,2073-4360,MDPI,Multidisciplinary,1
+MDPI_0409,Polysaccharides,,2673-4176,MDPI,Multidisciplinary,1
+MDPI_0410,Populations,,3042-4372,MDPI,Multidisciplinary,1
+MDPI_0411,Poultry,,2674-1164,MDPI,Multidisciplinary,1
+MDPI_0412,Powders,,2674-0516,MDPI,Multidisciplinary,1
+MDPI_0413,Precision Oncology,,3042-7614,MDPI,Multidisciplinary,1
+MDPI_0414,Primary and Hospital Care,,3042-9897,MDPI,Multidisciplinary,1
+MDPI_0415,Proceedings *,,2504-3900,MDPI,Multidisciplinary,1
+MDPI_0416,Processes,,2227-9717,MDPI,Multidisciplinary,1
+MDPI_0417,Prosthesis,,2673-1592,MDPI,Multidisciplinary,1
+MDPI_0418,Proteomes,,2227-7382,MDPI,Multidisciplinary,1
+MDPI_0419,Psychiatry International,,2673-5318,MDPI,Multidisciplinary,1
+MDPI_0420,Psychoactives,,2813-1851,MDPI,Multidisciplinary,1
+MDPI_0421,Psychology International,,2813-9844,MDPI,Multidisciplinary,1
+MDPI_0422,Publications,,2304-6775,MDPI,Multidisciplinary,1
+MDPI_0423,Purification,,3042-6197,MDPI,Multidisciplinary,1
+MDPI_0424,Quantum Beam Science,,2412-382X,MDPI,Multidisciplinary,1
+MDPI_0425,Quantum Reports,,2624-960X,MDPI,Multidisciplinary,1
+MDPI_0426,Quaternary,,2571-550X,MDPI,Multidisciplinary,1
+MDPI_0427,Radiation,,2673-592X,MDPI,Multidisciplinary,1
+MDPI_0428,Reactions,,2624-781X,MDPI,Multidisciplinary,1
+MDPI_0429,Real Estate,,2813-8090,MDPI,Multidisciplinary,1
+MDPI_0430,Receptors,,2813-2564,MDPI,Multidisciplinary,1
+MDPI_0431,Recycling,,2313-4321,MDPI,Multidisciplinary,1
+MDPI_0432,Regional Science and Environmental Economics,,3042-4658,MDPI,Multidisciplinary,1
+MDPI_0433,Religions,,2077-1444,MDPI,Multidisciplinary,1
+MDPI_0434,Remote Sensing,,2072-4292,MDPI,Multidisciplinary,1
+MDPI_0435,Reports,,2571-841X,MDPI,Multidisciplinary,1
+MDPI_0436,Reproductive Medicine,,2673-3897,MDPI,Multidisciplinary,1
+MDPI_0437,Resources,,2079-9276,MDPI,Multidisciplinary,1
+MDPI_0438,Rheumato,,2674-0621,MDPI,Multidisciplinary,1
+MDPI_0439,Risks,,2227-9091,MDPI,Multidisciplinary,1
+MDPI_0440,Robotics,,2218-6581,MDPI,Multidisciplinary,1
+MDPI_0441,Romanian Journal of Preventive Medicine,,3091-101X,MDPI,Multidisciplinary,1
+MDPI_0442,Ruminants,,2673-933X,MDPI,Multidisciplinary,1
+MDPI_0443,Safety,,2313-576X,MDPI,Multidisciplinary,1
+MDPI_0444,Sci,,2413-4155,MDPI,Multidisciplinary,1
+MDPI_0445,Scientia Pharmaceutica,,2218-0532,MDPI,Multidisciplinary,1
+MDPI_0446,Sclerosis,,2813-3064,MDPI,Multidisciplinary,1
+MDPI_0447,Seeds,,2674-1024,MDPI,Multidisciplinary,1
+MDPI_0448,Semiconductors and Heterogeneous Integration,,3042-9013,MDPI,Multidisciplinary,1
+MDPI_0449,Sensors,,1424-8220,MDPI,Multidisciplinary,1
+MDPI_0450,Separations,,2297-8739,MDPI,Multidisciplinary,1
+MDPI_0451,Sexes,,2411-5118,MDPI,Multidisciplinary,1
+MDPI_0452,Signals,,2624-6120,MDPI,Multidisciplinary,1
+MDPI_0453,Sinusitis,,2673-351X,MDPI,Multidisciplinary,1
+MDPI_0454,Smart Cities,,2624-6511,MDPI,Multidisciplinary,1
+MDPI_0455,Social Sciences,,2076-0760,MDPI,Multidisciplinary,1
+MDPI_0456,Société Internationale d’Urologie Journal,,2563-6499,MDPI,Multidisciplinary,1
+MDPI_0457,Societies,,2075-4698,MDPI,Multidisciplinary,1
+MDPI_0458,Software,,2674-113X,MDPI,Multidisciplinary,1
+MDPI_0459,Soil Systems,,2571-8789,MDPI,Multidisciplinary,1
+MDPI_0460,Solar,,2673-9941,MDPI,Multidisciplinary,1
+MDPI_0461,Solids,,2673-6497,MDPI,Multidisciplinary,1
+MDPI_0462,Spectroscopy Journal,,2813-446X,MDPI,Multidisciplinary,1
+MDPI_0463,Sports,,2075-4663,MDPI,Multidisciplinary,1
+MDPI_0464,Standards,,2305-6703,MDPI,Multidisciplinary,1
+MDPI_0465,Stats,,2571-905X,MDPI,Multidisciplinary,1
+MDPI_0466,Stratigraphy and Sedimentology,,3042-884X,MDPI,Multidisciplinary,1
+MDPI_0467,Stresses,,2673-7140,MDPI,Multidisciplinary,1
+MDPI_0468,Surfaces,,2571-9637,MDPI,Multidisciplinary,1
+MDPI_0469,Surgeries,,2673-4095,MDPI,Multidisciplinary,1
+MDPI_0470,Surgical Techniques Development,,2038-9582,MDPI,Multidisciplinary,1
+MDPI_0471,Sustainability,,2071-1050,MDPI,Multidisciplinary,1
+MDPI_0472,Sustainable Chemistry,,2673-4079,MDPI,Multidisciplinary,1
+MDPI_0473,"Swiss Archives of Neurology, Psychiatry and Psychotherapy",,2297-7007,MDPI,Multidisciplinary,1
+MDPI_0474,Symmetry,,2073-8994,MDPI,Multidisciplinary,1
+MDPI_0475,SynBio,,2674-0583,MDPI,Multidisciplinary,1
+MDPI_0476,Systems,,2079-8954,MDPI,Multidisciplinary,1
+MDPI_0477,Targets,,2813-3137,MDPI,Multidisciplinary,1
+MDPI_0478,Taxonomy,,2673-6500,MDPI,Multidisciplinary,1
+MDPI_0479,Technologies,,2227-7080,MDPI,Multidisciplinary,1
+MDPI_0480,Telecom,,2673-4001,MDPI,Multidisciplinary,1
+MDPI_0481,Textiles,,2673-7248,MDPI,Multidisciplinary,1
+MDPI_0482,Thalassemia Reports,,2039-4365,MDPI,Multidisciplinary,1
+MDPI_0483,Theoretical and Applied Ergonomics,,3042-7126,MDPI,Multidisciplinary,1
+MDPI_0484,Therapeutics,,2813-9909,MDPI,Multidisciplinary,1
+MDPI_0485,Thermo,,2673-7264,MDPI,Multidisciplinary,1
+MDPI_0486,Time and Space,,2813-9526,MDPI,Multidisciplinary,1
+MDPI_0487,Tomography,,2379-139X,MDPI,Multidisciplinary,1
+MDPI_0488,Tourism and Hospitality,,2673-5768,MDPI,Multidisciplinary,1
+MDPI_0489,Toxics,,2305-6304,MDPI,Multidisciplinary,1
+MDPI_0490,Toxins,,2072-6651,MDPI,Multidisciplinary,1
+MDPI_0491,Transplantology,,2673-3943,MDPI,Multidisciplinary,1
+MDPI_0492,Trauma Care,,2673-866X,MDPI,Multidisciplinary,1
+MDPI_0493,Trends in Higher Education,,2813-4346,MDPI,Multidisciplinary,1
+MDPI_0494,Trends in Public Health,,3042-8181,MDPI,Multidisciplinary,1
+MDPI_0495,Tropical Medicine and Infectious Disease,,2414-6366,MDPI,Multidisciplinary,1
+MDPI_0496,Universe,,2218-1997,MDPI,Multidisciplinary,1
+MDPI_0497,Urban Science,,2413-8851,MDPI,Multidisciplinary,1
+MDPI_0498,Uro,,2673-4397,MDPI,Multidisciplinary,1
+MDPI_0499,Vaccines,,2076-393X,MDPI,Multidisciplinary,1
+MDPI_0500,Vehicles,,2624-8921,MDPI,Multidisciplinary,1
+MDPI_0501,Venereology,,2674-0710,MDPI,Multidisciplinary,1
+MDPI_0502,Veterinary Sciences,,2306-7381,MDPI,Multidisciplinary,1
+MDPI_0503,Vibration,,2571-631X,MDPI,Multidisciplinary,1
+MDPI_0504,Virtual Worlds,,2813-2084,MDPI,Multidisciplinary,1
+MDPI_0505,Viruses,,1999-4915,MDPI,Multidisciplinary,1
+MDPI_0506,Vision,,2411-5150,MDPI,Multidisciplinary,1
+MDPI_0507,Waste,,2813-0391,MDPI,Multidisciplinary,1
+MDPI_0508,Water,,2073-4441,MDPI,Multidisciplinary,1
+MDPI_0509,Welding,,3042-9617,MDPI,Multidisciplinary,1
+MDPI_0510,Wild,,3042-4526,MDPI,Multidisciplinary,1
+MDPI_0511,Wind,,2674-032X,MDPI,Multidisciplinary,1
+MDPI_0512,Women,,2673-4184,MDPI,Multidisciplinary,1
+MDPI_0513,World,,2673-4060,MDPI,Multidisciplinary,1
+MDPI_0514,World Electric Vehicle Journal,,2032-6653,MDPI,Multidisciplinary,1
+MDPI_0515,Youth,,2673-995X,MDPI,Multidisciplinary,1
+MDPI_0516,Zoonotic Diseases,,2813-0227,MDPI,Multidisciplinary,1

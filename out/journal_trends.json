@@ -1,0 +1,106 @@
+{
+  "as_of": "2026-05-01",
+  "primary_window_months": 24,
+  "trend_window_months": 6,
+  "journals": {
+    "Biomedical Data Reports": {
+      "window_primary": {
+        "article_count": 1,
+        "received_to_accepted": {
+          "count": 1,
+          "median": 65.0,
+          "p25": 65.0,
+          "p75": 65.0
+        },
+        "accepted_to_online": {
+          "count": 1,
+          "median": 2.0,
+          "p25": 2.0,
+          "p75": 2.0
+        }
+      },
+      "window_recent": {
+        "article_count": 1,
+        "received_to_accepted": {
+          "count": 1,
+          "median": 65.0,
+          "p25": 65.0,
+          "p75": 65.0
+        },
+        "accepted_to_online": {
+          "count": 1,
+          "median": 2.0,
+          "p25": 2.0,
+          "p75": 2.0
+        }
+      },
+      "trend_days_received_to_accepted_recent_minus_primary": 0.0
+    },
+    "Computing Systems Letters": {
+      "window_primary": {
+        "article_count": 2,
+        "received_to_accepted": {
+          "count": 2,
+          "median": 114.0,
+          "p25": 104.5,
+          "p75": 123.5
+        },
+        "accepted_to_online": {
+          "count": 2,
+          "median": 2.0,
+          "p25": 2.0,
+          "p75": 2.0
+        }
+      },
+      "window_recent": {
+        "article_count": 0,
+        "received_to_accepted": {
+          "count": 0,
+          "median": null,
+          "p25": null,
+          "p75": null
+        },
+        "accepted_to_online": {
+          "count": 0,
+          "median": null,
+          "p25": null,
+          "p75": null
+        }
+      },
+      "trend_days_received_to_accepted_recent_minus_primary": null
+    },
+    "Journal of Example Studies": {
+      "window_primary": {
+        "article_count": 2,
+        "received_to_accepted": {
+          "count": 2,
+          "median": 124.5,
+          "p25": 111.75,
+          "p75": 137.25
+        },
+        "accepted_to_online": {
+          "count": 2,
+          "median": 1.0,
+          "p25": 1.0,
+          "p75": 1.0
+        }
+      },
+      "window_recent": {
+        "article_count": 2,
+        "received_to_accepted": {
+          "count": 2,
+          "median": 124.5,
+          "p25": 111.75,
+          "p75": 137.25
+        },
+        "accepted_to_online": {
+          "count": 2,
+          "median": 1.0,
+          "p25": 1.0,
+          "p75": 1.0
+        }
+      },
+      "trend_days_received_to_accepted_recent_minus_primary": 0.0
+    }
+  }
+}

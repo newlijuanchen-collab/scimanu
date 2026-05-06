@@ -1,0 +1,18 @@
+{
+  "total_input": 16523,
+  "valid_records": 16523,
+  "invalid_records": 0,
+  "coverage_days_received_to_accepted": 0.27004781214065243,
+  "by_extraction_status": {
+    "metadata_only": 11454,
+    "ok": 5058,
+    "pmc_fetch_failed": 11
+  },
+  "by_source_channel": {
+    "crossref_metadata": 11433,
+    "pmc_xml": 3539,
+    "pubmed_metadata": 30,
+    "pubmed_history": 1521
+  },
+  "invalid_examples": []
+}

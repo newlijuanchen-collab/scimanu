@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ReviewTime — Citation Checker</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"/>
+  <link rel="stylesheet" href="../assets/css/app.css"/>
+  <style>
+    .ref-input { font-family: monospace; font-size: 0.82rem; min-height: 160px; }
+    .result-doi  { font-size: 0.75rem; color: #626976; }
+    .status-icon { font-size: 1.1rem; }
+    .graph-container { height: 480px; width: 100%; }
+    .retracted-alert { background:#fff5f5; border:1px solid #f5c2c7; border-radius:6px; padding:8px 14px; font-size:0.82rem; }
+  </style>
+</head>
+<body class="antialiased">
+
+<!-- Navbar -->
+<header class="navbar navbar-expand-md navbar-light d-print-none sticky-top bg-white border-bottom">
+  <div class="container-xl">
+    <a href="../index.html" class="navbar-brand navbar-brand-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="me-2 text-primary"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <strong>ReviewTime</strong>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="../index.html">📊 Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="../leaderboard.html">🏆 榜单</a></li>
+        <li class="nav-item"><a class="nav-link" href="../explorer.html">🔍 期刊浏览</a></li>
+        <li class="nav-item"><a class="nav-link" href="../compare.html">⚖️ 对比</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">🔬 工具</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item active" href="citation.html">Citation Checker</a></li>
+            <li><a class="dropdown-item" href="impact.html">Impact Factor 检索</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrapper">
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row align-items-center">
+        <div class="col">
+          <h2 class="page-title">🔬 Citation Checker</h2>
+          <div class="text-muted fs-6">验证参考文献、检测撤稿、探索引用关系图谱</div>
+        </div>
+        <div class="col-auto">
+          <span class="badge bg-blue-lt">Phase 2 工具</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container-xl">
+
+      <!-- API notice -->
+      <div class="alert alert-info mb-3" style="font-size:0.82rem;">
+        <strong>数据来源：</strong>
+        <a href="https://www.crossref.org" target="_blank">Crossref</a>（引用验证）·
+        <a href="https://openalex.org" target="_blank">OpenAlex</a>（引用图谱）· 均为免费公开 API，无需注册。结果会缓存 24 小时于浏览器本地存储。
+      </div>
+
+      <!-- Tab navigation -->
+      <ul class="nav nav-tabs mb-4" id="toolTabs">
+        <li class="nav-item"><a class="nav-link active" href="#" onclick="switchMode('single',this)">🔍 单篇查询</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="switchMode('batch',this)">📋 批量验证</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="switchMode('graph',this)">🕸️ 引用图谱</a></li>
+      </ul>
+
+      <!-- ── Mode: Single lookup ── -->
+      <div id="mode-single">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row g-2 align-items-end">
+              <div class="col-12 col-md-8">
+                <label class="form-label fw-bold">输入 DOI / PMID / 论文标题</label>
+                <input type="text" class="form-control" id="single-input"
+                  placeholder="e.g. 10.3390/ijms22094607  或  PMID:33922969  或 论文标题…"
+                  onkeydown="if(event.key==='Enter')lookupSingle()">
+              </div>
+              <div class="col-auto">
+                <button class="btn btn-primary" onclick="lookupSingle()" id="btn-single">
+                  <span id="btn-single-spinner" class="spinner-border spinner-border-sm me-1" style="display:none"></span>
+                  查询
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="single-result"></div>
+      </div>
+
+      <!-- ── Mode: Batch verify ── -->
+      <div id="mode-batch" style="display:none">
+        <div class="card mb-3">
+          <div class="card-body">
+            <label class="form-label fw-bold">粘贴参考文献列表</label>
+            <div class="text-muted small mb-2">每行一条，系统自动提取 DOI 并验证（支持含 doi.org/ 的 URL 或裸 DOI）</div>
+            <textarea class="form-control ref-input" id="batch-input"
+              placeholder="1. Smith J, et al. (2021) Title. Journal. doi:10.xxxx/xxxx&#10;2. Wang L, ... https://doi.org/10.yyyy/yyyy&#10;..."></textarea>
+            <div class="mt-2 d-flex gap-2">
+              <button class="btn btn-primary" onclick="runBatch()" id="btn-batch">
+                <span id="btn-batch-spinner" class="spinner-border spinner-border-sm me-1" style="display:none"></span>
+                批量验证
+              </button>
+              <button class="btn btn-outline-secondary" onclick="clearBatch()">清空</button>
+              <button class="btn btn-outline-secondary" onclick="exportBatchCSV()" id="btn-export-batch" style="display:none">⬇ 导出结果</button>
+            </div>
+          </div>
+        </div>
+        <div id="batch-progress" style="display:none" class="mb-2">
+          <div class="progress mb-1" style="height:8px">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" id="batch-bar" style="width:0%"></div>
+          </div>
+          <small class="text-muted" id="batch-progress-text">正在验证…</small>
+        </div>
+        <div id="batch-result"></div>
+      </div>
+
+      <!-- ── Mode: Citation graph ── -->
+      <div id="mode-graph" style="display:none">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row g-2 align-items-end">
+              <div class="col-12 col-md-8">
+                <label class="form-label fw-bold">输入 DOI 查询引用关系图谱</label>
+                <input type="text" class="form-control" id="graph-input"
+                  placeholder="e.g. 10.3390/ijms22094607"
+                  onkeydown="if(event.key==='Enter')buildGraph()">
+              </div>
+              <div class="col-auto">
+                <button class="btn btn-primary" onclick="buildGraph()" id="btn-graph">
+                  <span id="btn-graph-spinner" class="spinner-border spinner-border-sm me-1" style="display:none"></span>
+                  生成图谱
+                </button>
+              </div>
+            </div>
+            <div class="text-muted small mt-1">展示该论文的参考文献（引用来源）和被引文章（双层），最多各 30 条。</div>
+          </div>
+        </div>
+        <div class="card" id="graph-card" style="display:none">
+          <div class="card-header">
+            <h3 class="card-title" id="graph-title">引用关系图谱</h3>
+            <div class="card-options"><small class="text-muted">拖拽节点可重新布局，滚轮缩放</small></div>
+          </div>
+          <div class="card-body p-0">
+            <div id="citation-graph" class="graph-container"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer footer-transparent d-print-none">
+    <div class="container-xl">
+      <div class="footer-note">ReviewTime Citation Checker — 数据来自 Crossref / OpenAlex (CC0)。</div>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="../assets/js/charts.js"></script>
+<script>
+// ── Cache helpers ─────────────────────────────────────────────────────────────
+const CACHE_TTL = 24 * 60 * 60 * 1000;
+function cacheGet(key) {
+  try {
+    const item = JSON.parse(localStorage.getItem('rt_' + key));
+    if (item && Date.now() - item.ts < CACHE_TTL) return item.data;
+  } catch {}
+  return null;
+}
+function cacheSet(key, data) {
+  try { localStorage.setItem('rt_' + key, JSON.stringify({ ts: Date.now(), data })); } catch {}
+}
+
+// ── Tab switching ─────────────────────────────────────────────────────────────
+function switchMode(mode, el) {
+  ['single','batch','graph'].forEach(m =>
+    document.getElementById('mode-'+m).style.display = m===mode ? '' : 'none');
+  document.querySelectorAll('#toolTabs .nav-link').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+  return false;
+}
+
+// ── DOI extraction ────────────────────────────────────────────────────────────
+function extractDOI(text) {
+  const doiPattern = /10\.\d{4,9}\/[^\s"'<>]+/g;
+  const matches = text.match(doiPattern) || [];
+  return matches.map(d => d.replace(/[.,;:)\]]+$/, '')); // strip trailing punctuation
+}
+
+function cleanDOI(raw) {
+  return raw.replace(/^(https?:\/\/)?(dx\.)?doi\.org\//i, '').trim();
+}
+
+// ── API calls ─────────────────────────────────────────────────────────────────
+async function fetchCrossref(doi) {
+  const key = 'cr_' + doi;
+  const cached = cacheGet(key);
+  if (cached) return cached;
+  const url = `https://api.crossref.org/works/${encodeURIComponent(doi)}?mailto=reviewtime@example.com`;
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error(`Crossref ${resp.status}: ${doi}`);
+  const data = (await resp.json()).message;
+  cacheSet(key, data);
+  return data;
+}
+
+async function fetchOpenAlexWork(doi) {
+  const key = 'oa_work_' + doi;
+  const cached = cacheGet(key);
+  if (cached) return cached;
+  const url = `https://api.openalex.org/works/https://doi.org/${encodeURIComponent(doi)}`;
+  const resp = await fetch(url);
+  if (!resp.ok) return null;
+  const data = await resp.json();
+  cacheSet(key, data);
+  return data;
+}
+
+async function fetchOpenAlexRefs(oaId) {
+  const key = 'oa_refs_' + oaId;
+  const cached = cacheGet(key);
+  if (cached) return cached;
+  const url = `https://api.openalex.org/works?filter=cites:${oaId}&per-page=30`;
+  const resp = await fetch(url);
+  if (!resp.ok) return [];
+  const data = (await resp.json()).results || [];
+  cacheSet(key, data);
+  return data;
+}
+
+// ── Single lookup ─────────────────────────────────────────────────────────────
+async function lookupSingle() {
+  const raw = document.getElementById('single-input').value.trim();
+  if (!raw) return;
+  const spinner = document.getElementById('btn-single-spinner');
+  spinner.style.display = 'inline-block';
+  document.getElementById('single-result').innerHTML = '';
+
+  try {
+    // Try to extract DOI
+    let doi = null;
+    const doiMatch = extractDOI(raw);
+    if (doiMatch.length) {
+      doi = cleanDOI(doiMatch[0]);
+    } else if (/^10\.\d{4,}/.test(raw)) {
+      doi = cleanDOI(raw);
+    }
+
+    if (!doi) {
+      document.getElementById('single-result').innerHTML =
+        `<div class="alert alert-warning">未能识别 DOI，请直接粘贴 DOI（如 10.xxxx/xxxxx）</div>`;
+      return;
+    }
+
+    const crData = await fetchCrossref(doi);
+    const oaData = await fetchOpenAlexWork(doi);
+
+    const title     = (crData.title||[]).join('') || '(无标题)';
+    const authors   = (crData.author||[]).slice(0,5).map(a=>(a.family||'')+' '+(a.given||'')).join(', ');
+    const journal   = crData['container-title']?.[0] || '';
+    const year      = crData['published-print']?.['date-parts']?.[0]?.[0]
+                   || crData['published-online']?.['date-parts']?.[0]?.[0] || '';
+    const isRetracted = (crData.relation?.['is-retraction-of']?.length > 0)
+                     || (crData['update-policy']||'').includes('retract')
+                     || ((crData.type||'') === 'journal-article-retraction');
+    const citedBy   = crData['is-referenced-by-count'] || 0;
+    const refCount  = crData['references-count'] || 0;
+    const oaCited   = oaData?.cited_by_count ?? '—';
+    const oaType    = oaData?.type ?? '';
+
+    let html = `<div class="tool-result-card ${isRetracted?'status-retracted':'status-ok'}">`;
+    if (isRetracted) {
+      html += `<div class="retracted-alert mb-2">⚠️ <strong>注意：此文章已被撤稿（Retracted）</strong></div>`;
+    }
+    html += `
+      <div class="row g-3">
+        <div class="col-12 col-md-8">
+          <h4 class="mb-1">${title}</h4>
+          <div class="text-muted small mb-1">${authors}${authors?'…':''}</div>
+          <div class="mb-1"><strong>${journal}</strong>${year?' · '+year:''}</div>
+          <div class="small"><a href="https://doi.org/${doi}" target="_blank">🔗 doi.org/${doi}</a></div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="row g-2 text-center">
+            <div class="col-6">
+              <div class="kpi-label">被引次数</div>
+              <div class="kpi-value fs-4">${citedBy}</div>
+              <div class="kpi-sub">Crossref</div>
+            </div>
+            <div class="col-6">
+              <div class="kpi-label">OpenAlex被引</div>
+              <div class="kpi-value fs-4">${oaCited}</div>
+              <div class="kpi-sub">OpenAlex</div>
+            </div>
+            <div class="col-6">
+              <div class="kpi-label">参考文献数</div>
+              <div class="kpi-value fs-4">${refCount}</div>
+            </div>
+            <div class="col-6">
+              <div class="kpi-label">类型</div>
+              <div class="kpi-value fs-6 mt-2">${oaType||crData.type||'—'}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-2">
+        <button class="btn btn-sm btn-outline-primary" onclick="
+          document.getElementById('graph-input').value='${doi}';
+          switchMode('graph',document.querySelectorAll(\'#toolTabs .nav-link\')[2]);
+          buildGraph();">🕸️ 查看引用图谱</button>
+      </div>
+    `;
+    html += '</div>';
+    document.getElementById('single-result').innerHTML = html;
+  } catch(err) {
+    document.getElementById('single-result').innerHTML =
+      `<div class="alert alert-danger"><strong>查询失败：</strong>${err.message}</div>`;
+  } finally {
+    spinner.style.display = 'none';
+  }
+}
+
+// ── Batch verify ──────────────────────────────────────────────────────────────
+let batchResults = [];
+
+async function runBatch() {
+  const text = document.getElementById('batch-input').value;
+  if (!text.trim()) return;
+
+  // Extract all DOIs
+  const lines = text.split('\n').filter(l=>l.trim());
+  const dois = [];
+  lines.forEach(line => {
+    const found = extractDOI(line);
+    if (found.length) {
+      dois.push({ original: line.trim(), doi: cleanDOI(found[0]) });
+    } else {
+      dois.push({ original: line.trim(), doi: null });
+    }
+  });
+
+  if (!dois.length) {
+    document.getElementById('batch-result').innerHTML =
+      '<div class="alert alert-warning">未检测到任何 DOI，请检查输入格式</div>';
+    return;
+  }
+
+  // Show progress
+  document.getElementById('batch-progress').style.display = '';
+  document.getElementById('btn-batch-spinner').style.display = 'inline-block';
+  batchResults = [];
+
+  for (let i = 0; i < dois.length; i++) {
+    const pct = Math.round((i / dois.length) * 100);
+    document.getElementById('batch-bar').style.width = pct + '%';
+    document.getElementById('batch-progress-text').textContent =
+      `正在验证 ${i+1}/${dois.length}…`;
+
+    const item = dois[i];
+    if (!item.doi) {
+      batchResults.push({ ...item, status: 'no_doi', title: '', citedBy: '' });
+      continue;
+    }
+    try {
+      const data = await fetchCrossref(item.doi);
+      const isRetracted = (data.relation?.['is-retraction-of']?.length > 0) ||
+                          (data['update-policy']||'').includes('retract');
+      batchResults.push({
+        ...item,
+        status: isRetracted ? 'retracted' : 'ok',
+        title: (data.title||[]).join('') || '',
+        journal: data['container-title']?.[0] || '',
+        year: data['published-print']?.['date-parts']?.[0]?.[0] || '',
+        citedBy: data['is-referenced-by-count'] || 0,
+        isRetracted,
+      });
+    } catch {
+      batchResults.push({ ...item, status: 'not_found', title: '', citedBy: '' });
+    }
+    // Rate limit: Crossref polite pool ~ 5 req/s
+    await new Promise(r => setTimeout(r, 220));
+  }
+
+  document.getElementById('batch-bar').style.width = '100%';
+  document.getElementById('batch-progress-text').textContent = `完成！共 ${dois.length} 条`;
+  renderBatchResults();
+  document.getElementById('btn-batch-spinner').style.display = 'none';
+  document.getElementById('btn-export-batch').style.display = '';
+}
+
+function renderBatchResults() {
+  const statusMap = {
+    ok:        { icon:'✅', cls:'', label:'已验证' },
+    retracted: { icon:'🚫', cls:'table-danger', label:'已撤稿' },
+    not_found: { icon:'❓', cls:'table-warning', label:'未找到' },
+    no_doi:    { icon:'➖', cls:'', label:'无DOI' },
+  };
+  const rows = batchResults.map((r,i) => {
+    const s = statusMap[r.status];
+    return `<tr class="${s.cls}">
+      <td>${i+1}</td>
+      <td class="result-doi" title="${r.original}">${r.original.slice(0,80)}${r.original.length>80?'…':''}</td>
+      <td><span class="status-icon">${s.icon}</span> ${s.label}</td>
+      <td>${r.doi ? `<a href="https://doi.org/${r.doi}" target="_blank">${r.doi}</a>` : '—'}</td>
+      <td>${r.title ? r.title.slice(0,60)+(r.title.length>60?'…':'') : '—'}</td>
+      <td>${r.journal||'—'}</td>
+      <td>${r.year||'—'}</td>
+      <td>${r.citedBy??'—'}</td>
+    </tr>`;
+  }).join('');
+
+  const okCount  = batchResults.filter(r=>r.status==='ok').length;
+  const retCount = batchResults.filter(r=>r.status==='retracted').length;
+  const nfCount  = batchResults.filter(r=>r.status==='not_found').length;
+
+  document.getElementById('batch-result').innerHTML = `
+    <div class="d-flex gap-3 mb-2 text-sm">
+      <span class="text-success">✅ 已验证: ${okCount}</span>
+      <span class="text-danger">🚫 已撤稿: ${retCount}</span>
+      <span class="text-warning">❓ 未找到: ${nfCount}</span>
+    </div>
+    <div class="card">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-sm table-vcenter" style="font-size:0.78rem">
+            <thead><tr><th>#</th><th>原始引用</th><th>状态</th><th>DOI</th><th>标题</th><th>期刊</th><th>年份</th><th>被引</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>`;
+}
+
+function clearBatch() {
+  document.getElementById('batch-input').value = '';
+  document.getElementById('batch-result').innerHTML = '';
+  document.getElementById('batch-progress').style.display='none';
+  document.getElementById('btn-export-batch').style.display='none';
+  batchResults = [];
+}
+
+function exportBatchCSV() {
+  if (!batchResults.length) return;
+  const rows = [['#','原始引用','状态','DOI','标题','期刊','年份','被引次数']];
+  batchResults.forEach((r,i) => rows.push([
+    i+1, r.original, r.status, r.doi||'', r.title||'', r.journal||'', r.year||'', r.citedBy??''
+  ]));
+  // Use SheetJS if available (loaded from parent context), else plain CSV
+  if (typeof XLSX !== 'undefined') {
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), 'Citations');
+    XLSX.writeFile(wb, 'citation_check.xlsx');
+  } else {
+    const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+    a.download = 'citation_check.csv';
+    a.click();
+  }
+}
+
+// ── Citation graph ─────────────────────────────────────────────────────────────
+let graphChart = null;
+
+async function buildGraph() {
+  const rawDoi = document.getElementById('graph-input').value.trim();
+  if (!rawDoi) return;
+  const doi = cleanDOI(rawDoi);
+  const spinner = document.getElementById('btn-graph-spinner');
+  spinner.style.display = 'inline-block';
+
+  try {
+    // Fetch center paper from OpenAlex
+    const center = await fetchOpenAlexWork(doi);
+    if (!center) throw new Error('OpenAlex 未找到该 DOI，请确认 DOI 正确');
+
+    const centerNode = { id: center.id, title: center.display_name || doi };
+    document.getElementById('graph-title').textContent =
+      '引用图谱：' + (center.display_name||doi).slice(0,60);
+
+    // References (papers this paper cites) — from OpenAlex referenced_works
+    const refIds = (center.referenced_works || []).slice(0, 30);
+    const refs = refIds.map(id => ({ id, title: id.split('/').pop() }));
+
+    // Papers that cite this paper
+    const citingWorks = await fetchOpenAlexRefs(center.id);
+    const cites = citingWorks.slice(0, 30).map(w => ({ id: w.id, title: w.display_name||w.id }));
+
+    document.getElementById('graph-card').style.display = '';
+    if (!graphChart) {
+      graphChart = echarts.init(document.getElementById('citation-graph'));
+      window.addEventListener('resize', () => graphChart.resize());
+    }
+    graphChart.setOption(Charts.citationGraph(centerNode, refs, cites), true);
+  } catch(err) {
+    document.getElementById('graph-card').style.display = '';
+    document.getElementById('citation-graph').innerHTML =
+      `<div class="alert alert-danger m-3"><strong>图谱构建失败：</strong>${err.message}</div>`;
+  } finally {
+    spinner.style.display = 'none';
+  }
+}
+
+// Load SheetJS for batch export
+const script = document.createElement('script');
+script.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+document.head.appendChild(script);
+</script>
+</body>
+</html>

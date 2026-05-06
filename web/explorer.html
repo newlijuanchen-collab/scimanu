@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ReviewTime — 期刊浏览器</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"/>
+  <link rel="stylesheet" href="assets/css/app.css"/>
+  <style>
+    .journal-expand-btn { cursor: pointer; user-select: none; }
+    .detail-mini-chart { height: 200px; width: 100%; }
+    .article-table { font-size: 0.8rem; }
+  </style>
+</head>
+<body class="antialiased">
+
+<div id="loading-overlay">
+  <div class="spinner-border text-primary" style="width:3rem;height:3rem;"></div>
+  <div class="text-muted mt-2">正在加载数据…</div>
+</div>
+
+<!-- Navbar -->
+<header class="navbar navbar-expand-md navbar-light d-print-none sticky-top bg-white border-bottom">
+  <div class="container-xl">
+    <a href="index.html" class="navbar-brand navbar-brand-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="me-2 text-primary"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <strong>ReviewTime</strong>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="leaderboard.html">🏆 榜单</a></li>
+        <li class="nav-item"><a class="nav-link active" href="explorer.html">🔍 期刊浏览</a></li>
+        <li class="nav-item"><a class="nav-link" href="compare.html">⚖️ 对比</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">🔬 工具</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="tools/citation.html">Citation Checker</a></li>
+            <li><a class="dropdown-item" href="tools/impact.html">Impact Factor 检索</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrapper">
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row align-items-center">
+        <div class="col">
+          <h2 class="page-title">🔍 期刊浏览器</h2>
+          <div class="text-muted fs-6">搜索、筛选期刊，展开查看详情与时序图</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container-xl">
+
+      <!-- Filter bar -->
+      <div class="filter-bar">
+        <div class="filter-item" style="flex:1;min-width:200px;">
+          <label>搜索期刊名 / ISSN</label>
+          <input type="text" class="form-control form-control-sm" id="search-journal" placeholder="输入关键词…" oninput="applyFilters()">
+        </div>
+        <div class="filter-item">
+          <label>出版商</label>
+          <select class="form-select form-select-sm" id="filter-publisher" onchange="applyFilters()">
+            <option value="">全部</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label>学科</label>
+          <select class="form-select form-select-sm" id="filter-subject" onchange="applyFilters()">
+            <option value="">全部</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label>最小样本量</label>
+          <input type="number" class="form-control form-control-sm" id="filter-mincount" value="1" min="1" style="width:70px" onchange="applyFilters()">
+        </div>
+        <div class="filter-item">
+          <label>数据质量</label>
+          <select class="form-select form-select-sm" id="filter-quality" onchange="applyFilters()">
+            <option value="all">全部</option>
+            <option value="high">仅高置信度</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Result count -->
+      <div class="mb-2 text-muted small" id="result-count"></div>
+
+      <!-- Main table -->
+      <div class="card">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table id="table-explorer" class="table table-vcenter table-reviewtime table-hover" style="width:100%">
+              <thead>
+                <tr>
+                  <th style="width:30px"></th>
+                  <th>期刊名</th>
+                  <th>ISSN</th>
+                  <th>出版商</th>
+                  <th>学科</th>
+                  <th>中位(天)</th>
+                  <th>P25–P75</th>
+                  <th>样本量</th>
+                  <th>趋势</th>
+                  <th>速度</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-explorer"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer footer-transparent d-print-none">
+    <div class="container-xl">
+      <div class="footer-note">ReviewTime — 数据来自 PubMed/PMC/Crossref，仅供参考。</div>
+    </div>
+  </footer>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="assets/js/data-loader.js"></script>
+<script src="assets/js/charts.js"></script>
+<script>
+let ALL_JOURNALS = [];
+let ALL_ROWS = [];
+let dtExplorer = null;
+let expandedRow = null; // currently expanded detail row
+let expandedChart = null;
+
+function speedBadge(days) {
+  const idx = days<=30?0:days<=60?1:days<=90?2:days<=120?3:days<=180?4:5;
+  const labels = ['极快','快速','正常偏快','正常','偏慢','慢速'];
+  return `<span class="badge-speed speed-${idx}">${labels[idx]}</span>`;
+}
+
+function trendIcon(trend) {
+  if (Math.abs(trend) < 5) return `<span class="trend-flat" title="趋势稳定">→</span>`;
+  if (trend < 0) return `<span class="trend-down" title="正在加速 ${trend}天">↓${trend}天</span>`;
+  return `<span class="trend-up" title="正在减速 +${trend}天">↑+${trend}天</span>`;
+}
+
+function buildRows(journals) {
+  return journals.map((j, i) => {
+    return `<tr data-idx="${i}" class="journal-row">
+      <td class="journal-expand-btn text-muted" onclick="toggleDetail(${i},this)">▶</td>
+      <td><strong>${j.label}</strong>${j.name && j.name!==j.label ? `<br/><small class="text-muted">${j.name}</small>` : ''}</td>
+      <td><small>${j.issn||'—'}</small></td>
+      <td><small>${j.publisher||'—'}</small></td>
+      <td><small>${j.subject||'—'}</small></td>
+      <td><strong>${j.median}</strong></td>
+      <td><small>${j.p25}–${j.p75}</small></td>
+      <td>${j.count}</td>
+      <td>${trendIcon(j.trend)}</td>
+      <td>${speedBadge(j.median)}</td>
+      <td>
+        <a href="compare.html?add=${encodeURIComponent(j.label)}" class="btn btn-xs btn-outline-primary me-1">+ 对比</a>
+        ${j.issn ? `<a href="tools/impact.html?issn=${j.issn}" class="btn btn-xs btn-outline-secondary">IF</a>` : ''}
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function toggleDetail(idx, triggerEl) {
+  const journal = currentFiltered[idx];
+  if (!journal) return;
+
+  // Close existing
+  if (expandedRow) {
+    expandedRow.remove();
+    expandedRow = null;
+    if (expandedChart) { expandedChart.dispose(); expandedChart = null; }
+    // reset all expand buttons
+    document.querySelectorAll('.journal-expand-btn').forEach(b => b.textContent='▶');
+    if (triggerEl.textContent === '▶▼'[1]) { return; } // was already open on same row → close only
+  }
+
+  triggerEl.textContent = '▼';
+  const tr = triggerEl.closest('tr');
+
+  // Build detail row
+  const detailId  = `detail-row-${idx}`;
+  const chartId   = `mini-chart-${idx}`;
+  const articleId = `article-table-${idx}`;
+
+  const detailTr = document.createElement('tr');
+  detailTr.id = detailId;
+  detailTr.className = 'journal-detail-row';
+  detailTr.innerHTML = `<td colspan="11">
+    <div class="row g-3">
+      <div class="col-12 col-md-5">
+        <div class="fw-bold mb-1 small">📈 月度中位审稿天数（近18个月）</div>
+        <div id="${chartId}" class="detail-mini-chart"></div>
+      </div>
+      <div class="col-12 col-md-7">
+        <div class="fw-bold mb-1 small">📄 文章级数据预览（最近20篇）</div>
+        <div class="table-responsive">
+          <table class="table table-sm article-table" id="${articleId}">
+            <thead><tr><th>标题</th><th>收稿日</th><th>接受日</th><th>天数</th><th>DOI</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </td>`;
+
+  tr.after(detailTr);
+  expandedRow = detailTr;
+
+  // Render mini chart
+  const chartEl = document.getElementById(chartId);
+  expandedChart = echarts.init(chartEl);
+  expandedChart.setOption(Charts.journalTimeLine(journal));
+
+  // Render article table
+  const articles = [...journal.articles]
+    .sort((a,b) => (b.accepted_date||0) - (a.accepted_date||0))
+    .slice(0, 20);
+  const tbody = detailTr.querySelector(`#${articleId} tbody`);
+  tbody.innerHTML = articles.map(a => {
+    const rec = a.received_date ? a.received_date.toLocaleDateString('zh-CN') : '—';
+    const acc = a.accepted_date ? a.accepted_date.toLocaleDateString('zh-CN') : '—';
+    const doiLink = a.doi ? `<a href="https://doi.org/${a.doi}" target="_blank">🔗</a>` : '—';
+    const title = a.title ? a.title.slice(0,60) + (a.title.length>60?'…':'') : '(无标题)';
+    return `<tr>
+      <td title="${a.title}">${title}</td>
+      <td>${rec}</td>
+      <td>${acc}</td>
+      <td><strong>${a.days}</strong></td>
+      <td>${doiLink}</td>
+    </tr>`;
+  }).join('');
+}
+
+let currentFiltered = [];
+
+function applyFilters() {
+  const search    = document.getElementById('search-journal').value.toLowerCase().trim();
+  const publisher = document.getElementById('filter-publisher').value;
+  const subject   = document.getElementById('filter-subject').value;
+  const minCount  = parseInt(document.getElementById('filter-mincount').value) || 1;
+  const quality   = document.getElementById('filter-quality').value;
+
+  currentFiltered = DataLoader.filterJournals(ALL_JOURNALS, {
+    publishers: publisher ? [publisher] : [],
+    subjects:   subject   ? [subject]   : [],
+    minCount,
+  }).filter(j => {
+    if (search && !j.label.toLowerCase().includes(search) &&
+        !j.name.toLowerCase().includes(search) &&
+        !(j.issn||'').includes(search)) return false;
+    return true;
+  });
+
+  document.getElementById('result-count').textContent = `共 ${currentFiltered.length} 本期刊`;
+  const tbody = document.getElementById('tbody-explorer');
+  tbody.innerHTML = buildRows(currentFiltered);
+
+  // Close any open detail
+  if (expandedRow) { expandedRow.remove(); expandedRow=null; }
+  if (expandedChart) { expandedChart.dispose(); expandedChart=null; }
+}
+
+async function main() {
+  try {
+    const { journals, stats } = await DataLoader.load();
+    ALL_JOURNALS = journals;
+    currentFiltered = journals;
+
+    // Populate filters
+    const pubSel = document.getElementById('filter-publisher');
+    const subSel = document.getElementById('filter-subject');
+    stats.publishers.forEach(p => { const o=document.createElement('option');o.value=p;o.textContent=p;pubSel.appendChild(o); });
+    stats.subjects.forEach(s => { const o=document.createElement('option');o.value=s;o.textContent=s;subSel.appendChild(o); });
+
+    // Check URL for pre-selected ISSN
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('issn')) {
+      document.getElementById('search-journal').value = params.get('issn');
+    }
+
+    applyFilters();
+  } catch(err) {
+    document.getElementById('loading-overlay').innerHTML =
+      `<div class="alert alert-danger mx-3"><strong>加载失败：</strong>${err.message}</div>`;
+    return;
+  }
+  const ov = document.getElementById('loading-overlay');
+  ov.classList.add('hidden');
+  setTimeout(()=>ov.style.display='none',400);
+}
+
+main();
+</script>
+</body>
+</html>

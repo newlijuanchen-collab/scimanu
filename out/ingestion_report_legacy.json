@@ -1,0 +1,13 @@
+{
+  "total_input": 3,
+  "valid_records": 3,
+  "invalid_records": 0,
+  "coverage_days_received_to_accepted": 0.6666666666666666,
+  "by_extraction_status": {
+    "ok": 3
+  },
+  "by_source_channel": {
+    "pmc_xml": 3
+  },
+  "invalid_examples": []
+}

@@ -1,0 +1,9 @@
+{
+  "input_file": "data\\journals_seed.csv",
+  "total_rows": 516,
+  "valid_rows": 516,
+  "active_rows": 516,
+  "normalized_unique_issn": 516,
+  "invalid_rows": 0,
+  "invalid_examples": []
+}
