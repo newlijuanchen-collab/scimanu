@@ -17,14 +17,27 @@ export function DashboardView() {
   const heatmapOption = useMemo(() => buildHeatmapOption(journals.slice(0, 20), 3), [journals])
 
   if (loading) return <div className="card-rt p-8 text-slate-500">{t('common.loading')}</div>
-  if (error) return <div className="card-rt p-8 text-red-600">{t('common.error')}: {error}</div>
+  if (error) return <div className="card-rt p-8 text-red-600">{t('common.error')}: {error} · {t('common.errorDetail')}</div>
   if (!stats) return <div className="card-rt p-8 text-slate-500">{t('common.noData')}</div>
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="page-title">{t('dashboard.title')}</h1>
-        <p className="page-subtitle">{t('dashboard.subtitle')}</p>
+      <header className="rounded-2xl border border-primary-100 bg-gradient-to-br from-primary-50 via-white to-white p-6 md:p-8">
+        <p className="text-xs font-semibold uppercase tracking-widest text-primary-600">Review Intelligence</p>
+        <h1 className="mt-2 page-title">{t('dashboard.title')}</h1>
+        <p className="page-subtitle max-w-3xl">{t('dashboard.subtitle')}</p>
+
+        <div className="mt-5 flex flex-wrap gap-2 text-xs">
+          <span className="rounded-full bg-white px-3 py-1 text-slate-700 ring-1 ring-slate-200">
+            {t('dashboard.kpi.journals')}: {formatNumber(stats.totalJournals)}
+          </span>
+          <span className="rounded-full bg-white px-3 py-1 text-slate-700 ring-1 ring-slate-200">
+            {t('dashboard.kpi.articles')}: {formatNumber(stats.totalArticles)}
+          </span>
+          <span className="rounded-full bg-white px-3 py-1 text-slate-700 ring-1 ring-slate-200">
+            Median: {formatNumber(stats.globalMedian)} {t('common.days')}
+          </span>
+        </div>
       </header>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">

@@ -159,7 +159,7 @@
   "common": {
     "loading": "Loading data, please wait…",
     "error": "Load failed",
-    "errorDetail": "Please ensure data.xlsx exists in the web/ directory",
+    "errorDetail": "Please check Supabase environment variables and table permissions.",
     "noData": "No data matching current filters",
     "days": "days",
     "unknown": "—",

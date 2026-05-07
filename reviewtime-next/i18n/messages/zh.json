@@ -159,7 +159,7 @@
   "common": {
     "loading": "正在加载数据，请稍候…",
     "error": "加载失败",
-    "errorDetail": "请确保 data.xlsx 存在于 web/ 目录下",
+    "errorDetail": "请检查 Supabase 环境变量配置及数据表访问权限。",
     "noData": "暂无符合条件的数据",
     "days": "天",
     "unknown": "—",

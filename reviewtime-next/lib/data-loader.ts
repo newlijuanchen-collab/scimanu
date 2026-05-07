@@ -1,7 +1,6 @@
 /**
  * data-loader.ts
- * Client-side XLSX parsing, cleaning, and aggregation.
- * Ported from web/assets/js/data-loader.js with TypeScript types.
+ * Data cleaning and aggregation utilities.
  */
 
 import type { RawRow, CleanRow, JournalStats, GlobalStats, LoadedData, JournalFilter } from './types'
@@ -217,24 +216,10 @@ export function computeGlobalStats(rows: CleanRow[], journals: JournalStats[]): 
   }
 }
 
-// ─── XLSX Loading (client-side only) ─────────────────────────────────────────
-
-export async function loadFromXLSX(url: string): Promise<LoadedData> {
-  // Dynamic import to avoid SSR issues
-  const XLSX = await import('xlsx')
-  
-  const resp = await fetch(url)
-  if (!resp.ok) throw new Error(`Failed to load ${url}: ${resp.status}`)
-  const ab = await resp.arrayBuffer()
-  const workbook = XLSX.read(ab, { type: 'array', cellDates: true })
-  const sheetName = workbook.SheetNames[0]
-  const sheet = workbook.Sheets[sheetName]
-  const rawRows = XLSX.utils.sheet_to_json(sheet, { defval: null }) as RawRow[]
-
-  const rows    = cleanRows(rawRows)
+export function buildLoadedData(rawRows: RawRow[]): LoadedData {
+  const rows = cleanRows(rawRows)
   const journals = aggregateByJournal(rows)
-  const stats   = computeGlobalStats(rows, journals)
-
+  const stats = computeGlobalStats(rows, journals)
   return { rows, journals, stats }
 }
 

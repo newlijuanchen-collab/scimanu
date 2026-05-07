@@ -1,10 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { filterJournals, loadFromXLSX } from '@/lib/data-loader'
+import { filterJournals } from '@/lib/data-loader'
 import type { JournalFilter, LoadedData } from '@/lib/types'
-
-const DATA_CANDIDATES = ['/data.xlsx', '/web/data.xlsx']
 
 export function useReviewData(filter: JournalFilter = {}) {
   const [data, setData] = useState<LoadedData | null>(null)
@@ -17,21 +15,21 @@ export function useReviewData(filter: JournalFilter = {}) {
       setLoading(true)
       setError(null)
 
-      let lastErr: unknown = null
-      for (const candidate of DATA_CANDIDATES) {
-        try {
-          const loaded = await loadFromXLSX(candidate)
-          if (mounted) setData(loaded)
-          setLoading(false)
-          return
-        } catch (err) {
-          lastErr = err
+      try {
+        const resp = await fetch('/api/review-data', { cache: 'no-store' })
+        if (!resp.ok) {
+          const body = (await resp.json().catch(() => null)) as { message?: string } | null
+          throw new Error(body?.message || `HTTP ${resp.status}`)
         }
-      }
 
-      if (mounted) {
-        setError(lastErr instanceof Error ? lastErr.message : 'Failed to load data')
-        setLoading(false)
+        const loaded = (await resp.json()) as LoadedData
+        if (mounted) setData(loaded)
+      } catch (err) {
+        if (mounted) {
+          setError(err instanceof Error ? err.message : 'Failed to load data')
+        }
+      } finally {
+        if (mounted) setLoading(false)
       }
     }
 

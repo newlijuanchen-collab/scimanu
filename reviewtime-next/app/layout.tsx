@@ -1,9 +1,10 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
+import { getSiteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://reviewtime.local'),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: 'ReviewTime',
     template: '%s | ReviewTime',

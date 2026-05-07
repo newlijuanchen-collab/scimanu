@@ -20,21 +20,41 @@ export function LeaderboardView() {
   }, [journals, tab])
 
   if (loading) return <div className="card-rt p-6">{t('common.loading')}</div>
-  if (error) return <div className="card-rt p-6 text-red-600">{t('common.error')}: {error}</div>
+  if (error) return <div className="card-rt p-6 text-red-600">{t('common.error')}: {error} · {t('common.errorDetail')}</div>
+
+  const top = rows[0]
 
   return (
     <div className="space-y-5">
-      <header>
+      <header className="rounded-2xl border border-primary-100 bg-gradient-to-br from-white via-primary-50/60 to-white p-6 md:p-8">
+        <p className="text-xs font-semibold uppercase tracking-widest text-primary-600">Benchmark Board</p>
         <h1 className="page-title">{t('leaderboard.title')}</h1>
         <p className="page-subtitle">{t('leaderboard.subtitle')}</p>
+
+        {top ? (
+          <div className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-xs text-slate-700 ring-1 ring-slate-200">
+            <span className="font-semibold text-slate-900">#{1}</span>
+            <span>{top.label}</span>
+            <span>·</span>
+            <span>{formatNumber(top.median)} {t('common.days')}</span>
+            <SpeedBadge
+              days={top.median}
+              label={t(`speed.${top.median <= 30 ? 'vfast' : top.median <= 60 ? 'fast' : top.median <= 90 ? 'good' : top.median <= 120 ? 'normal' : top.median <= 180 ? 'slow' : 'vslow'}`)}
+            />
+          </div>
+        ) : null}
       </header>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white p-1">
         {(['fastest', 'slowest', 'trend'] as TabKey[]).map(k => (
           <button
             key={k}
             onClick={() => setTab(k)}
-            className={k === tab ? 'rounded-lg bg-primary-600 px-3 py-1.5 text-sm text-white' : 'rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm'}
+            className={
+              k === tab
+                ? 'rounded-lg bg-primary-600 px-3 py-1.5 text-sm text-white shadow'
+                : 'rounded-lg px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50'
+            }
           >
             {t(`leaderboard.tabs.${k}`)}
           </button>
