@@ -265,6 +265,30 @@ python reviewtime/build_csv_snapshots.py \
 
 前端查询时优先直接读这些快照表，仅做筛选/排序，不做大规模实时聚合。
 
+### 12.4 不上传 Supabase：Next.js 直接读取本地快照
+
+如果你选择“不上传 Supabase”，`reviewtime-next` 也可以直接读取 `out/snapshots/*.csv`。
+
+默认读取目录：
+
+- `../out/snapshots`（相对 `reviewtime-next`）
+
+可通过环境变量覆盖：
+
+```bash
+# 在 reviewtime-next/.env.local
+REVIEWTIME_SNAPSHOT_DIR=../out/snapshots
+```
+
+然后启动 Next.js：
+
+```bash
+cd reviewtime-next
+pnpm dev   # 或 npm run dev / yarn dev
+```
+
+这样 `/api/review-data` 会在服务端直接读取 CSV 并组装为页面需要的数据结构，无需 Supabase。
+
 ---
 
 ## 11) 设计章节（可落地）：安全采集 + 增量更新 + 最小人工
@@ -529,6 +553,7 @@ dedup_key = doi（优先）> pmcid > pmid > url_hash
 | `November 13, 2025` | 北美格式 |
 
 `/` 分隔的多段日期行（MDPI 风格）会自动拆分为逗号分隔再解析。
+
 
 
 
