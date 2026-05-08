@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useReviewData } from '@/hooks/use-review-data'
 import { SpeedBadge } from '@/components/ui/speed-badge'
-import { formatNumber, trendText } from '@/lib/format'
+import { formatNumber } from '@/lib/format'
 
 type TabKey = 'fastest' | 'slowest' | 'trend'
 
@@ -12,6 +12,14 @@ export function LeaderboardView() {
   const t = useTranslations()
   const { journals, loading, error } = useReviewData({ minCount: 3 })
   const [tab, setTab] = useState<TabKey>('fastest')
+
+  const renderTrend = (value: number | null | undefined) => {
+    if (value === null || value === undefined || Number.isNaN(value) || value === 0) {
+      return t('trend.flat')
+    }
+    if (value > 0) return t('trend.up', { days: Math.round(value) })
+    return t('trend.down', { days: Math.round(Math.abs(value)) })
+  }
 
   const rows = useMemo(() => {
     if (tab === 'fastest') return [...journals].sort((a, b) => a.median - b.median).slice(0, 30)
@@ -27,7 +35,7 @@ export function LeaderboardView() {
   return (
     <div className="space-y-5">
       <header className="rounded-2xl border border-primary-100 bg-gradient-to-br from-white via-primary-50/60 to-white p-6 md:p-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-primary-600">Benchmark Board</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-primary-600">{t('nav.leaderboard')}</p>
         <h1 className="page-title">{t('leaderboard.title')}</h1>
         <p className="page-subtitle">{t('leaderboard.subtitle')}</p>
 
@@ -83,7 +91,7 @@ export function LeaderboardView() {
                 <td className="px-3 py-2">{formatNumber(j.median)}</td>
                 <td className="px-3 py-2">{formatNumber(j.count)}</td>
                 <td className="px-3 py-2"><SpeedBadge days={j.median} label={t(`speed.${j.median <= 30 ? 'vfast' : j.median <= 60 ? 'fast' : j.median <= 90 ? 'good' : j.median <= 120 ? 'normal' : j.median <= 180 ? 'slow' : 'vslow'}`)} /></td>
-                <td className="px-3 py-2">{trendText(j.trend)}</td>
+                <td className="px-3 py-2">{renderTrend(j.trend)}</td>
               </tr>
             ))}
           </tbody>

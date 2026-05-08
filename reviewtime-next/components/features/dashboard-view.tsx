@@ -23,7 +23,7 @@ export function DashboardView() {
   return (
     <div className="space-y-6">
       <header className="rounded-2xl border border-primary-100 bg-gradient-to-br from-primary-50 via-white to-white p-6 md:p-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-primary-600">Review Intelligence</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-primary-600">{t('dashboard.title')}</p>
         <h1 className="mt-2 page-title">{t('dashboard.title')}</h1>
         <p className="page-subtitle max-w-3xl">{t('dashboard.subtitle')}</p>
 
@@ -35,7 +35,7 @@ export function DashboardView() {
             {t('dashboard.kpi.articles')}: {formatNumber(stats.totalArticles)}
           </span>
           <span className="rounded-full bg-white px-3 py-1 text-slate-700 ring-1 ring-slate-200">
-            Median: {formatNumber(stats.globalMedian)} {t('common.days')}
+            {t('dashboard.kpi.median')}: {formatNumber(stats.globalMedian)} {t('common.days')}
           </span>
         </div>
       </header>
@@ -46,7 +46,7 @@ export function DashboardView() {
         <KpiCard
           label={t('dashboard.kpi.median')}
           value={formatNumber(stats.globalMedian)}
-          sub={`P25-P75 ${stats.globalP25}-${stats.globalP75}`}
+          sub={`P25–P75 ${stats.globalP25}-${stats.globalP75}`}
         />
         <KpiCard
           label={t('dashboard.kpi.fastest')}

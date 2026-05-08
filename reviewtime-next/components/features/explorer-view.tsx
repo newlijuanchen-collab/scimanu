@@ -3,12 +3,20 @@
 import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useReviewData } from '@/hooks/use-review-data'
-import { formatNumber, trendText } from '@/lib/format'
+import { formatNumber } from '@/lib/format'
 
 export function ExplorerView() {
   const t = useTranslations()
   const [keyword, setKeyword] = useState('')
   const { journals, loading, error } = useReviewData({ minCount: 1 })
+
+  const renderTrend = (value: number | null | undefined) => {
+    if (value === null || value === undefined || Number.isNaN(value) || value === 0) {
+      return t('trend.flat')
+    }
+    if (value > 0) return t('trend.up', { days: Math.round(value) })
+    return t('trend.down', { days: Math.round(Math.abs(value)) })
+  }
 
   const rows = useMemo(() => {
     const q = keyword.trim().toLowerCase()
@@ -57,7 +65,7 @@ export function ExplorerView() {
                 <td className="px-3 py-2 text-slate-600">{j.publisher}</td>
                 <td className="px-3 py-2">{formatNumber(j.median)}</td>
                 <td className="px-3 py-2">{formatNumber(j.count)}</td>
-                <td className="px-3 py-2">{trendText(j.trend)}</td>
+                <td className="px-3 py-2">{renderTrend(j.trend)}</td>
               </tr>
             ))}
           </tbody>

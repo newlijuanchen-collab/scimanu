@@ -1,0 +1,18 @@
+{
+  "input": "web\\data.xlsx",
+  "outdir": "out\\snapshots",
+  "months": 24,
+  "min_count": 3,
+  "min_days": 1,
+  "max_days": 1000,
+  "row_counts": {
+    "review_rows_clean": 4457,
+    "snapshot_journal_stats": 97,
+    "snapshot_journal_trend": 314,
+    "snapshot_global_trend": 23,
+    "snapshot_publisher_stats": 1,
+    "snapshot_subject_stats": 1,
+    "snapshot_global_summary": 1
+  },
+  "generated_at": "2026-05-08T15:49:34"
+}

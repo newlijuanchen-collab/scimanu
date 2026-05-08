@@ -226,6 +226,47 @@ README.md
 
 ---
 
+## 12) data.xlsx 预聚合快照（推荐给 Supabase）
+
+为避免前端每次请求都实时聚合（增加交互流量与费用），建议先将 `web/data.xlsx` 离线处理为多张 CSV 快照，再导入 Supabase。
+
+### 12.1 一条命令生成快照
+
+```bash
+python reviewtime/build_csv_snapshots.py \
+  --input web/data.xlsx \
+  --outdir out/snapshots \
+  --months 24 \
+  --min-count 3 \
+  --output-report out/snapshots_report.json
+```
+
+### 12.2 主要输出文件
+
+- `out/snapshots/review_rows_clean.csv`：清洗后的文章级明细（可选导入）
+- `out/snapshots/snapshot_journal_stats.csv`：期刊统计（count/median/p25/p75/min/max/med6/med24/trend）
+- `out/snapshots/snapshot_journal_trend.csv`：期刊 × 月份统计（用于趋势图/热力图）
+- `out/snapshots/snapshot_global_trend.csv`：全局月度统计
+- `out/snapshots/snapshot_publisher_stats.csv`：出版社维度统计
+- `out/snapshots/snapshot_subject_stats.csv`：学科维度统计
+- `out/snapshots/snapshot_global_summary.csv`：全局单行 KPI
+- `out/snapshots_report.json`：本次生成参数与各文件行数
+
+### 12.3 Supabase 导入建议
+
+建议将上述 CSV 对应导入以下表（可同名）：
+
+- `snapshot_journal_stats`
+- `snapshot_journal_trend`
+- `snapshot_global_trend`
+- `snapshot_publisher_stats`
+- `snapshot_subject_stats`
+- `snapshot_global_summary`
+
+前端查询时优先直接读这些快照表，仅做筛选/排序，不做大规模实时聚合。
+
+---
+
 ## 11) 设计章节（可落地）：安全采集 + 增量更新 + 最小人工
 
 本章节用于回答三个核心问题：
@@ -488,5 +529,6 @@ dedup_key = doi（优先）> pmcid > pmid > url_hash
 | `November 13, 2025` | 北美格式 |
 
 `/` 分隔的多段日期行（MDPI 风格）会自动拆分为逗号分隔再解析。
+
 
 
