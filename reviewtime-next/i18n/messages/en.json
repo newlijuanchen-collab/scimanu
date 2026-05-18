@@ -12,6 +12,10 @@
   "dashboard": {
     "title": "Dashboard Overview",
     "subtitle": "Multi-dimensional analysis of academic journal review cycles",
+    "focusTitle": "Find your target journal first, then inspect global trends",
+    "focusSub": "Following a SciRev-like journey: enter journal profile first, then review handling speed, quality signals, and recent records.",
+    "goExplorer": "Open Journal Profile Mode",
+    "goLeaderboard": "Open Leaderboard",
     "refresh": "Refresh",
     "dataUpdated": "Updated {date}",
     "kpi": {
@@ -76,6 +80,38 @@
   "explorer": {
     "title": "Journal Explorer",
     "subtitle": "Search and filter journals, expand for timeline and article details",
+    "hero": {
+      "eyebrow": "Journal profile",
+      "subSelected": "Inspect handling phases, quality indicators, and recent review-like records for this journal (estimated from available data)."
+    },
+    "panels": {
+      "duration": "Duration of manuscript handling phases",
+      "quality": "Characteristics of peer review process"
+    },
+    "cards": {
+      "firstRound": "First-round decision (approx.)",
+      "totalHandling": "Total handling time (median)",
+      "upperIqr": "Upper quartile of handling time",
+      "trend": "Recent trend",
+      "reportQuality": "Quality of review reports",
+      "overallRating": "Overall handling rating",
+      "latestOutcome": "Latest outcome"
+    },
+    "reviews": {
+      "title": "Recent records for \"{journal}\"",
+      "firstRound": "1st review rnd",
+      "totalHandling": "Tot. handling time",
+      "immediateReject": "Imm. rejection time",
+      "numReports": "Num. rev. reports",
+      "reportQuality": "Report quality",
+      "overallRating": "Overall rating",
+      "outcome": "Outcome",
+      "year": "Year"
+    },
+    "outcome": {
+      "accepted": "Accepted",
+      "rejected": "Rejected"
+    },
     "searchPlaceholder": "Search journal name / ISSN…",
     "quality": "Data Quality",
     "qualityAll": "All",

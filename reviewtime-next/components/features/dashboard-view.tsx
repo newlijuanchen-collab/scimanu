@@ -7,6 +7,7 @@ import { KpiCard } from '@/components/ui/kpi-card'
 import { EChart } from '@/components/charts/echart'
 import { buildBoxplotOption, buildHeatmapOption, buildTrendOption } from '@/lib/chart-configs'
 import { formatNumber } from '@/lib/format'
+import { Link } from '@/i18n/navigation'
 
 export function DashboardView() {
   const t = useTranslations()
@@ -39,6 +40,19 @@ export function DashboardView() {
           </span>
         </div>
       </header>
+
+      <section className="scirev-panel p-5">
+        <h2 className="text-xl font-semibold text-slate-900">{t('dashboard.focusTitle')}</h2>
+        <p className="mt-2 max-w-4xl text-sm text-slate-600">{t('dashboard.focusSub')}</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link href="/explorer" className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700">
+            {t('dashboard.goExplorer')}
+          </Link>
+          <Link href="/leaderboard" className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+            {t('dashboard.goLeaderboard')}
+          </Link>
+        </div>
+      </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <KpiCard label={t('dashboard.kpi.journals')} value={formatNumber(stats.totalJournals)} />

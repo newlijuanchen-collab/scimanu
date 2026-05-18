@@ -12,6 +12,10 @@
   "dashboard": {
     "title": "总览 Dashboard",
     "subtitle": "从多维度分析学术期刊审稿周期",
+    "focusTitle": "先找目标期刊，再看全局数据",
+    "focusSub": "参考 SciRev 的使用路径：先进入期刊详情，再查看处理时长、质量评分与近期记录。",
+    "goExplorer": "进入期刊详情模式",
+    "goLeaderboard": "查看排行榜",
     "refresh": "刷新",
     "dataUpdated": "数据更新于 {date}",
     "kpi": {
@@ -76,6 +80,38 @@
   "explorer": {
     "title": "期刊浏览器",
     "subtitle": "搜索、筛选期刊，展开查看详情与时序图",
+    "hero": {
+      "eyebrow": "Journal profile",
+      "subSelected": "查看该期刊的处理阶段、质量评分与近期审稿记录（基于可用数据估算）。"
+    },
+    "panels": {
+      "duration": "稿件处理阶段时长",
+      "quality": "审稿流程特征"
+    },
+    "cards": {
+      "firstRound": "首轮决策（近似）",
+      "totalHandling": "总处理时长（中位）",
+      "upperIqr": "处理时长上四分位",
+      "trend": "近期趋势",
+      "reportQuality": "审稿报告质量",
+      "overallRating": "整体处理评分",
+      "latestOutcome": "近期结果"
+    },
+    "reviews": {
+      "title": "“{journal}” 的近期记录",
+      "firstRound": "首轮",
+      "totalHandling": "总处理时长",
+      "immediateReject": "快速拒稿",
+      "numReports": "审稿意见数",
+      "reportQuality": "报告质量",
+      "overallRating": "总体评分",
+      "outcome": "结果",
+      "year": "年份"
+    },
+    "outcome": {
+      "accepted": "Accepted",
+      "rejected": "Rejected"
+    },
     "searchPlaceholder": "搜索期刊名 / ISSN…",
     "quality": "数据质量",
     "qualityAll": "全部",
