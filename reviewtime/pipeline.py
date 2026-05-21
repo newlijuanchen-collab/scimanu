@@ -78,6 +78,8 @@ def build_articles_db_for_issns(
     for journal_item in issns:
         issn = journal_item["issn"]
         label = journal_item.get("label") or issn
+        journal_publisher = journal_item.get("publisher")
+        journal_subject = journal_item.get("subject")
         query = _pubmed_query_for_issn(issn, from_pub_date, until_pub_date)
         pmids = search_pubmed_ids(query, retmax=retmax_per_journal)
         articles = fetch_pubmed_articles(pmids)
@@ -148,6 +150,8 @@ def build_articles_db_for_issns(
                 "journal_label": label,
                 "journal": a.get("journal"),
                 "issn": a.get("issn") or issn,
+                "publisher": a.get("publisher") or journal_publisher,
+                "subject": a.get("subject") or journal_subject,
                 "pmid": a.get("pmid"),
                 "pmcid": a.get("pmcid"),
                 "doi": a.get("doi"),

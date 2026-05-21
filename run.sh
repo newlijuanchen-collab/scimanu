@@ -14,6 +14,12 @@ python -m reviewtime.cli prepare-input --input-csv data/journals_seed.csv --outp
 python -m reviewtime.cli build-db --journals out/journals_normalized.jsonl --from-pub-date 2024-05-01 --until-pub-date 2026-05-05 --retmax-per-journal 50 --skip-mdpi-page-fallback --output-articles out/articles_master.jsonl --output-sqlite out/articles_master.db --output-report out/ingestion_report.json --output-schema out/schema_articles_master.json --output-leaderboard out/leaderboard_by_journal.json --output-missing-journals out/mdpi_no_pubmed.csv 2>&1
 
 
+1
+
+
+ python reviewtime/export_web_data.py --input out/articles_master.xlsx --output web/data.xlsx --journals-seed data/journals_seed.csv
+
+
 
 
 __下一步（你的操作）__：\
