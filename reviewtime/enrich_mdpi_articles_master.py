@@ -286,6 +286,79 @@ def is_blocked_html(html: str, title: str = "", final_url: str = "") -> bool:
     return any(x in blob for x in blocked_markers)
 
 
+def extract_mdpi_subject(text: str, target_doi: str = "") -> str:
+    """
+    Extract MDPI breadcrumb-style subject string.
+
+    Example page text:
+      Journals
+      Accounting and Auditing
+      Volume 1
+      Issue 2
+      10.3390/accountaudit1020007
+
+    Output:
+      Accounting and Auditing Volume 1 Issue 2 10.3390/accountaudit1020007
+    """
+    normalized_target_doi = normalize_doi(target_doi)
+
+    lines = [clean_text(x) for x in str(text).splitlines()]
+    lines = [x for x in lines if x]
+
+    # Preferred extraction from breadcrumb lines.
+    for i, line in enumerate(lines):
+        if line.lower() != "journals":
+            continue
+
+        window = lines[i + 1 : i + 12]
+        journal_title = ""
+        volume = ""
+        issue = ""
+        doi = ""
+
+        for item in window:
+            if not journal_title and not re.match(r"^(Volume|Issue)\b", item, flags=re.I) and not item.lower().startswith("10.3390/"):
+                journal_title = item
+                continue
+
+            if not volume and re.match(r"^Volume\s+\S+", item, flags=re.I):
+                volume = item
+                continue
+
+            if not issue and re.match(r"^Issue\s+\S+", item, flags=re.I):
+                issue = item
+                continue
+
+            if item.lower().startswith("10.3390/"):
+                candidate_doi = normalize_doi(item)
+                if not normalized_target_doi or candidate_doi.lower() == normalized_target_doi.lower():
+                    doi = candidate_doi
+                    break
+
+        if journal_title and volume and issue and doi:
+            return clean_text(f"{journal_title} {volume} {issue} {doi}")
+
+    # Fallback extraction from flattened text.
+    doi_pat = re.escape(normalized_target_doi) if normalized_target_doi else r"10\.3390/[A-Za-z0-9._;()/:\-]+"
+    flat = re.sub(r"\s+", " ", clean_text(text))
+    m = re.search(
+        rf"\bJournals\s+"
+        rf"(?P<journal>.+?)\s+"
+        rf"(?P<volume>Volume\s+\S+)\s+"
+        rf"(?P<issue>Issue\s+\S+)\s+"
+        rf"(?P<doi>{doi_pat})\b",
+        flat,
+        flags=re.I,
+    )
+
+    if m:
+        return clean_text(
+            f"{m.group('journal')} {m.group('volume')} {m.group('issue')} {normalize_doi(m.group('doi'))}"
+        )
+
+    return ""
+    
+
 class BrowserMDPIFetcher:
     def __init__(
         self,
@@ -485,7 +558,7 @@ def extract_from_mdpi_html(html: str, target_doi: str = "") -> Dict[str, str]:
         out["revised_dates"] = str(unique_revised)
         out["revised_first_date"] = unique_revised[0]
         out["revised_last_date"] = unique_revised[-1]
-
+        out["subject"] = extract_mdpi_subject(text, target_doi=target_doi)
     return out
 
 

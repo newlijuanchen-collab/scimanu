@@ -19,7 +19,7 @@ python -m reviewtime.cli build-db --journals out/journals_normalized.jsonl --fro
 
  python reviewtime/export_web_data.py --input out/articles_master.xlsx --output web/data.xlsx --journals-seed data/journals_seed.csv
 
-python enrich_mdpi_articles_master.py --input articles_master.xlsx --output articles_master_enriched_test.xlsx --sheet data --limit 20 --min-delay 2 --max-delay 6
+python enrich_mdpi_articles_master.py --input ../out/articles_master.xlsx --output articles_master_enriched_test.xlsx --sheet data --limit 1 --min-delay 2 --max-delay 6
 
 
 __下一步（你的操作）__：\
