@@ -22,6 +22,8 @@ python -m reviewtime.cli build-db --journals out/journals_normalized.jsonl --fro
 python enrich_mdpi_articles_master.py --input ../out/articles_master.xlsx --output articles_master_enriched_test.xlsx --sheet data --limit 1 --min-delay 2 --max-delay 6
 
 
+python enrich_mdpi_articles_master.py --input articles_master_enriched_test.xlsx --output articles_master_enriched_test2.xlsx --sheet data --min-delay 10 --max-delay 362
+
 __下一步（你的操作）__：\
 打开 `out/mdpi_no_pubmed.csv`，里面列出了 305 本 PubMed 无法覆盖的 MDPI 期刊（含 ISSN 和刊名）。对你关心的刊，从 MDPI 网站复制文章文本，粘贴到 `data/manual_patches/` 下的任意 `.txt` 文件（每篇空行分隔），然后运行：
 
