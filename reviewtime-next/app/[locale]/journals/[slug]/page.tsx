@@ -177,15 +177,12 @@ export default async function JournalPage({ params }: { params: { slug: string; 
         )}
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm leading-6 text-slate-600">
-        <h2 className="font-bold text-slate-900">{isZh ? '数据口径' : 'Data notes'}</h2>
-        <p className="mt-2">
-          {isZh
-            ? '来源为 PubMed E-utilities。收稿、接收和修回日期只取自 PubMed History；修回日期记录可能不完整，不代表完整审稿轮次。网站只展示聚合统计，不展示文章级日期或原始记录。'
-            : 'Source: PubMed E-utilities. Received, accepted and revised dates are taken from PubMed History. Revised dates may be incomplete and do not represent complete review rounds. The site shows aggregates only, not article-level dates or raw records.'}
-        </p>
-        <p className="mt-2 text-xs">{isZh ? '样本量' : 'Valid received-to-accepted sample'}: {timeline?.count ?? journal.stages.acceptance.count}</p>
-      </section>
+      <p className="mt-8 text-center text-xs text-slate-400">
+        {isZh ? '数据源自 PubMed 公开记录汇总 · ' : 'Aggregated from public PubMed records · '}
+        <Link href="/about" className="underline hover:text-slate-600">
+          {isZh ? '关于统计方法说明' : 'About Methodology'}
+        </Link>
+      </p>
     </main>
   )
 }

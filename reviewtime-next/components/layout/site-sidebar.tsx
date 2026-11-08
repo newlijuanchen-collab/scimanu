@@ -19,7 +19,7 @@ const CORE_TOOLS: NavItem[] = [
   { href: '/journals', labelZh: '期刊目录', labelEn: 'Journal Directory', icon: '📚' },
   { href: '/compare', labelZh: '期刊横向对比', labelEn: 'Peer Compare', icon: '⚖️' },
   { href: '/statistics', labelZh: '期刊审稿分析', labelEn: 'Review Analytics', icon: '📊' },
-  { href: '/about', labelZh: '关于与合规说明', labelEn: 'Provenance & About', icon: '🏛️' },
+  { href: '/about', labelZh: '关于与统计方法', labelEn: 'About & Methodology', icon: '💡' },
 ]
 
 interface DisciplineItem {
@@ -270,7 +270,7 @@ export function SiteSidebar() {
                 href="/about"
                 className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-orange-700 hover:text-orange-900"
               >
-                <span>{isZh ? '查看合规声明 →' : 'Read compliance doc →'}</span>
+                <span>{isZh ? '查看方法与说明 →' : 'Read methodology →'}</span>
               </Link>
             </div>
           </div>

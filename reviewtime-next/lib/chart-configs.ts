@@ -41,12 +41,20 @@ export function buildBoxplotOption(journals: JournalStats[], maxJournals = 20): 
   const slice = journals.slice(0, maxJournals)
   return {
     ...baseOption,
-    grid: { left: 50, right: 20, top: 20, bottom: 90 },
+    grid: { left: 12, right: 12, top: 20, bottom: 16, containLabel: true },
     tooltip: { ...tooltipStyle, trigger: 'item', confine: true },
     xAxis: {
       type: 'category',
       data: slice.map(j => j.label),
-      axisLabel: { ...axisLabelStyle, rotate: 30, interval: 0 },
+      axisLabel: {
+        ...axisLabelStyle,
+        rotate: 0,
+        interval: 0,
+        width: 120,
+        overflow: 'break',
+        lineHeight: 16,
+        margin: 12,
+      },
       axisLine: axisLineStyle,
       axisTick: { show: false },
     },

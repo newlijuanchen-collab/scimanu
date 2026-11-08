@@ -22,6 +22,15 @@ export const metadata: Metadata = {
     title: 'SciManu',
     description: 'Academic journal review timeline analytics & manuscript publishing insights for smarter journal selection.',
   },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

@@ -503,7 +503,7 @@ export function JournalDetailView({ journal, peers }: JournalDetailViewProps) {
       {/* Data Basis & Legal Disclaimer */}
       <section id="data-basis" className="card-rt p-5 md:p-6 scroll-mt-20">
         <p className="section-eyebrow">Methodology & Policy</p>
-        <h2 className="mt-1 text-xl font-bold text-slate-950">Data Compliance & Integrity</h2>
+        <h2 className="mt-1 text-xl font-bold text-slate-950">Data Methodology & Sources</h2>
         <div className="mt-3 space-y-3 text-xs leading-relaxed text-slate-600">
           <p>
             SciManu derives the current pilot from date events returned by PubMed EFetch. Received, accepted, and revised fields are read only from PubMed History; online publication uses the exact electronic publication date.

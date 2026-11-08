@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState, type ChangeEvent } from 'react'
+import { useMemo, useState, type ChangeEvent } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { useReviewData } from '@/hooks/use-review-data'
@@ -16,62 +16,62 @@ import { isValidPeerReviewedJournal } from '@/lib/stats-aggregator'
 import { resolveJournalBenchmark } from '@/lib/journal-benchmark'
 import { getJournalSlug } from '@/lib/journal-slug'
 
+const COMPARISON_FILTER = { minCount: 3 }
+
 export function CompareView() {
   const locale = useLocale()
   const isZh = locale === 'zh'
   const searchParams = useSearchParams()
-  const { journals, loading, error } = useReviewData({ minCount: 3 })
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([])
+  const { journals, loading, error } = useReviewData(COMPARISON_FILTER)
   const [searchQuery, setSearchQuery] = useState('')
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [overrideKeys, setOverrideKeys] = useState<string[] | null>(null)
 
-  // Initialize from URL search parameters (?journals=slug1,slug2 or ?j=label1,label2)
-  useEffect(() => {
-    if (!journals.length) return
+  // The URL is the source of truth, including on back/forward navigation.
+  const initialKeys = useMemo(() => {
+    if (!journals.length) return []
     const urlJournals = searchParams.get('journals') ?? searchParams.get('j')
-    if (urlJournals) {
+    if (urlJournals !== null) {
       const keys = urlJournals.split(',').map(s => s.trim().toLowerCase()).filter(Boolean)
       const matched = journals.filter(j => {
         const slug = getJournalSlug(j.label, j.journal_key).toLowerCase()
         const label = j.label.toLowerCase()
         return keys.includes(slug) || keys.includes(label)
       })
-      if (matched.length) {
-        setSelectedKeys(matched.slice(0, 4).map(j => getJournalSlug(j.label, j.journal_key)))
-        return
-      }
+      return matched.slice(0, 4).map(j => getJournalSlug(j.label, j.journal_key))
     }
 
     // Default to Nature Medicine vs Nature Communications (or top meaningful journals)
-    if (selectedKeys.length === 0 && journals.length >= 2) {
+    if (journals.length >= 2) {
       const targetLabels = ['Nature Medicine', 'Nature Communications']
       const matchedDefaults = journals.filter(j => targetLabels.includes(j.label))
       if (matchedDefaults.length >= 2) {
-        setSelectedKeys(matchedDefaults.map(j => getJournalSlug(j.label, j.journal_key)))
+        return matchedDefaults.map(j => getJournalSlug(j.label, j.journal_key))
       } else {
         const fallback = journals
           .filter(j => j.count >= 20 && isValidPeerReviewedJournal(j))
           .slice(0, 2)
           .map(j => getJournalSlug(j.label, j.journal_key))
         if (fallback.length >= 2) {
-          setSelectedKeys(fallback)
+          return fallback
         }
       }
     }
+    return []
   }, [journals, searchParams])
 
-  // Keep URL query in sync when selectedKeys change
-  useEffect(() => {
-    if (typeof window === 'undefined') return
+  const selectedKeys = overrideKeys !== null ? overrideKeys : initialKeys
+
+  // User actions update local state immediately and keep URL in sync.
+  const updateSelection = (keys: string[]) => {
+    setOverrideKeys(keys)
     const url = new URL(window.location.href)
-    if (selectedKeys.length > 0) {
-      url.searchParams.set('journals', selectedKeys.join(','))
-    } else {
-      url.searchParams.delete('journals')
-      url.searchParams.delete('j')
+    url.searchParams.set('journals', keys.join(','))
+    url.searchParams.delete('j')
+    if (url.href !== window.location.href) {
+      window.history.replaceState(null, '', url.toString())
     }
-    window.history.replaceState({}, '', url.toString())
-  }, [selectedKeys])
+  }
 
   const selectedJournals = useMemo(() => {
     return journals.filter(j => selectedKeys.includes(getJournalSlug(j.label, j.journal_key))).slice(0, 4)
@@ -109,13 +109,13 @@ export function CompareView() {
     const key = getJournalSlug(journal.label, journal.journal_key)
     if (selectedKeys.includes(key)) return
     if (selectedKeys.length >= 4) return
-    setSelectedKeys(prev => [...prev, key])
+    updateSelection([...selectedKeys, key])
     setSearchQuery('')
     setIsSearchOpen(false)
   }
 
   const removeJournal = (key: string) => {
-    setSelectedKeys(prev => prev.filter(k => k !== key))
+    updateSelection(selectedKeys.filter(k => k !== key))
   }
 
   const boxplot = useMemo(() => buildBoxplotOption(selectedJournals, 4), [selectedJournals])
@@ -180,7 +180,7 @@ export function CompareView() {
           </div>
           {selectedJournals.length > 0 && (
             <button
-              onClick={() => setSelectedKeys([])}
+              onClick={() => updateSelection([])}
               className="text-xs font-semibold text-slate-500 hover:text-orange-600 underline"
             >
               {isZh ? '清空对比' : 'Clear all'}
@@ -488,12 +488,16 @@ export function CompareView() {
 
           {/* Visual Charts: Boxplot & Historical Trend */}
           <div className={`grid gap-6 ${has24MonthTrend ? 'lg:grid-cols-2' : ''}`}>
-            <section className="card-rt p-5">
+            <section className="card-rt min-w-0 p-5">
               <p className="section-eyebrow">{isZh ? '分布箱线图' : 'Distribution Visual'}</p>
               <h3 className="mt-1 text-base font-bold text-slate-950">
                 {isZh ? '典型区间与波动跨度对比' : 'IQR Uncertainty Boxplot'}
               </h3>
-              <EChart option={boxplot} className="mt-4 h-[320px] w-full" />
+              <div className="mt-4 overflow-x-auto">
+                <div style={{ minWidth: selectedJournals.length * 150 + 60 }}>
+                  <EChart option={boxplot} className="h-[360px] w-full" />
+                </div>
+              </div>
             </section>
 
             {has24MonthTrend && trend && (

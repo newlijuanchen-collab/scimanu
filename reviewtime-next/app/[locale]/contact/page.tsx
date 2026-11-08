@@ -34,8 +34,8 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
         </h1>
         <p className="mt-3 text-base leading-7 text-slate-600">
           {isZh
-            ? '欢迎反馈期刊名称、PubMed 日期统计或页面信息的问题，也可联系处理隐私请求和出版商更正请求。'
-            : 'Contact us about journal names, PubMed date aggregates, page information, privacy requests, or publisher corrections.'}
+            ? '如果您对期刊数据、统计方法有任何疑问、发现信息偏差，或希望建议新增收录期刊，欢迎随时与我们联系。'
+            : 'If you have questions about journal metrics, notice any data discrepancies, or want to suggest new journals, we would love to hear from you.'}
         </p>
       </header>
 
@@ -43,23 +43,23 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
         <h2 className="text-xl font-bold text-slate-950">{isZh ? '电子邮件' : 'Email'}</h2>
         <a
           href={`mailto:${contactEmail}`}
-          className="inline-flex rounded-xl bg-orange-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-orange-700"
+          className="inline-flex rounded-xl bg-orange-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-orange-700 transition"
         >
           {contactEmail}
         </a>
         <p className="text-sm leading-6 text-slate-600">
           {isZh
-            ? '为便于核查，请在来信中附上期刊名称、PubMed 链接或 NLM ID，并说明需要更正的字段。此邮箱来自网站现有的出版商联络信息。'
-            : 'For data questions, include the journal name, PubMed link or NLM ID, and the field you believe needs correction. This address is the publisher contact already listed on the site.'}
+            ? '为便于我们快速定位并核实，来信时建议附上相关期刊名称、ISSN 或对应的 PubMed 链接。我们通常会在 1–2 个工作日内查阅并回复。'
+            : 'To help us quickly locate and verify the data, please include the relevant journal name, ISSN, or PubMed link in your message. We typically review and respond within 1–2 business days.'}
         </p>
       </section>
 
       <p className="text-sm text-slate-600">
-        {isZh ? '数据来源与统计口径请见' : 'For data sources and methodology, see'}{' '}
+        {isZh ? '数据来源与统计说明请见' : 'For data sources and methodology, see'}{' '}
         <Link href="/about" className="font-semibold text-orange-700 underline underline-offset-2">
-          {isZh ? '关于与数据来源说明' : 'About & Data Provenance'}
+          {isZh ? '关于与统计方法' : 'About & Methodology'}
         </Link>
-        {isZh ? '；个人信息处理方式请见' : '. For information about data handling, see'}{' '}
+        {isZh ? '；隐私保护原则请见' : '. For information about privacy and data handling, see'}{' '}
         <Link href="/privacy" className="font-semibold text-orange-700 underline underline-offset-2">
           {isZh ? '隐私政策' : 'Privacy Policy'}
         </Link>.

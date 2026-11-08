@@ -16,7 +16,7 @@ export function useReviewData(filter: JournalFilter = {}) {
       setError(null)
 
       try {
-        const resp = await fetch('/api/review-data', { cache: 'no-store' })
+        const resp = await fetch('/data/current/review-data.json', { cache: 'no-store' })
         if (!resp.ok) {
           const body = (await resp.json().catch(() => null)) as { message?: string } | null
           throw new Error(body?.message || `HTTP ${resp.status}`)

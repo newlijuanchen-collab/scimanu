@@ -34,7 +34,7 @@ export function SiteFooter() {
                   href="/about"
                   className="font-bold text-slate-800 hover:text-orange-600 transition underline-offset-4 hover:underline"
                 >
-                  {isZh ? 'About & Provenance（关于与数据源说明）' : 'About & Provenance'}
+                  {isZh ? '关于与数据方法' : 'About & Methodology'}
                 </Link>
                 <p className="text-[11px] text-slate-400">
                   {isZh ? '方法学与 PubMed 来源' : 'Methodology & PubMed origins'}
@@ -47,7 +47,7 @@ export function SiteFooter() {
                   href="/contact"
                   className="font-bold text-slate-800 hover:text-orange-600 transition underline-offset-4 hover:underline"
                 >
-                  {isZh ? 'Contact（联系我们）' : 'Contact'}
+                  {isZh ? '联系我们' : 'Contact'}
                 </Link>
                 <div>
                   <a
@@ -66,7 +66,7 @@ export function SiteFooter() {
                   href="/privacy"
                   className="font-bold text-slate-800 hover:text-orange-600 transition underline-offset-4 hover:underline"
                 >
-                  {isZh ? 'Privacy（隐私政策）' : 'Privacy'}
+                  {isZh ? '隐私政策' : 'Privacy'}
                 </Link>
                 <p className="text-[11px] text-slate-400">
                   {isZh ? '政策合规与数据安全' : 'Data policy & disclosures'}

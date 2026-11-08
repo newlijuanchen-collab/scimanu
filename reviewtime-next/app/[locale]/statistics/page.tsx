@@ -2,8 +2,6 @@ import { StatisticsView } from '@/components/features/statistics-view'
 import { loadStatistics } from '@/lib/repositories/statistics'
 import type { StatisticsData } from '@/lib/statistics-types'
 
-export const dynamic = 'force-dynamic'
-
 export async function generateMetadata({ params }: { params: { locale: string } }) {
   const zh = params.locale === 'zh'
   return {
@@ -12,10 +10,10 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   }
 }
 
-export default async function StatisticsPage({ searchParams }: { searchParams?: { window?: string; source?: string; type?: string } }) {
+export default async function StatisticsPage() {
   let data: StatisticsData
   try {
-    data = await loadStatistics(searchParams?.window, searchParams?.source, searchParams?.type)
+    data = await loadStatistics()
   } catch (error) {
     if (!(error instanceof RangeError)) throw error
     data = await loadStatistics()

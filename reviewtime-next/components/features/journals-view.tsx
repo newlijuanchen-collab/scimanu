@@ -111,8 +111,8 @@ export function JournalsView({ journals, stats, asOf }: JournalsViewProps) {
             </h1>
             <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">
               {isZh
-                ? 'SciManu 面向所有学科期刊；当前可查的时间数据来自 PubMed 生物医学试点，仅覆盖本次选定的期刊。PLOS ONE 不在本次选刊列表中。'
-                : 'SciManu is intended for journals across all subject areas. Current timing data cover only the selected journals in this PubMed biomedical pilot; PLOS ONE is not in this run.'}
+                ? 'SciManu 面向广大科研期刊；当前上线的时间数据基于 PubMed 生物医学试点，涵盖所选定的学术期刊，更多领域与期刊正在持续扩充中。'
+                : 'SciManu covers academic research journals; current timeline data are derived from the PubMed biomedical pilot for selected journals, with more journals continuously being added.'}
             </p>
           </div>
           <dl className="grid grid-cols-2 gap-3 rounded-2xl border border-slate-200/80 bg-white p-4 text-xs shadow-sm">
