@@ -20,7 +20,8 @@ const NAV_LINKS: NavLinkItem[] = [
 ]
 
 export function SiteHeader() {
-  const pathname = usePathname()
+  const rawPathname = usePathname()
+  const currentPath = rawPathname || '/'
   const locale = useLocale()
   const isZh = locale === 'zh'
 
@@ -42,7 +43,7 @@ export function SiteHeader() {
 
           <nav className="hidden items-center gap-1 text-sm md:flex">
             {NAV_LINKS.map(item => {
-              const active = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
+              const active = item.href === '/' ? currentPath === '/' : currentPath.startsWith(item.href)
               return (
                 <Link
                   key={item.href}
@@ -70,7 +71,7 @@ export function SiteHeader() {
 
           <div className="flex items-center gap-1 rounded-xl border border-slate-200 bg-slate-50/90 p-0.5 text-xs font-bold">
             {routing.locales.map(l => {
-              const cleanPath = pathname.replace(/^\/(en|zh)/, '') || '/'
+              const cleanPath = currentPath.replace(/^\/(en|zh)/, '') || '/'
               const targetHref =
                 l === routing.defaultLocale ? cleanPath : `/${l}${cleanPath === '/' ? '' : cleanPath}`
               return (

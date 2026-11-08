@@ -58,7 +58,8 @@ const SPEED_TIERS: SpeedItem[] = [
 ]
 
 export function SiteSidebar() {
-  const pathname = usePathname()
+  const rawPathname = usePathname()
+  const pathname = rawPathname || '/'
   const searchParams = useSearchParams()
   const locale = useLocale()
   const isZh = locale === 'zh'
