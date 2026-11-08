@@ -69,20 +69,25 @@ export function SiteHeader() {
           </Link>
 
           <div className="flex items-center gap-1 rounded-xl border border-slate-200 bg-slate-50/90 p-0.5 text-xs font-bold">
-            {routing.locales.map(l => (
-              <Link
-                key={l}
-                href={pathname}
-                locale={l}
-                className={
-                  l === locale
-                    ? 'rounded-lg bg-white px-2.5 py-1 text-slate-950 shadow-sm'
-                    : 'rounded-lg px-2.5 py-1 text-slate-500 hover:text-slate-900'
-                }
-              >
-                {l.toUpperCase()}
-              </Link>
-            ))}
+            {routing.locales.map(l => {
+              const cleanPath = pathname.replace(/^\/(en|zh)/, '') || '/'
+              const targetHref =
+                l === routing.defaultLocale ? cleanPath : `/${l}${cleanPath === '/' ? '' : cleanPath}`
+              return (
+                <a
+                  key={l}
+                  href={targetHref}
+                  hrefLang={l}
+                  className={
+                    l === locale
+                      ? 'rounded-lg bg-white px-2.5 py-1 text-slate-950 shadow-sm'
+                      : 'rounded-lg px-2.5 py-1 text-slate-500 hover:text-slate-900'
+                  }
+                >
+                  {l.toUpperCase()}
+                </a>
+              )
+            })}
           </div>
         </div>
       </div>

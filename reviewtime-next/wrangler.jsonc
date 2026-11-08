@@ -1,12 +1,14 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "scimanu",
+  "account_id": "a90b32ce4a23c70fc408fa8bd9913853",
   "main": "worker/index.ts",
   "compatibility_date": "2026-11-08",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "directory": "./out",
     "binding": "ASSETS",
+    "run_worker_first": true,
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
   },

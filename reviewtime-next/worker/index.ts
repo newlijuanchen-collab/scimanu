@@ -1,68 +1,56 @@
+interface Fetcher {
+  fetch: (request: Request | string, init?: RequestInit) => Promise<Response>
+}
+
+interface ExecutionContext {
+  waitUntil: (promise: Promise<unknown>) => void
+  passThroughOnException: () => void
+}
+
 export interface Env {
   ASSETS: Fetcher
-  GEMINI_API_KEY?: string
 }
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url)
 
-    // 1. Root redirect to default locale (/en)
-    if (url.pathname === '/' || url.pathname === '') {
-      return Response.redirect(`${url.origin}/en`, 302)
+    // 1. Default language is English -> Strip '/en' prefix (301 Permanent Redirect for SEO)
+    if (url.pathname === '/en' || url.pathname === '/en/') {
+      return Response.redirect(`${url.origin}/${url.search}`, 301)
     }
 
-    // 2. Extensible API routes for AI checkers, stats, analysis
+    if (url.pathname.startsWith('/en/')) {
+      const unPrefixed = url.pathname.slice(3) // strips '/en'
+      return Response.redirect(`${url.origin}${unPrefixed}${url.search}`, 301)
+    }
+
+    // 2. Currently no public API is exposed
     if (url.pathname.startsWith('/api/')) {
-      // Health check endpoint
-      if (url.pathname === '/api/health') {
-        return Response.json(
-          {
-            status: 'ok',
-            service: 'scimanu-worker',
-            version: '1.0.0',
-            timestamp: new Date().toISOString(),
-          },
-          {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Cache-Control': 'no-store',
-            },
-          },
-        )
-      }
-
-      // Placeholder / Skeleton for future AI Checker services
-      if (url.pathname === '/api/checker') {
-        if (request.method === 'OPTIONS') {
-          return new Response(null, {
-            status: 204,
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-              'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-            },
-          })
-        }
-
-        return Response.json(
-          {
-            message: 'SciManu AI Checker engine ready for Gemini integration',
-            supported_checks: ['timeline_prediction', 'journal_fit', 'peer_review_checklist'],
-          },
-          {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-      }
-
-      return Response.json({ error: 'Endpoint not found' }, { status: 404 })
+      return new Response(JSON.stringify({ error: 'Not Found' }), {
+        status: 404,
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-store',
+        },
+      })
     }
 
     // 3. Serve Next.js SSG static assets via Cloudflare global edge
-    return env.ASSETS.fetch(request)
+    const response = await env.ASSETS.fetch(request)
+
+    // Edge fallback: if asset is 404 and is an un-prefixed English route, attempt /en fallback
+    if (response.status === 404 && (request.method === 'GET' || request.method === 'HEAD')) {
+      const p = url.pathname
+      if (!p.startsWith('/_next') && !p.startsWith('/zh') && !p.includes('.')) {
+        const fallbackUrl = new URL(`/en${p === '/' ? '' : p}`, request.url)
+        const fallbackResponse = await env.ASSETS.fetch(new Request(fallbackUrl, request))
+        if (fallbackResponse.status === 200) {
+          return fallbackResponse
+        }
+      }
+    }
+
+    return response
   },
 }
