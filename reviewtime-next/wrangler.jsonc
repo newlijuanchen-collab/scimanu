@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "scimanu",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-08",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "routes": [
+    { "pattern": "scimanu.com/*", "zone_name": "scimanu.com" },
+    { "pattern": "www.scimanu.com/*", "zone_name": "scimanu.com" }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}
