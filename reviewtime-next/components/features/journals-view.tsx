@@ -201,6 +201,7 @@ export function JournalsView({ journals, stats, asOf }: JournalsViewProps) {
                   <td>
                     <Link
                       href={`/journals/${getJournalSlug(journal.label, journal.journal_key)}`}
+                      prefetch={false}
                       className="font-bold text-slate-950 transition hover:text-orange-600 text-sm line-clamp-1"
                     >
                       {journal.label}
@@ -228,6 +229,7 @@ export function JournalsView({ journals, stats, asOf }: JournalsViewProps) {
                     <div className="flex justify-end gap-1.5">
                       <Link
                         href={`/journals/${getJournalSlug(journal.label, journal.journal_key)}`}
+                        prefetch={false}
                         className="inline-flex rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50"
                       >
                         {isZh ? '详情' : 'Details'}

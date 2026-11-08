@@ -345,7 +345,7 @@ export function FastReviewJournalsView({ journals, asOf }: FastReviewJournalsVie
                 </div>
 
                 <h2 className="mt-3.5 text-lg font-black text-slate-950 line-clamp-2">
-                  <Link href={`/journals/${getJournalSlug(journal.label, journal.journal_key)}`} className="transition hover:text-orange-600">
+                  <Link href={`/journals/${getJournalSlug(journal.label, journal.journal_key)}`} prefetch={false} className="transition hover:text-orange-600">
                     {journal.label}
                   </Link>
                 </h2>
@@ -369,6 +369,7 @@ export function FastReviewJournalsView({ journals, asOf }: FastReviewJournalsVie
                   <div className="flex gap-2">
                     <Link
                       href={`/journals/${getJournalSlug(journal.label, journal.journal_key)}`}
+                      prefetch={false}
                       className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-bold text-slate-700 hover:bg-slate-50"
                     >
                       {isZh ? '查看详情 →' : 'Details →'}
@@ -460,7 +461,7 @@ export function FastReviewJournalsView({ journals, asOf }: FastReviewJournalsVie
 
                       <td className="py-3.5 px-3">
                         <div className="font-bold text-slate-900 hover:text-orange-600 transition">
-                          <Link href={`/journals/${getJournalSlug(journal.label, journal.journal_key)}`}>
+                          <Link href={`/journals/${getJournalSlug(journal.label, journal.journal_key)}`} prefetch={false}>
                             {journal.label}
                           </Link>
                         </div>
@@ -506,6 +507,7 @@ export function FastReviewJournalsView({ journals, asOf }: FastReviewJournalsVie
                       <td className="py-3.5 pr-5 pl-3 text-center">
                         <Link
                           href={`/journals/${getJournalSlug(journal.label, journal.journal_key)}`}
+                          prefetch={false}
                           className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-bold text-slate-700 hover:border-orange-300 hover:text-orange-600 shadow-sm transition"
                         >
                           <span>{isZh ? '分析' : 'View'}</span>

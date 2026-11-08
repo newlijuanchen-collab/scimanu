@@ -1,9 +1,9 @@
 'use client'
 
 import { useMemo, useState, type ChangeEvent } from 'react'
+import dynamic from 'next/dynamic'
 import { useLocale, useTranslations } from 'next-intl'
 import { useReviewData } from '@/hooks/use-review-data'
-import { EChart } from '@/components/charts/echart'
 import { buildTrendOption } from '@/lib/chart-configs'
 import { PercentileBand } from '@/components/ui/percentile-band'
 import { TrendChip } from '@/components/ui/trend-chip'
@@ -11,7 +11,7 @@ import { formatCompactNumber, formatMonthLabel, formatNumber } from '@/lib/forma
 import { Link } from '@/i18n/navigation'
 import { getTrendTone, hasMonthlyCoverage } from '@/lib/review-ui'
 import { getJournalSlug } from '@/lib/journal-slug'
-import type { JournalStats, LoadedData } from '@/lib/types'
+import type { JournalFilter, JournalStats, LoadedData } from '@/lib/types'
 import {
   computeDisciplineBenchmarks,
   computeSpeedTiers,
@@ -20,6 +20,13 @@ import {
   type DisciplineSummary,
   type SpeedTierInfo,
 } from '@/lib/stats-aggregator'
+
+const EChart = dynamic(() => import('@/components/charts/echart').then(mod => mod.EChart), {
+  ssr: false,
+  loading: () => <div className="h-[300px] w-full animate-pulse rounded-xl bg-slate-100" />,
+})
+
+const DEFAULT_REVIEW_FILTER: JournalFilter = { minCount: 3 }
 
 type WaitFilter = 'all' | 'fast' | 'standard' | 'extended' | 'longer'
 type ReliabilityFilter = 'all' | 'reliable'
@@ -44,7 +51,7 @@ export function DashboardView({ initialData }: { initialData?: LoadedData | null
   const locale = useLocale()
   const isZh = locale === 'zh'
 
-  const { journals, stats, loading, error } = useReviewData({ minCount: 3 }, initialData)
+  const { journals, stats, loading, error } = useReviewData(DEFAULT_REVIEW_FILTER, initialData)
   const [keyword, setKeyword] = useState('')
   const [waitFilter, setWaitFilter] = useState<WaitFilter>('all')
   const [reliabilityFilter, setReliabilityFilter] = useState<ReliabilityFilter>('all')
@@ -331,6 +338,7 @@ export function DashboardView({ initialData }: { initialData?: LoadedData | null
                   </p>
                   <Link
                     href={`/journals/${disc.fastestJournal.slug}`}
+                    prefetch={false}
                     className="mt-0.5 block text-xs font-bold text-slate-900 hover:text-orange-600 line-clamp-1"
                   >
                     {disc.fastestJournal.name} ({disc.fastestJournal.median}{isZh ? '天' : 'd'}) →
@@ -372,6 +380,7 @@ export function DashboardView({ initialData }: { initialData?: LoadedData | null
                     </span>
                     <Link
                       href={`/journals/${getJournalSlug(j.label, j.journal_key)}`}
+                      prefetch={false}
                       className="font-bold text-slate-900 hover:text-orange-600 line-clamp-1 text-sm"
                     >
                       {j.label}
@@ -416,6 +425,7 @@ export function DashboardView({ initialData }: { initialData?: LoadedData | null
                     </span>
                     <Link
                       href={`/journals/${getJournalSlug(j.label, j.journal_key)}`}
+                      prefetch={false}
                       className="font-bold text-slate-900 hover:text-orange-600 line-clamp-1 text-sm"
                     >
                       {j.label}
@@ -553,6 +563,7 @@ export function DashboardView({ initialData }: { initialData?: LoadedData | null
               <div className="min-w-0 flex-1">
                 <Link
                   href={`/journals/${getJournalSlug(journal.label, journal.journal_key)}`}
+                  prefetch={false}
                   className="text-base font-bold text-slate-950 transition hover:text-orange-600"
                 >
                   {journal.label}
@@ -597,6 +608,7 @@ export function DashboardView({ initialData }: { initialData?: LoadedData | null
                 <div className="flex flex-col gap-2">
                   <Link
                     href={`/journals/${getJournalSlug(journal.label, journal.journal_key)}`}
+                    prefetch={false}
                     className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-800 shadow-sm transition hover:border-slate-300 hover:bg-slate-50"
                   >
                     {isZh ? '查看详情' : 'Details'}

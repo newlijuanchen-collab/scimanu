@@ -1,0 +1,30 @@
+# Next.js immutable static assets
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Static media, icons, and fonts
+/*.svg
+  Cache-Control: public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400
+/*.png
+  Cache-Control: public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400
+/*.ico
+  Cache-Control: public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400
+
+# Data snapshots
+/data/*
+  Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400
+
+# Next.js RSC payload files (.txt)
+/*.txt
+  Cache-Control: public, max-age=60, s-maxage=3600, stale-while-revalidate=86400
+/journals/*.txt
+  Cache-Control: public, max-age=60, s-maxage=3600, stale-while-revalidate=86400
+/en/journals/*.txt
+  Cache-Control: public, max-age=60, s-maxage=3600, stale-while-revalidate=86400
+/zh/journals/*.txt
+  Cache-Control: public, max-age=60, s-maxage=3600, stale-while-revalidate=86400
+
+# HTML pages and default routes
+/*
+  Cache-Control: public, max-age=60, s-maxage=3600, stale-while-revalidate=86400
+  X-Content-Type-Options: nosniff

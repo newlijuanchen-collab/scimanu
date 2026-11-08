@@ -1,10 +1,10 @@
 'use client'
 
 import { useMemo, useState, type ChangeEvent } from 'react'
+import dynamic from 'next/dynamic'
 import { useSearchParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { useReviewData } from '@/hooks/use-review-data'
-import { EChart } from '@/components/charts/echart'
 import { PercentileBand } from '@/components/ui/percentile-band'
 import { TrendChip } from '@/components/ui/trend-chip'
 import { buildBoxplotOption, buildCompareTrendOption } from '@/lib/chart-configs'
@@ -15,6 +15,11 @@ import type { JournalStats, LoadedData } from '@/lib/types'
 import { isValidPeerReviewedJournal } from '@/lib/stats-aggregator'
 import { resolveJournalBenchmark } from '@/lib/journal-benchmark'
 import { getJournalSlug } from '@/lib/journal-slug'
+
+const EChart = dynamic(() => import('@/components/charts/echart').then(mod => mod.EChart), {
+  ssr: false,
+  loading: () => <div className="h-[320px] w-full animate-pulse rounded-xl bg-slate-100" />
+})
 
 const COMPARISON_FILTER = { minCount: 3 }
 

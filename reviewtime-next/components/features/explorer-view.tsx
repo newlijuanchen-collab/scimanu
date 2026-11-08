@@ -1,18 +1,23 @@
 'use client'
 
 import { useEffect, useMemo, useState, type ChangeEvent } from 'react'
+import dynamic from 'next/dynamic'
 import { useLocale, useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 import { useSearchParams } from 'next/navigation'
 import { useReviewData } from '@/hooks/use-review-data'
 import { formatNumber } from '@/lib/format'
-import { EChart } from '@/components/charts/echart'
 import { buildTrendOption } from '@/lib/chart-configs'
 import { PercentileBand } from '@/components/ui/percentile-band'
 import { TrendChip } from '@/components/ui/trend-chip'
 import { getJournalSlug } from '@/lib/journal-slug'
 import type { JournalStats, LoadedData, TimeSeriesPoint } from '@/lib/types'
 import { getDataCapabilities, getDisplayPublisher, getDisplaySubject, getLatestYM, getRelativeDelta, getSubjectMedian, getSubjectRank, getTrendTone, hasMonthlyCoverage } from '@/lib/review-ui'
+
+const EChart = dynamic(() => import('@/components/charts/echart').then(mod => mod.EChart), {
+  ssr: false,
+  loading: () => <div className="h-[320px] w-full animate-pulse rounded-xl bg-slate-100" />
+})
 
 export function ExplorerView({ initialData }: { initialData?: LoadedData | null } = {}) {
   const t = useTranslations()

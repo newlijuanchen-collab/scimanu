@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "scimanu",
-  "account_id": "a90b32ce4a23c70fc408fa8bd9913853",
+  "account_id": "da54169b5c29ae150d09d48f4bdf4248",
   "main": "worker/index.ts",
   "compatibility_date": "2026-11-08",
   "compatibility_flags": ["nodejs_compat"],
@@ -12,10 +12,6 @@
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
   },
-  "routes": [
-    { "pattern": "scimanu.com/*", "zone_name": "scimanu.com" },
-    { "pattern": "www.scimanu.com/*", "zone_name": "scimanu.com" }
-  ],
   "observability": {
     "enabled": true
   }

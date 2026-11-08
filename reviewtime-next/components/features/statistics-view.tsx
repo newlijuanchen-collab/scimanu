@@ -1,13 +1,18 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import dynamic from 'next/dynamic'
 import { useLocale } from 'next-intl'
 import type { EChartsOption } from 'echarts'
-import { EChart } from '@/components/charts/echart'
 import { CHART_THEME } from '@/lib/chart-configs'
 import { Link } from '@/i18n/navigation'
 import { getJournalSlug } from '@/lib/journal-slug'
 import type { StageKey, StageSummary, StatisticsArticleType, StatisticsData, StatisticsJournal, StatisticsWindow } from '@/lib/statistics-types'
+
+const EChart = dynamic(() => import('@/components/charts/echart').then(mod => mod.EChart), {
+  ssr: false,
+  loading: () => <div className="h-[280px] w-full animate-pulse rounded-xl bg-slate-100" />
+})
 
 const stages: StageKey[] = ['acceptance', 'first_revision', 'last_revision', 'publication']
 const labels = {

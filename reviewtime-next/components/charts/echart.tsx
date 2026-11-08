@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import * as echarts from 'echarts'
-import type { EChartsOption } from 'echarts'
+import { useEffect, useRef, useState } from 'react'
+import type { ECharts, EChartsOption } from 'echarts'
 
 interface EChartProps {
   option: EChartsOption
@@ -11,23 +10,51 @@ interface EChartProps {
 
 export function EChart({ option, className }: EChartProps) {
   const ref = useRef<HTMLDivElement | null>(null)
+  const chartInstanceRef = useRef<ECharts | null>(null)
+  const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
-    if (!ref.current) return
-    const element = ref.current
-    const chart = echarts.init(element, undefined, { renderer: 'canvas' })
-    chart.setOption(option)
+    let cancelled = false
+    let observer: ResizeObserver | null = null
+    let handleResize: (() => void) | null = null
 
-    const onResize = () => chart.resize()
-    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(onResize)
-    observer?.observe(element)
-    if (!observer) window.addEventListener('resize', onResize)
+    import('echarts').then(echarts => {
+      if (cancelled || !ref.current) return
+
+      let chart = chartInstanceRef.current
+      if (!chart) {
+        chart = echarts.init(ref.current, undefined, { renderer: 'canvas' })
+        chartInstanceRef.current = chart
+      }
+      chart.setOption(option)
+      setIsReady(true)
+
+      handleResize = () => chart?.resize()
+      if (typeof ResizeObserver !== 'undefined') {
+        observer = new ResizeObserver(handleResize)
+        if (ref.current) observer.observe(ref.current)
+      } else {
+        window.addEventListener('resize', handleResize)
+      }
+    })
+
     return () => {
+      cancelled = true
       observer?.disconnect()
-      if (!observer) window.removeEventListener('resize', onResize)
-      chart.dispose()
+      if (handleResize) window.removeEventListener('resize', handleResize)
+      chartInstanceRef.current?.dispose()
+      chartInstanceRef.current = null
     }
   }, [option])
 
-  return <div ref={ref} className={className ?? 'h-80 w-full'} role="img" />
+  return (
+    <div className={`relative ${className ?? 'h-80 w-full'}`}>
+      {!isReady && (
+        <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-slate-50/60 animate-pulse text-xs text-slate-400">
+          Loading chart...
+        </div>
+      )}
+      <div ref={ref} className="h-full w-full" role="img" />
+    </div>
+  )
 }

@@ -51,10 +51,41 @@ export default {
       }
     }
 
-    // Performance enhancement: Cache immutable hashed static assets for 1 year
-    if (response.status === 200 && url.pathname.startsWith('/_next/static/')) {
+    // Only apply caching optimizations to successful GET / HEAD responses
+    if (response.status === 200 && (request.method === 'GET' || request.method === 'HEAD')) {
       const headers = new Headers(response.headers)
-      headers.set('Cache-Control', 'public, max-age=31536000, immutable')
+      const pathname = url.pathname
+      const contentType = headers.get('Content-Type') || ''
+
+      // A. Immutable Next.js hashed assets (JS, CSS, static chunks) -> 1 year cache
+      if (pathname.startsWith('/_next/static/')) {
+        headers.set('Cache-Control', 'public, max-age=31536000, immutable')
+      }
+      // B. Static images, fonts, and icons -> 1 day browser, 7 days edge CDN
+      else if (
+        pathname.match(/\.(png|jpe?g|webp|avif|svg|ico|woff2?|ttf|eot)$/i) ||
+        pathname === '/favicon.ico' ||
+        pathname === '/icon.svg' ||
+        pathname === '/apple-icon.png'
+      ) {
+        headers.set('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400')
+      }
+      // C. Public data JSON snapshots -> 5 min browser, 1 hour edge CDN
+      else if (pathname.endsWith('.json') || pathname.startsWith('/data/')) {
+        headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400')
+      }
+      // D. Next.js RSC payload files (.txt) -> 1 min browser, 1 hour edge CDN
+      else if (pathname.endsWith('.txt')) {
+        headers.set('Cache-Control', 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400')
+      }
+      // E. Prerendered SSG HTML pages -> 1 min browser, 1 hour edge CDN with stale-while-revalidate
+      else if (contentType.includes('text/html') || !pathname.includes('.')) {
+        headers.set('Cache-Control', 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400')
+      }
+
+      // Security & Performance response headers
+      headers.set('X-Content-Type-Options', 'nosniff')
+
       return new Response(response.body, {
         status: response.status,
         statusText: response.statusText,
