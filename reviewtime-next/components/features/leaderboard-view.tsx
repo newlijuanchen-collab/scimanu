@@ -9,14 +9,15 @@ import { PercentileBand } from '@/components/ui/percentile-band'
 import { TrendChip } from '@/components/ui/trend-chip'
 import { getTrendTone } from '@/lib/review-ui'
 import { getJournalSlug } from '@/lib/journal-slug'
+import type { LoadedData } from '@/lib/types'
 
 type TabKey = 'fastest' | 'slowest' | 'trend'
 
-export function LeaderboardView() {
+export function LeaderboardView({ initialData }: { initialData?: LoadedData | null } = {}) {
   const t = useTranslations()
   const locale = useLocale()
   const isZh = locale === 'zh'
-  const { journals, loading, error } = useReviewData({ minCount: 3 })
+  const { journals, loading, error } = useReviewData({ minCount: 3 }, initialData)
   const [tab, setTab] = useState<TabKey>('fastest')
 
   const rows = useMemo(() => {

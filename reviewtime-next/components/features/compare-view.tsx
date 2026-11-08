@@ -11,18 +11,18 @@ import { buildBoxplotOption, buildCompareTrendOption } from '@/lib/chart-configs
 import { formatNumber } from '@/lib/format'
 import { getTrendTone, hasMonthlyCoverage } from '@/lib/review-ui'
 import { Link } from '@/i18n/navigation'
-import type { JournalStats } from '@/lib/types'
+import type { JournalStats, LoadedData } from '@/lib/types'
 import { isValidPeerReviewedJournal } from '@/lib/stats-aggregator'
 import { resolveJournalBenchmark } from '@/lib/journal-benchmark'
 import { getJournalSlug } from '@/lib/journal-slug'
 
 const COMPARISON_FILTER = { minCount: 3 }
 
-export function CompareView() {
+export function CompareView({ initialData }: { initialData?: LoadedData | null } = {}) {
   const locale = useLocale()
   const isZh = locale === 'zh'
   const searchParams = useSearchParams()
-  const { journals, loading, error } = useReviewData(COMPARISON_FILTER)
+  const { journals, loading, error } = useReviewData(COMPARISON_FILTER, initialData)
   const [searchQuery, setSearchQuery] = useState('')
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [overrideKeys, setOverrideKeys] = useState<string[] | null>(null)

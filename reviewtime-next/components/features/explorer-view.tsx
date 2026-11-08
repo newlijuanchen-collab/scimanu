@@ -11,16 +11,16 @@ import { buildTrendOption } from '@/lib/chart-configs'
 import { PercentileBand } from '@/components/ui/percentile-band'
 import { TrendChip } from '@/components/ui/trend-chip'
 import { getJournalSlug } from '@/lib/journal-slug'
-import type { JournalStats, TimeSeriesPoint } from '@/lib/types'
+import type { JournalStats, LoadedData, TimeSeriesPoint } from '@/lib/types'
 import { getDataCapabilities, getDisplayPublisher, getDisplaySubject, getLatestYM, getRelativeDelta, getSubjectMedian, getSubjectRank, getTrendTone, hasMonthlyCoverage } from '@/lib/review-ui'
 
-export function ExplorerView() {
+export function ExplorerView({ initialData }: { initialData?: LoadedData | null } = {}) {
   const t = useTranslations()
   const locale = useLocale()
   const isZh = locale === 'zh'
   const searchParams = useSearchParams()
   const [keyword, setKeyword] = useState('')
-  const { journals, loading, error } = useReviewData({ minCount: 1 })
+  const { journals, loading, error } = useReviewData({ minCount: 1 }, initialData)
   const capabilities = useMemo(() => getDataCapabilities(journals), [journals])
 
   const rows = useMemo(() => {

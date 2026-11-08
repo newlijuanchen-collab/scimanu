@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import { DashboardView } from '@/components/features/dashboard-view'
 import { buildLocaleAlternates, buildWebSiteJsonLd } from '@/lib/seo'
+import { loadReviewDataFromSnapshot } from '@/lib/repositories/review-data'
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const t = await getTranslations({ locale: params.locale, namespace: 'meta.home' })
@@ -12,12 +13,14 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   }
 }
 
-export default function LocaleHomePage({ params }: { params: { locale: string } }) {
+export default async function LocaleHomePage({ params }: { params: { locale: string } }) {
+  const data = await loadReviewDataFromSnapshot()
   const jsonLd = buildWebSiteJsonLd(params.locale)
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <DashboardView />
+      <DashboardView initialData={data} />
     </>
   )
 }

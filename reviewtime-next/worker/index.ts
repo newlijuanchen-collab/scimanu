@@ -37,7 +37,7 @@ export default {
     }
 
     // 3. Serve Next.js SSG static assets via Cloudflare global edge
-    const response = await env.ASSETS.fetch(request)
+    let response = await env.ASSETS.fetch(request)
 
     // Edge fallback: if asset is 404 and is an un-prefixed English route, attempt /en fallback
     if (response.status === 404 && (request.method === 'GET' || request.method === 'HEAD')) {
@@ -46,9 +46,20 @@ export default {
         const fallbackUrl = new URL(`/en${p === '/' ? '' : p}`, request.url)
         const fallbackResponse = await env.ASSETS.fetch(new Request(fallbackUrl, request))
         if (fallbackResponse.status === 200) {
-          return fallbackResponse
+          response = fallbackResponse
         }
       }
+    }
+
+    // Performance enhancement: Cache immutable hashed static assets for 1 year
+    if (response.status === 200 && url.pathname.startsWith('/_next/static/')) {
+      const headers = new Headers(response.headers)
+      headers.set('Cache-Control', 'public, max-age=31536000, immutable')
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers,
+      })
     }
 
     return response

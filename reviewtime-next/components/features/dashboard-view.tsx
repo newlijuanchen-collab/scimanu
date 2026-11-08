@@ -11,7 +11,7 @@ import { formatCompactNumber, formatMonthLabel, formatNumber } from '@/lib/forma
 import { Link } from '@/i18n/navigation'
 import { getTrendTone, hasMonthlyCoverage } from '@/lib/review-ui'
 import { getJournalSlug } from '@/lib/journal-slug'
-import type { JournalStats } from '@/lib/types'
+import type { JournalStats, LoadedData } from '@/lib/types'
 import {
   computeDisciplineBenchmarks,
   computeSpeedTiers,
@@ -39,12 +39,12 @@ function matchesReliabilityFilter(journal: JournalStats, filter: ReliabilityFilt
   return journal.count >= 20
 }
 
-export function DashboardView() {
+export function DashboardView({ initialData }: { initialData?: LoadedData | null } = {}) {
   const t = useTranslations()
   const locale = useLocale()
   const isZh = locale === 'zh'
 
-  const { journals, stats, loading, error } = useReviewData({ minCount: 3 })
+  const { journals, stats, loading, error } = useReviewData({ minCount: 3 }, initialData)
   const [keyword, setKeyword] = useState('')
   const [waitFilter, setWaitFilter] = useState<WaitFilter>('all')
   const [reliabilityFilter, setReliabilityFilter] = useState<ReliabilityFilter>('all')

@@ -4,19 +4,25 @@ import { useEffect, useMemo, useState } from 'react'
 import { filterJournals } from '@/lib/data-loader'
 import type { JournalFilter, LoadedData } from '@/lib/types'
 
-export function useReviewData(filter: JournalFilter = {}) {
-  const [data, setData] = useState<LoadedData | null>(null)
-  const [loading, setLoading] = useState(true)
+export function useReviewData(filter: JournalFilter = {}, initialData?: LoadedData | null) {
+  const [data, setData] = useState<LoadedData | null>(initialData ?? null)
+  const [loading, setLoading] = useState(!initialData)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    if (initialData) {
+      setData(initialData)
+      setLoading(false)
+      return
+    }
+
     let mounted = true
     const run = async () => {
       setLoading(true)
       setError(null)
 
       try {
-        const resp = await fetch('/data/current/review-data.json', { cache: 'no-store' })
+        const resp = await fetch('/data/current/review-data.json')
         if (!resp.ok) {
           const body = (await resp.json().catch(() => null)) as { message?: string } | null
           throw new Error(body?.message || `HTTP ${resp.status}`)
@@ -37,7 +43,7 @@ export function useReviewData(filter: JournalFilter = {}) {
     return () => {
       mounted = false
     }
-  }, [])
+  }, [initialData])
 
   const journals = useMemo(() => {
     if (!data) return []
