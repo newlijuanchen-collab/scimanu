@@ -16,7 +16,7 @@ export function SpeedBadge({ days, label }: SpeedBadgeProps) {
         info.tier === 'fast' && 'bg-green-100 text-green-700',
         info.tier === 'good' && 'bg-lime-100 text-lime-700',
         info.tier === 'normal' && 'bg-amber-100 text-amber-700',
-        info.tier === 'slow' && 'bg-orange-100 text-orange-700',
+        info.tier === 'slow' && 'bg-rose-100 text-rose-700',
         info.tier === 'vslow' && 'bg-red-100 text-red-700',
       )}
     >

@@ -35,6 +35,7 @@ Enrich MDPI article timeline metadata for articles_master.xlsx.
 """
 
 import argparse
+import os
 import random
 import re
 import time
@@ -52,7 +53,10 @@ try:
     from selenium import webdriver
     from selenium.common.exceptions import TimeoutException, WebDriverException
     from selenium.webdriver.chrome.options import Options as ChromeOptions
+    from selenium.webdriver.chrome.service import Service as ChromeService
     from selenium.webdriver.common.by import By
+    from selenium.webdriver.edge.options import Options as EdgeOptions
+    from selenium.webdriver.edge.service import Service as EdgeService
     from selenium.webdriver.support import expected_conditions as EC
     from selenium.webdriver.support.ui import WebDriverWait
 except Exception:  # pragma: no cover
@@ -60,6 +64,9 @@ except Exception:  # pragma: no cover
     TimeoutException = Exception
     WebDriverException = Exception
     ChromeOptions = None
+    ChromeService = None
+    EdgeOptions = None
+    EdgeService = None
     WebDriverWait = None
     EC = None
     By = None
@@ -357,16 +364,48 @@ def extract_mdpi_subject(text: str, target_doi: str = "") -> str:
         )
 
     return ""
-    
+
+
+def _detect_windows_edge_binary() -> str:
+    candidates = [
+        r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+        r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
+    ]
+    for p in candidates:
+        if Path(p).exists():
+            return p
+    return ""
+
+
+def _detect_windows_local_driver_exe(browser: str) -> str:
+    exe = "msedgedriver.exe" if browser == "edge" else "chromedriver.exe"
+    here = Path(__file__).resolve().parent
+    for base in [here, here.parent, Path.cwd()]:
+        candidate = (base / exe)
+        if candidate.exists():
+            return str(candidate)
+    return ""
 
 class BrowserMDPIFetcher:
     def __init__(
         self,
+        browser: str = "auto",
+        driver_path: Optional[str] = None,
+        browser_binary: Optional[str] = None,
+        proxy: Optional[str] = None,
+        ignore_ssl_errors: bool = False,
+        extra_args: Optional[list[str]] = None,
         headless: bool = True,
         timeout_ms: int = 45000,
         retries: int = 2,
         wait_ms: int = 1200,
     ):
+        self.browser = (browser or "auto").strip().lower()
+        self.driver_path = driver_path
+        self.browser_binary = browser_binary
+        self.proxy = proxy
+        self.ignore_ssl_errors = ignore_ssl_errors
+        self.extra_args = extra_args or []
         self.headless = headless
         self.timeout_ms = timeout_ms
         self.retries = retries
@@ -375,22 +414,98 @@ class BrowserMDPIFetcher:
         self._driver = None
 
     def open(self):
-        if webdriver is None or ChromeOptions is None:
+        if webdriver is None:
             raise RuntimeError(
                 "Selenium is not available. Install it first: pip install selenium"
             )
 
-        options = ChromeOptions()
-        if self.headless:
-            options.add_argument("--headless=new")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--window-size=1440,900")
-        options.add_argument("--lang=en-US")
-        options.add_argument("--disable-blink-features=AutomationControlled")
-        options.add_experimental_option("excludeSwitches", ["enable-automation"])
-        options.add_experimental_option("useAutomationExtension", False)
+        browser = self.browser
+        if browser == "auto":
+            browser = "edge" if os.name == "nt" else "chrome"
 
-        self._driver = webdriver.Chrome(options=options)
+        driver_path_override = (self.driver_path or "").strip()
+        if driver_path_override and not Path(driver_path_override).exists():
+            raise RuntimeError(f"Driver not found: {driver_path_override}")
+
+        browser_binary_override = (self.browser_binary or "").strip()
+        if browser_binary_override and not Path(browser_binary_override).exists():
+            raise RuntimeError(f"Browser binary not found: {browser_binary_override}")
+
+        common_args = [
+            "--disable-gpu",
+            "--window-size=1440,900",
+            "--lang=en-US",
+            "--disable-blink-features=AutomationControlled",
+            "--log-level=3",
+            "--disable-logging",
+        ]
+        if self.headless:
+            common_args.append("--headless=new")
+
+        if self.proxy and str(self.proxy).strip():
+            common_args.append(f"--proxy-server={str(self.proxy).strip()}")
+
+        if self.ignore_ssl_errors:
+            common_args.extend(
+                [
+                    "--ignore-certificate-errors",
+                    "--ignore-ssl-errors=yes",
+                    "--allow-running-insecure-content",
+                ]
+            )
+
+        for a in self.extra_args:
+            if a and str(a).strip():
+                common_args.append(str(a).strip())
+
+        print(f"[browser] engine={browser} headless={self.headless} proxy={bool(self.proxy)} ignore_ssl={self.ignore_ssl_errors}")
+
+        if browser == "edge":
+            if EdgeOptions is None:
+                raise RuntimeError(
+                    "Edge options are not available. Ensure selenium is installed: pip install selenium"
+                )
+            options = EdgeOptions()
+            binary = (self.browser_binary or "").strip() or _detect_windows_edge_binary()
+            if binary:
+                options.binary_location = binary
+            for a in common_args:
+                options.add_argument(a)
+
+            service = None
+            driver_path = driver_path_override or _detect_windows_local_driver_exe("edge")
+            if driver_path and EdgeService is not None:
+                service = EdgeService(executable_path=driver_path)
+
+            if driver_path:
+                print(f"[browser] edge_driver={driver_path}")
+            if binary:
+                print(f"[browser] edge_binary={binary}")
+            self._driver = webdriver.Edge(service=service, options=options)
+        else:
+            if ChromeOptions is None:
+                raise RuntimeError(
+                    "Chrome options are not available. Ensure selenium is installed: pip install selenium"
+                )
+            options = ChromeOptions()
+            binary = (self.browser_binary or "").strip()
+            if binary:
+                options.binary_location = binary
+            for a in common_args:
+                options.add_argument(a)
+            options.add_experimental_option("excludeSwitches", ["enable-automation"])
+            options.add_experimental_option("useAutomationExtension", False)
+
+            service = None
+            driver_path = driver_path_override or _detect_windows_local_driver_exe("chrome")
+            if driver_path and ChromeService is not None:
+                service = ChromeService(executable_path=driver_path)
+
+            if driver_path:
+                print(f"[browser] chrome_driver={driver_path}")
+            if binary:
+                print(f"[browser] chrome_binary={binary}")
+            self._driver = webdriver.Chrome(service=service, options=options)
         self._driver.set_page_load_timeout(max(15, int(self.timeout_ms / 1000)))
 
     def close(self):
@@ -688,6 +803,44 @@ def main():
         help="Browser retries for blocked/timeout pages",
     )
 
+    parser.add_argument(
+        "--browser",
+        default="auto",
+        choices=["auto", "chrome", "edge"],
+        help="Browser engine for Selenium (auto=Edge on Windows, Chrome otherwise)",
+    )
+
+    parser.add_argument(
+        "--driver-path",
+        default=None,
+        help="Path to chromedriver.exe or msedgedriver.exe (optional)",
+    )
+
+    parser.add_argument(
+        "--browser-binary",
+        default=None,
+        help="Path to browser binary (e.g., msedge.exe or chrome.exe). Optional.",
+    )
+
+    parser.add_argument(
+        "--browser-proxy",
+        default=None,
+        help="Proxy server for browser (e.g. http://127.0.0.1:7890)",
+    )
+
+    parser.add_argument(
+        "--browser-ignore-ssl-errors",
+        action="store_true",
+        help="Add Chromium flags to ignore SSL/certificate errors",
+    )
+
+    parser.add_argument(
+        "--browser-arg",
+        action="append",
+        default=[],
+        help="Extra browser arg, can be repeated (e.g. --browser-arg=--user-agent=...)",
+    )
+
     args = parser.parse_args()
 
     input_path = Path(args.input)
@@ -740,6 +893,12 @@ def main():
 
     processed = 0
     fetcher = BrowserMDPIFetcher(
+        browser=args.browser,
+        driver_path=args.driver_path,
+        browser_binary=args.browser_binary,
+        proxy=args.browser_proxy,
+        ignore_ssl_errors=args.browser_ignore_ssl_errors,
+        extra_args=args.browser_arg,
         headless=args.browser_headless,
         timeout_ms=args.browser_timeout_ms,
         retries=max(0, args.browser_retries),

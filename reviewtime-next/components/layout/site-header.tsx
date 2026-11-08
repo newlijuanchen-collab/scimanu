@@ -1,61 +1,89 @@
 'use client'
 
-import { useLocale, useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 import { Link, usePathname } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 
-const navItems = [
-  { key: 'dashboard', href: '/' },
-  { key: 'leaderboard', href: '/leaderboard' },
-  { key: 'explorer', href: '/explorer' },
-  { key: 'compare', href: '/compare' },
-  { key: 'citation', href: '/tools/citation' },
-  { key: 'impact', href: '/tools/impact' },
+interface NavLinkItem {
+  href: string
+  labelZh: string
+  labelEn: string
+}
+
+const NAV_LINKS: NavLinkItem[] = [
+  { href: '/', labelZh: '首页大盘', labelEn: 'Hub' },
+  { href: '/fast-review-journals', labelZh: '极速期刊榜', labelEn: 'Fast Journals' },
+  { href: '/journals', labelZh: '期刊库', labelEn: 'Journals' },
+  { href: '/compare', labelZh: '期刊对比', labelEn: 'Compare' },
+  { href: '/statistics', labelZh: '期刊分析', labelEn: 'Analytics' },
+  { href: '/about', labelZh: '方法与关于', labelEn: 'About' },
 ]
 
 export function SiteHeader() {
-  const t = useTranslations('nav')
   const pathname = usePathname()
   const locale = useLocale()
+  const isZh = locale === 'zh'
 
   return (
-    <header className="border-b border-slate-200 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-md">
       <div className="container-page flex h-16 items-center justify-between gap-4">
-        <div className="flex items-center gap-6">
-          <Link href="/" className="text-lg font-semibold text-primary-600">
-            {t('brand')}
+        <div className="flex items-center gap-7">
+          <Link href="/" className="flex items-center gap-2 group">
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-orange-600 font-black text-white shadow-sm shadow-orange-600/30 transition-transform group-hover:scale-105">
+              S
+            </span>
+            <span className="text-xl font-black tracking-tight text-slate-950">
+              Sci<span className="text-orange-600">Manu</span>
+            </span>
+            <span className="hidden rounded-full border border-orange-200/80 bg-orange-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-orange-700 sm:inline-block">
+              Open Data
+            </span>
           </Link>
-          <nav className="hidden items-center gap-4 text-sm md:flex">
-            {navItems.map(item => {
-              const active = pathname === item.href
+
+          <nav className="hidden items-center gap-1 text-sm md:flex">
+            {NAV_LINKS.map(item => {
+              const active = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
               return (
                 <Link
-                  key={item.key}
+                  key={item.href}
                   href={item.href}
-                  className={active ? 'font-medium text-primary-600' : 'text-slate-600 hover:text-slate-900'}
+                  className={`rounded-xl px-3 py-1.5 font-bold transition-all ${
+                    active
+                      ? 'bg-orange-50 text-orange-700 shadow-sm'
+                      : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/70'
+                  }`}
                 >
-                  {t(item.key)}
+                  {isZh ? item.labelZh : item.labelEn}
                 </Link>
               )
             })}
           </nav>
         </div>
 
-        <div className="flex items-center gap-2 rounded-lg border border-slate-200 p-1 text-sm">
-          {routing.locales.map(l => (
-            <Link
-              key={l}
-              href={pathname}
-              locale={l}
-              className={
-                l === locale
-                  ? 'rounded-md bg-primary-50 px-2 py-1 font-medium text-primary-700'
-                  : 'rounded-md px-2 py-1 text-slate-600 hover:bg-slate-100'
-              }
-            >
-              {l.toUpperCase()}
-            </Link>
-          ))}
+        <div className="flex items-center gap-3">
+          <Link
+            href="/fast-review-journals"
+            className="text-xs font-bold text-orange-600 md:hidden"
+          >
+            {isZh ? '极速榜' : 'Fast'}
+          </Link>
+
+          <div className="flex items-center gap-1 rounded-xl border border-slate-200 bg-slate-50/90 p-0.5 text-xs font-bold">
+            {routing.locales.map(l => (
+              <Link
+                key={l}
+                href={pathname}
+                locale={l}
+                className={
+                  l === locale
+                    ? 'rounded-lg bg-white px-2.5 py-1 text-slate-950 shadow-sm'
+                    : 'rounded-lg px-2.5 py-1 text-slate-500 hover:text-slate-900'
+                }
+              >
+                {l.toUpperCase()}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </header>

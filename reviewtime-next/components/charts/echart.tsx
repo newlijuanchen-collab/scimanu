@@ -14,16 +14,20 @@ export function EChart({ option, className }: EChartProps) {
 
   useEffect(() => {
     if (!ref.current) return
-    const chart = echarts.init(ref.current)
+    const element = ref.current
+    const chart = echarts.init(element, undefined, { renderer: 'canvas' })
     chart.setOption(option)
 
     const onResize = () => chart.resize()
-    window.addEventListener('resize', onResize)
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(onResize)
+    observer?.observe(element)
+    if (!observer) window.addEventListener('resize', onResize)
     return () => {
-      window.removeEventListener('resize', onResize)
+      observer?.disconnect()
+      if (!observer) window.removeEventListener('resize', onResize)
       chart.dispose()
     }
   }, [option])
 
-  return <div ref={ref} className={className ?? 'h-80 w-full'} />
+  return <div ref={ref} className={className ?? 'h-80 w-full'} role="img" />
 }

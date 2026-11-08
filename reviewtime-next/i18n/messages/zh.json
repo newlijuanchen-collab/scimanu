@@ -1,7 +1,9 @@
 {
   "nav": {
-    "brand": "ReviewTime",
-    "dashboard": "总览",
+    "brand": "SciManu",
+    "dashboard": "首页",
+    "journals": "期刊",
+    "fastReview": "快速期刊",
     "leaderboard": "榜单",
     "explorer": "期刊浏览",
     "compare": "对比",
@@ -10,133 +12,164 @@
     "impact": "Impact Factor 检索"
   },
   "dashboard": {
-    "title": "总览 Dashboard",
-    "subtitle": "从多维度分析学术期刊审稿周期",
-    "focusTitle": "先找目标期刊，再看全局数据",
-    "focusSub": "参考 SciRev 的使用路径：先进入期刊详情，再查看处理时长、质量评分与近期记录。",
-    "goExplorer": "进入期刊详情模式",
-    "goLeaderboard": "查看排行榜",
-    "refresh": "刷新",
-    "dataUpdated": "数据更新于 {date}",
+    "eyebrow": "Journal Review Time Database",
+    "title": "投稿前，先知道可能要等多久",
+    "subtitle": "选刊最难的是审稿周期不透明。先搜索目标期刊，看等待时间更像几周还是几个月，再决定是否需要比较更快的替代选择。",
+    "searchLabel": "搜索目标期刊",
+    "searchEyebrow": "期刊审稿时间搜索",
+    "searchTitle": "搜索期刊审稿时间和修改轮次",
+    "searchSubtitle": "查看一本期刊从 received 到 accepted 通常要多久，首次反馈一般何时出现，常见修改轮次是多少，以及审稿时间是否稳定。",
+    "searchPlaceholder": "输入期刊名、ISSN、出版商或学科…",
+    "emptySearch": "没有找到匹配的期刊，请换个关键词试试。",
+    "filters": {
+      "any": "不限",
+      "articleType": "文章类型",
+      "allArticleTypes": "全部文章类型",
+      "totalWait": "总等待",
+      "fast": "60 天以内",
+      "standard": "60-120 天",
+      "slow": "120 天以上",
+      "firstFeedback": "首次反馈",
+      "feedbackUnder60": "60 天以内",
+      "feedback60to120": "60-120 天",
+      "feedbackOver120": "120 天以上",
+      "revisionRounds": "修改轮次",
+      "rounds0": "0 轮",
+      "rounds1": "通常 1 轮",
+      "rounds2": "通常 2 轮",
+      "rounds3Plus": "通常 3+ 轮",
+      "finalTail": "终轮到接收",
+      "tailUnder14": "14 天以内",
+      "tail14to30": "14-30 天",
+      "tailOver30": "30 天以上"
+    },
+    "result": {
+      "totalWait": "总等待",
+      "firstFeedback": "首次反馈",
+      "rounds": "修改轮次",
+      "roundUnit": "轮",
+      "finalTail": "终轮尾段",
+      "articleType": "文章类型"
+    },
+    "pain": {
+      "wait": "这次审稿会是 40 天，还是 6 个月？",
+      "range": "这个期刊等待时间稳定吗，还是波动很大？",
+      "compare": "投稿前有没有更快的替代期刊？"
+    },
     "kpi": {
       "journals": "覆盖期刊数",
-      "journalsSub": "journals tracked",
-      "articles": "有效样本量",
-      "articlesSub": "articles analyzed",
-      "median": "全局中位审稿",
-      "medianSub": "天 (P25–P75: {iqr})",
-      "fastest": "最快期刊",
-      "fastestSub": "{days} 天中位数"
+      "articles": "时间线记录",
+      "median": "全站中位审稿"
     },
-    "filter": {
-      "publisher": "出版商",
-      "subject": "学科",
-      "minCount": "最小样本量",
-      "topN": "显示数量",
-      "apply": "应用筛选",
-      "all": "全部"
+    "actions": {
+      "explorer": "搜索期刊",
+      "leaderboard": "快速期刊"
     },
-    "charts": {
-      "boxplot": "期刊审稿周期分布（箱线图）",
-      "boxplotSub": "按中位数排序，颜色表示速度等级",
-      "trend": "全局审稿趋势",
-      "trendSub": "月度中位数及P25–P75区间",
-      "heatmap": "期刊 × 月份 审稿天数热力图",
-      "heatmapSub": "近 24 个月，样本量≥3 的单元格可见，绿=快 红=慢"
+    "summary": {
+      "title": "数据概览",
+      "badge": "不展示无时间线期刊",
+      "subtitle": "所有数字都配有分位区间和数据新鲜度，避免只看平均值。",
+      "updated": "最近更新",
+      "backedBy": "数据基础",
+      "samples": "真实论文样本"
+    },
+    "insights": {
+      "fastest": "当前最快",
+      "reliable": "观察到的区间跨度",
+      "improving": "最近变快",
+      "coverage": "决策参考",
+      "range": "中间 50% 区间"
+    },
+    "sampleData": {
+      "title": "当前为样本数据",
+      "sampleMode": "只展示有 received-to-accepted 时间线的期刊。first decision 和修改轮次暂未纳入。",
+      "productionMode": "只展示有 received-to-accepted 时间线的期刊。",
+      "identityPending": "出版商 / 学科待补齐",
+      "coverageTitle": "查看可用时间线数据",
+      "coverageDesc": "投稿计划可参考各期刊的中位数、P25–P75 区间和样本量。",
+      "publisherPending": "出版商待补齐",
+      "subjectPending": "学科待补齐"
+    },
+    "sections": {
+      "trendEyebrow": "全局趋势",
+      "trendTitle": "整体审稿速度最近在怎么变化",
+      "trendSubtitle": "用全站月度中位数观察最近 24 个月的整体变化趋势，帮助判断当前是否处于更快或更慢的阶段。",
+      "howEyebrow": "如何使用",
+      "howTitle": "在制定投稿计划前使用"
+    },
+    "how": {
+      "step1Title": "先看可能要等多久",
+      "step1Desc": "从你正在考虑的期刊开始，先看中位等待时间和典型区间。",
+      "step2Title": "查看观测区间",
+      "step2Desc": "将中位数与 P25–P75 区间一起查看，了解已观测耗时的分布范围。",
+      "step3Title": "投稿前再比较",
+      "step3Desc": "制定投稿计划前，可比较不同期刊已有的日期统计和样本量。"
     }
   },
   "leaderboard": {
-    "title": "审稿周期榜单",
-    "subtitle": "快速找到最快、最慢期刊和改善趋势",
+    "title": "期刊排行榜",
+    "subtitle": "不是单纯排序，而是帮你快速找到明显更快、更稳或最近更值得关注的期刊。",
     "tabs": {
       "fastest": "最快期刊",
       "slowest": "最慢期刊",
       "trend": "改善趋势"
     },
+    "listTitle": "更多期刊",
     "table": {
-      "rank": "排名",
       "journal": "期刊",
-      "issn": "ISSN",
-      "publisher": "出版商",
-      "subject": "学科",
       "median": "中位天数",
-      "p25": "P25",
-      "p75": "P75",
-      "count": "样本量",
-      "speed": "速度",
-      "action": "操作",
-      "med6": "近6月中位(天)",
-      "med24": "近24月中位(天)",
-      "change": "变化(天)",
-      "changeRate": "变化率"
-    },
-    "exportCSV": "导出 CSV",
-    "addCompare": "+ 对比",
-    "fastestTitle": "最快审稿期刊",
-    "slowestTitle": "审稿最慢期刊",
-    "trendTitle": "审稿效率改善趋势榜",
-    "trendNote": "近6月中位 vs 近24月中位，需各≥3篇样本"
+      "iqr": "P25-P75",
+      "count": "文章时间线",
+      "trust": "参考",
+      "change": "近期变化"
+    }
   },
   "explorer": {
-    "title": "期刊浏览器",
-    "subtitle": "搜索、筛选期刊，展开查看详情与时序图",
+    "title": "期刊探索",
+    "subtitle": "把单个期刊的数据整理成可判断的详情视图，再放到同领域里做对比。",
     "hero": {
-      "eyebrow": "Journal profile",
-      "subSelected": "查看该期刊的处理阶段、质量评分与近期审稿记录（基于可用数据估算）。"
+      "eyebrow": "期刊详情视图",
+      "subSelected": "先看结论卡，再看同领域定位、趋势变化和最近记录，不再只盯着一堆孤立数字。"
     },
     "panels": {
-      "duration": "稿件处理阶段时长",
-      "quality": "审稿流程特征"
+      "decision": "主结论",
+      "position": "相对定位",
+      "trend": "趋势变化",
+      "peers": "同领域对比",
+      "fastAlternatives": "快速候选",
+      "records": "近期记录"
     },
     "cards": {
-      "firstRound": "首轮决策（近似）",
-      "totalHandling": "总处理时长（中位）",
-      "upperIqr": "处理时长上四分位",
-      "trend": "近期趋势",
-      "reportQuality": "审稿报告质量",
-      "overallRating": "整体处理评分",
-      "latestOutcome": "近期结果"
+      "totalHandling": "中位审稿时长",
+      "trend": "最近 24 个月趋势",
+      "trendSubtitle": "观察中位数是否在变快、变慢，波动是否扩大。",
+      "rangeSummary": "50% 的样本集中在 {p25}-{p75} 天之间。",
+      "subjectDelta": "相对同领域中位值",
+      "subjectDeltaUnknown": "当前无法可靠计算同领域对比。",
+      "subjectDeltaFast": "比同领域整体更快",
+      "subjectDeltaSlow": "比同领域整体更慢",
+      "rank": "学科内位置",
+      "latestUpdate": "最近更新"
     },
     "reviews": {
       "title": "“{journal}” 的近期记录",
-      "firstRound": "首轮",
       "totalHandling": "总处理时长",
-      "immediateReject": "快速拒稿",
-      "numReports": "审稿意见数",
-      "reportQuality": "报告质量",
-      "overallRating": "总体评分",
-      "outcome": "结果",
-      "year": "年份"
+      "numReports": "样本量",
+      "year": "月份"
     },
-    "outcome": {
-      "accepted": "Accepted",
-      "rejected": "Rejected"
-    },
-    "searchPlaceholder": "搜索期刊名 / ISSN…",
-    "quality": "数据质量",
-    "qualityAll": "全部",
-    "qualityHigh": "仅高置信度",
+    "peerCurrent": "当前期刊",
+    "searchPlaceholder": "搜索期刊名 / ISSN / 出版商 / 学科…",
     "results": "共 {count} 本期刊",
-    "table": {
-      "journal": "期刊名",
-      "issn": "ISSN",
-      "publisher": "出版商",
-      "subject": "学科",
-      "median": "中位(天)",
-      "iqr": "P25–P75",
-      "count": "样本量",
-      "trend": "趋势",
-      "speed": "速度",
-      "action": "操作"
+    "sampleData": {
+      "metadataPending": "出版商 / 学科待补齐",
+      "identityPending": "元数据待补齐",
+      "subjectUnavailableTitle": "同领域比较暂未启用",
+      "subjectUnavailableDesc": "当前数据里的学科分类仍为 General，直接计算学科排名会误导判断。这里先保留最近观察月份，待分类补齐后再展示同领域位置。",
+      "fastAlternatives": "全站较快期刊"
     },
-    "detail": {
-      "timeline": "月度中位审稿天数（近18个月）",
-      "articles": "文章级数据预览（最近20篇）",
-      "title": "标题",
-      "received": "收稿日",
-      "accepted": "接受日",
-      "days": "天数",
-      "doi": "DOI"
+    "table": {
+      "iqr": "P25-P75",
+      "trend": "趋势"
     }
   },
   "compare": {
@@ -192,6 +225,17 @@
     "down": "↓{days}天 (加速)",
     "flat": "→ 稳定"
   },
+  "trust": {
+    "high": "强参考",
+    "medium": "中等参考",
+    "low": "参考",
+    "stale": "较早参考",
+    "trend": {
+      "faster": "近 12 个月更快",
+      "slower": "近 12 个月更慢",
+      "stable": "基本稳定"
+    }
+  },
   "common": {
     "loading": "正在加载数据，请稍候…",
     "error": "加载失败",
@@ -202,25 +246,36 @@
     "search": "搜索"
   },
   "footer": {
-    "note": "ReviewTime — 数据来自 PubMed/PMC/Crossref，仅供参考。",
-    "openSource": "开源库"
+    "note": "SciManu — 基于 PubMed E-utilities 可用日期生成期刊级聚合统计。数据来源说明见“关于与数据源说明”。",
+    "about": "关于与数据源说明",
+    "contact": "联系我们",
+    "privacy": "隐私政策",
+    "openSource": "项目源码"
   },
   "meta": {
     "home": {
-      "title": "ReviewTime — 学术期刊审稿周期可视化",
-      "description": "ReviewTime 汇聚来自 PubMed/PMC/Crossref 的真实审稿周期数据，帮助研究者快速选刊、对比审稿效率。"
+      "title": "Journal Review Time Database | SciManu",
+      "description": "搜索基于 PubMed 的期刊时间线聚合数据，对比收稿至接收中位数、P25–P75 区间、P90 耗时和样本量。"
     },
     "leaderboard": {
-      "title": "审稿周期榜单 — ReviewTime",
+      "title": "审稿周期榜单 — SciManu",
       "description": "查看最快、最慢审稿期刊排名及改善趋势，基于真实 PubMed 数据。"
     },
     "explorer": {
-      "title": "期刊浏览器 — ReviewTime",
+      "title": "期刊浏览器 — SciManu",
       "description": "搜索浏览所有期刊的审稿周期数据，支持按出版商、学科筛选。"
     },
     "compare": {
-      "title": "期刊横向对比 — ReviewTime",
+      "title": "期刊横向对比 — SciManu",
       "description": "并排对比多本期刊审稿周期分布，支持时序趋势对比。"
+    },
+    "toolsCitation": {
+      "title": "Citation Checker — SciManu",
+      "description": "验证参考文献准确性，识别潜在问题引用。"
+    },
+    "toolsImpact": {
+      "title": "Impact Factor 检索 — SciManu",
+      "description": "查询期刊影响力指标，辅助研究者做选刊决策。"
     }
   }
 }

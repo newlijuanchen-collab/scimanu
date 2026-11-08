@@ -6,21 +6,21 @@ import { getSiteUrl } from '@/lib/site'
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: 'ReviewTime',
-    template: '%s | ReviewTime',
+    default: 'SciManu',
+    template: '%s | SciManu',
   },
-  description: 'Academic journal review cycle analytics for smarter journal selection.',
-  keywords: ['review time', 'journal', 'peer review', 'academic publishing', 'journal ranking'],
+  description: 'Academic journal review timeline analytics & manuscript publishing insights for smarter journal selection.',
+  keywords: ['scimanu', 'manuscript review time', 'journal review time', 'peer review speed', 'academic publishing', 'journal ranking'],
   openGraph: {
-    title: 'ReviewTime',
-    description: 'Academic journal review cycle analytics for smarter journal selection.',
+    title: 'SciManu',
+    description: 'Academic journal review timeline analytics & manuscript publishing insights for smarter journal selection.',
     type: 'website',
-    siteName: 'ReviewTime',
+    siteName: 'SciManu',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ReviewTime',
-    description: 'Academic journal review cycle analytics for smarter journal selection.',
+    title: 'SciManu',
+    description: 'Academic journal review timeline analytics & manuscript publishing insights for smarter journal selection.',
   },
 }
 

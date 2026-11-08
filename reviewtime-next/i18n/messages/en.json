@@ -1,7 +1,9 @@
 {
   "nav": {
-    "brand": "ReviewTime",
-    "dashboard": "Dashboard",
+    "brand": "SciManu",
+    "dashboard": "Home",
+    "journals": "Journals",
+    "fastReview": "Fast Journals",
     "leaderboard": "Leaderboard",
     "explorer": "Journal Explorer",
     "compare": "Compare",
@@ -10,133 +12,164 @@
     "impact": "Impact Factor Lookup"
   },
   "dashboard": {
-    "title": "Dashboard Overview",
-    "subtitle": "Multi-dimensional analysis of academic journal review cycles",
-    "focusTitle": "Find your target journal first, then inspect global trends",
-    "focusSub": "Following a SciRev-like journey: enter journal profile first, then review handling speed, quality signals, and recent records.",
-    "goExplorer": "Open Journal Profile Mode",
-    "goLeaderboard": "Open Leaderboard",
-    "refresh": "Refresh",
-    "dataUpdated": "Updated {date}",
+    "eyebrow": "Journal Review Time Database",
+    "title": "Know the wait before you submit",
+    "subtitle": "Choosing a journal is hard when review timelines are hidden. Search a target journal first, see whether the wait usually looks like weeks or months, then compare faster options before you commit.",
+    "searchLabel": "Search target journals",
+    "searchEyebrow": "Journal review time search",
+    "searchTitle": "Search journal review time and revision patterns",
+    "searchSubtitle": "Find how long a journal usually takes from received to accepted, when first feedback tends to appear, how many revision rounds are commonly recorded, and whether the timeline is predictable.",
+    "searchPlaceholder": "Type a journal name, ISSN, publisher, or subject…",
+    "emptySearch": "No matching journals found. Try a different keyword.",
+    "filters": {
+      "any": "Any",
+      "articleType": "Article type",
+      "allArticleTypes": "All article types",
+      "totalWait": "Total wait",
+      "fast": "Under 60 days",
+      "standard": "60-120 days",
+      "slow": "Over 120 days",
+      "firstFeedback": "First feedback",
+      "feedbackUnder60": "Under 60 days",
+      "feedback60to120": "60-120 days",
+      "feedbackOver120": "Over 120 days",
+      "revisionRounds": "Revision rounds",
+      "rounds0": "0 rounds",
+      "rounds1": "Usually 1",
+      "rounds2": "Usually 2",
+      "rounds3Plus": "Usually 3+",
+      "finalTail": "Final revision tail",
+      "tailUnder14": "Under 14 days",
+      "tail14to30": "14-30 days",
+      "tailOver30": "Over 30 days"
+    },
+    "result": {
+      "totalWait": "Total wait",
+      "firstFeedback": "First feedback",
+      "rounds": "Rounds",
+      "roundUnit": "rounds",
+      "finalTail": "Final tail",
+      "articleType": "Article type"
+    },
+    "pain": {
+      "wait": "Will this review take 40 days or 6 months?",
+      "range": "Is the timeline predictable or highly variable?",
+      "compare": "Are there faster journals before you submit?"
+    },
     "kpi": {
       "journals": "Journals Tracked",
-      "journalsSub": "journals tracked",
-      "articles": "Valid Samples",
-      "articlesSub": "articles analyzed",
-      "median": "Global Median Review",
-      "medianSub": "days (P25–P75: {iqr})",
-      "fastest": "Fastest Journal",
-      "fastestSub": "{days} days median"
+      "articles": "Timeline Records",
+      "median": "Global Median Review"
     },
-    "filter": {
-      "publisher": "Publisher",
-      "subject": "Subject",
-      "minCount": "Min. Sample Size",
-      "topN": "Show Top N",
-      "apply": "Apply Filters",
-      "all": "All"
+    "actions": {
+      "explorer": "Search Journals",
+      "leaderboard": "Fast Review Journals"
     },
-    "charts": {
-      "boxplot": "Review Cycle Distribution (Boxplot)",
-      "boxplotSub": "Sorted by median, color indicates speed tier",
-      "trend": "Global Review Trend",
-      "trendSub": "Monthly median with P25–P75 band",
-      "heatmap": "Journal × Month Heatmap",
-      "heatmapSub": "Last 24 months, cells with ≥3 samples; green=fast, red=slow"
+    "summary": {
+      "title": "Data Summary",
+      "badge": "No zero-timeline journals",
+      "subtitle": "Every key number is paired with percentile range and data freshness, not just an average.",
+      "updated": "Last Updated",
+      "backedBy": "Evidence Base",
+      "samples": "real article samples"
+    },
+    "insights": {
+      "fastest": "Fastest Right Now",
+      "reliable": "Wide Observed Range",
+      "improving": "Recently Faster",
+      "coverage": "Decision Context",
+      "range": "middle 50% range"
+    },
+    "sampleData": {
+      "title": "Sample data mode",
+      "sampleMode": "Only journals with valid received-to-accepted timelines are shown. First decision and revision rounds are not included yet.",
+      "productionMode": "Only journals with valid received-to-accepted timelines are shown.",
+      "identityPending": "Publisher / subject pending",
+      "coverageTitle": "Review the available timelines",
+      "coverageDesc": "Compare each journal's median, P25-P75 range, and sample count when planning a submission.",
+      "publisherPending": "Publisher pending",
+      "subjectPending": "Subject pending"
+    },
+    "sections": {
+      "trendEyebrow": "Global Trend",
+      "trendTitle": "How overall review speed has changed lately",
+      "trendSubtitle": "A monthly median view of the last 24 months to show whether the review environment is becoming faster or slower overall.",
+      "howEyebrow": "How to Use",
+      "howTitle": "Use it before you build the submission plan"
+    },
+    "how": {
+      "step1Title": "Check the likely wait",
+      "step1Desc": "Start from a journal you are considering and read the median wait and typical range first.",
+      "step2Title": "Review the observed range",
+      "step2Desc": "Compare the median with the P25-P75 range to see how observed durations vary.",
+      "step3Title": "Compare before submitting",
+      "step3Desc": "Compare the available date summaries across journals before finalizing your submission plan."
     }
   },
   "leaderboard": {
-    "title": "Review Cycle Leaderboard",
-    "subtitle": "Find the fastest, slowest journals and improving trends",
+    "title": "Journal Leaderboard",
+    "subtitle": "More than a sorted table: this view highlights journals that are clearly faster, steadier, or newly improving.",
     "tabs": {
       "fastest": "Fastest Journals",
       "slowest": "Slowest Journals",
       "trend": "Improving Trend"
     },
+    "listTitle": "More Journals",
     "table": {
-      "rank": "Rank",
       "journal": "Journal",
-      "issn": "ISSN",
-      "publisher": "Publisher",
-      "subject": "Subject",
       "median": "Median Days",
-      "p25": "P25",
-      "p75": "P75",
-      "count": "Samples",
-      "speed": "Speed",
-      "action": "Action",
-      "med6": "6-Month Median",
-      "med24": "24-Month Median",
-      "change": "Change (days)",
-      "changeRate": "Change Rate"
-    },
-    "exportCSV": "Export CSV",
-    "addCompare": "+ Compare",
-    "fastestTitle": "Fastest Journals",
-    "slowestTitle": "Slowest Journals",
-    "trendTitle": "Most Improved Journals",
-    "trendNote": "6-month vs 24-month median, ≥3 samples each required"
+      "iqr": "P25-P75",
+      "count": "Article timelines",
+      "trust": "Reference",
+      "change": "Recent Change"
+    }
   },
   "explorer": {
     "title": "Journal Explorer",
-    "subtitle": "Search and filter journals, expand for timeline and article details",
+    "subtitle": "Turn raw journal metrics into a decision-friendly profile, then compare that profile against field peers.",
     "hero": {
-      "eyebrow": "Journal profile",
-      "subSelected": "Inspect handling phases, quality indicators, and recent review-like records for this journal (estimated from available data)."
+      "eyebrow": "Journal Profile View",
+      "subSelected": "Start with the summary card, then move into peer position, recent trend, and recent records."
     },
     "panels": {
-      "duration": "Duration of manuscript handling phases",
-      "quality": "Characteristics of peer review process"
+      "decision": "Decision Summary",
+      "position": "Relative Position",
+      "trend": "Trend",
+      "peers": "Field Peers",
+      "fastAlternatives": "Fast Alternatives",
+      "records": "Recent Records"
     },
     "cards": {
-      "firstRound": "First-round decision (approx.)",
-      "totalHandling": "Total handling time (median)",
-      "upperIqr": "Upper quartile of handling time",
-      "trend": "Recent trend",
-      "reportQuality": "Quality of review reports",
-      "overallRating": "Overall handling rating",
-      "latestOutcome": "Latest outcome"
+      "totalHandling": "Median Review Time",
+      "trend": "Trend Over the Last 24 Months",
+      "trendSubtitle": "See whether the median is moving faster or slower and whether volatility is widening.",
+      "rangeSummary": "50% of samples fall between {p25} and {p75} days.",
+      "subjectDelta": "Relative to Field Median",
+      "subjectDeltaUnknown": "A reliable field comparison is not available right now.",
+      "subjectDeltaFast": "Faster than the field baseline",
+      "subjectDeltaSlow": "Slower than the field baseline",
+      "rank": "Position Within Field",
+      "latestUpdate": "Latest Update"
     },
     "reviews": {
       "title": "Recent records for \"{journal}\"",
-      "firstRound": "1st review rnd",
-      "totalHandling": "Tot. handling time",
-      "immediateReject": "Imm. rejection time",
-      "numReports": "Num. rev. reports",
-      "reportQuality": "Report quality",
-      "overallRating": "Overall rating",
-      "outcome": "Outcome",
-      "year": "Year"
+      "totalHandling": "Total Review Time",
+      "numReports": "Samples",
+      "year": "Month"
     },
-    "outcome": {
-      "accepted": "Accepted",
-      "rejected": "Rejected"
-    },
-    "searchPlaceholder": "Search journal name / ISSN…",
-    "quality": "Data Quality",
-    "qualityAll": "All",
-    "qualityHigh": "High Confidence Only",
+    "peerCurrent": "Current Journal",
+    "searchPlaceholder": "Search journal name / ISSN / publisher / subject…",
     "results": "{count} journals found",
-    "table": {
-      "journal": "Journal",
-      "issn": "ISSN",
-      "publisher": "Publisher",
-      "subject": "Subject",
-      "median": "Median (days)",
-      "iqr": "P25–P75",
-      "count": "Samples",
-      "trend": "Trend",
-      "speed": "Speed",
-      "action": "Action"
+    "sampleData": {
+      "metadataPending": "Publisher / subject pending",
+      "identityPending": "Metadata pending",
+      "subjectUnavailableTitle": "Field comparison is not enabled yet",
+      "subjectUnavailableDesc": "The current data still uses General as the subject category, so calculating field rank would be misleading. This view keeps the latest observed month visible until categories are enriched.",
+      "fastAlternatives": "Faster journals overall"
     },
-    "detail": {
-      "timeline": "Monthly Median Review Days (last 18 months)",
-      "articles": "Article-level Data Preview (last 20 articles)",
-      "title": "Title",
-      "received": "Received",
-      "accepted": "Accepted",
-      "days": "Days",
-      "doi": "DOI"
+    "table": {
+      "iqr": "P25-P75",
+      "trend": "Trend"
     }
   },
   "compare": {
@@ -192,6 +225,17 @@
     "down": "↓{days}d (speeding)",
     "flat": "→ Stable"
   },
+  "trust": {
+    "high": "Strong reference",
+    "medium": "Moderate reference",
+    "low": "Reference",
+    "stale": "Older reference",
+    "trend": {
+      "faster": "Faster in the last 12 months",
+      "slower": "Slower in the last 12 months",
+      "stable": "Mostly stable"
+    }
+  },
   "common": {
     "loading": "Loading data, please wait…",
     "error": "Load failed",
@@ -202,25 +246,36 @@
     "search": "Search"
   },
   "footer": {
-    "note": "ReviewTime — Data sourced from PubMed/PMC/Crossref, for reference only.",
-    "openSource": "Open Source Libraries"
+    "note": "SciManu — Journal timeline aggregates based on dates available through PubMed E-utilities. See About & Provenance for source details.",
+    "about": "About & Provenance",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "openSource": "Project source"
   },
   "meta": {
     "home": {
-      "title": "ReviewTime — Academic Journal Review Cycle Visualization",
-      "description": "ReviewTime aggregates real review cycle data from PubMed/PMC/Crossref to help researchers find fast and high-quality journals."
+      "title": "Journal Review Time Database | SciManu",
+      "description": "Search PubMed-based journal timeline aggregates. Compare received-to-accepted medians, P25-P75 ranges, P90 durations, and sample counts."
     },
     "leaderboard": {
-      "title": "Review Cycle Leaderboard — ReviewTime",
+      "title": "Review Cycle Leaderboard — SciManu",
       "description": "Browse rankings of fastest and slowest peer review journals based on real PubMed data."
     },
     "explorer": {
-      "title": "Journal Explorer — ReviewTime",
+      "title": "Journal Explorer — SciManu",
       "description": "Search and browse review cycle data for all tracked journals, filterable by publisher and subject."
     },
     "compare": {
-      "title": "Journal Comparison — ReviewTime",
+      "title": "Journal Comparison — SciManu",
       "description": "Compare review cycle distributions of multiple journals side by side with timeline trends."
+    },
+    "toolsCitation": {
+      "title": "Citation Checker — SciManu",
+      "description": "Validate citations and identify problematic references."
+    },
+    "toolsImpact": {
+      "title": "Impact Factor Lookup — SciManu",
+      "description": "Look up journal impact metrics to support journal selection."
     }
   }
 }

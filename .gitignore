@@ -1,0 +1,53 @@
+.DS_Store
+.env
+.env*.local
+*.env
+
+# Local Python artifacts
+__pycache__/
+*.py[cod]
+
+# Node/Next build artifacts
+reviewtime-next/node_modules/
+reviewtime-next/.next/
+reviewtime-next/out/
+reviewtime-next/.open-next/
+*.tsbuildinfo
+
+# Exclude raw data directories and competitor keyword research
+keyword/
+**/keyword/
+reviewtime-next/keyword/
+data/
+reviewtime-next/data/
+re_data/
+**/re_data/
+rssmonitor/
+
+# Local spreadsheets and raw data copies
+*.xlsx
+*.xlsm
+*.xls
+*.csv
+reviewtime-next/*.xlsx
+reviewtime-next/~$*
+reviewtime-next/public/data/snapshots/
+
+# Scratch, drafts and design notes
+data_flow.txt
+designs/
+**/designs/
+seo_keyword_site_structure.md
+版本：*
+reviewtime-next/ADSENSE_AUDIT_*.md
+reviewtime-next/STATISTICS_REVIEW_*.md
+reviewtime-next/redesign_strategy_*.md
+reviewtime-next/design_*.md
+reviewtime-next/web_thinking.md
+
+# Historical/local pipeline outputs
+out/
+web/data/
+web/data.csv
+web/data.xlsx
+.vercel/

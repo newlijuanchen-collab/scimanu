@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>ReviewTime — 期刊对比工具</title>
+  <title>ReviewTime - Compare Journals</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"/>
   <link rel="stylesheet" href="assets/css/app.css"/>
   <style>
@@ -21,7 +21,7 @@
 
 <div id="loading-overlay">
   <div class="spinner-border text-primary" style="width:3rem;height:3rem;"></div>
-  <div class="text-muted mt-2">正在加载数据…</div>
+  <div class="text-muted mt-2">Loading data...</div>
 </div>
 
 <!-- Navbar -->
@@ -36,15 +36,16 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar-menu">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="leaderboard.html">🏆 榜单</a></li>
-        <li class="nav-item"><a class="nav-link" href="explorer.html">🔍 期刊浏览</a></li>
-        <li class="nav-item"><a class="nav-link active" href="compare.html">⚖️ 对比</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="leaderboard.html">Rankings</a></li>
+        <li class="nav-item"><a class="nav-link" href="explorer.html">Explore</a></li>
+        <li class="nav-item"><a class="nav-link active" href="compare.html">Compare</a></li>
+        <li class="nav-item"><a class="nav-link" href="methodology.html">Methodology</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">🔬 工具</a>
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Tools</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="tools/citation.html">Citation Checker</a></li>
-            <li><a class="dropdown-item" href="tools/impact.html">Impact Factor 检索</a></li>
+            <li><a class="dropdown-item" href="tools/impact.html">Impact Factor Lookup</a></li>
           </ul>
         </li>
       </ul>
@@ -57,8 +58,8 @@
     <div class="container-xl">
       <div class="row align-items-center">
         <div class="col">
-          <h2 class="page-title">⚖️ 期刊横向对比</h2>
-          <div class="text-muted fs-6">最多选择 8 本期刊进行并排对比</div>
+          <h2 class="page-title">Compare Journals</h2>
+          <div class="text-muted fs-6">Compare up to 8 journals by speed, stability, and recent trend.</div>
         </div>
       </div>
     </div>
@@ -72,20 +73,20 @@
         <div class="card-body">
           <div class="row align-items-end g-2">
             <div class="col-12 col-md-6" style="position:relative;">
-              <label class="form-label fw-bold">添加期刊到对比列表</label>
+              <label class="form-label fw-bold">Add journals to compare</label>
               <input type="text" class="form-control" id="journal-search-input"
-                placeholder="输入期刊名称或ISSN…" oninput="showSuggestions()" autocomplete="off">
+                placeholder="Type a journal name or ISSN..." oninput="showSuggestions()" autocomplete="off">
               <div id="journal-suggestions" style="display:none"></div>
             </div>
             <div class="col-auto">
               <div class="d-flex gap-2">
-                <button class="btn btn-outline-danger btn-sm" onclick="clearAll()">✕ 清空</button>
-                <button class="btn btn-outline-secondary btn-sm" onclick="exportCSV()">⬇ 导出 Excel</button>
+                <button class="btn btn-outline-danger btn-sm" onclick="clearAll()">✕ Clear</button>
+                <button class="btn btn-outline-secondary btn-sm" onclick="exportCSV()">⬇ Export</button>
               </div>
             </div>
           </div>
           <div class="mt-3">
-            <div class="text-muted small mb-1">已选期刊（<span id="selected-count">0</span>/8）：</div>
+            <div class="text-muted small mb-1">Selected journals (<span id="selected-count">0</span>/8):</div>
             <div id="compare-chips"></div>
           </div>
         </div>
@@ -94,7 +95,7 @@
       <!-- No selection placeholder -->
       <div id="empty-state" class="empty-state card py-5">
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="#aaa"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-        <div class="text-muted">请先添加至少 2 本期刊以开始对比</div>
+        <div class="text-muted">Add at least 2 journals to start comparing.</div>
       </div>
 
       <!-- Charts (hidden until 2+ journals selected) -->
@@ -102,11 +103,11 @@
 
         <!-- Time window selector -->
         <div class="d-flex gap-2 mb-3 align-items-center">
-          <span class="text-muted small">时序窗口：</span>
+          <span class="text-muted small">Trend window:</span>
           <div class="btn-group btn-group-sm">
-            <button class="btn btn-outline-secondary" onclick="setWindow(6)">6月</button>
-            <button class="btn btn-outline-secondary active" id="btn-w12" onclick="setWindow(12)">12月</button>
-            <button class="btn btn-outline-secondary" onclick="setWindow(24)">24月</button>
+            <button class="btn btn-outline-secondary" onclick="setWindow(6)">6M</button>
+            <button class="btn btn-outline-secondary active" id="btn-w12" onclick="setWindow(12)">12M</button>
+            <button class="btn btn-outline-secondary" onclick="setWindow(24)">24M</button>
           </div>
         </div>
 
@@ -114,7 +115,7 @@
         <div class="row g-3 mb-3">
           <div class="col-12 col-lg-6">
             <div class="card">
-              <div class="card-header"><h3 class="card-title">审稿周期分布对比（箱线图）</h3></div>
+              <div class="card-header"><h3 class="card-title">Review Time Distribution</h3></div>
               <div class="card-body p-0">
                 <div id="chart-compare-boxplot" class="chart-container chart-md"></div>
               </div>
@@ -122,7 +123,7 @@
           </div>
           <div class="col-12 col-lg-6">
             <div class="card">
-              <div class="card-header"><h3 class="card-title">月度中位审稿趋势对比</h3></div>
+              <div class="card-header"><h3 class="card-title">Monthly Median Trend</h3></div>
               <div class="card-body p-0">
                 <div id="chart-compare-trend" class="chart-container chart-md"></div>
               </div>
@@ -134,23 +135,23 @@
         <div class="row g-3">
           <div class="col-12">
             <div class="card">
-              <div class="card-header"><h3 class="card-title">统计汇总</h3></div>
+              <div class="card-header"><h3 class="card-title">Summary Table</h3></div>
               <div class="card-body p-0">
                 <div class="table-responsive">
                   <table class="table table-vcenter summary-table" id="summary-table">
                     <thead>
                       <tr>
-                        <th>期刊</th>
-                        <th>中位天数</th>
+                        <th>Journal</th>
+                        <th>Median</th>
                         <th>P25</th>
                         <th>P75</th>
-                        <th>最小</th>
-                        <th>最大</th>
-                        <th>样本量</th>
-                        <th>近6月中位</th>
-                        <th>近24月中位</th>
-                        <th>趋势变化</th>
-                        <th>速度等级</th>
+                        <th>Min</th>
+                        <th>Max</th>
+                        <th>Samples</th>
+                        <th>6M Median</th>
+                        <th>24M Median</th>
+                        <th>Trend Change</th>
+                        <th>Speed</th>
                       </tr>
                     </thead>
                     <tbody id="summary-tbody"></tbody>
@@ -168,7 +169,7 @@
 
   <footer class="footer footer-transparent d-print-none">
     <div class="container-xl">
-      <div class="footer-note">ReviewTime — 数据来自 PubMed/PMC/Crossref，仅供参考。</div>
+      <div class="footer-note">ReviewTime - Built from public metadata sources. Aggregated metrics are for decision support only.</div>
     </div>
   </footer>
 </div>
@@ -197,7 +198,7 @@ function showSuggestions() {
   box.innerHTML = matches.map(j =>
     `<div class="suggestion-item" onclick="addJournal('${j.label.replace(/'/g,"\\'")}')">
       <strong>${j.label}</strong>
-      <small class="text-muted ms-2">${j.issn||''} · ${j.median}天中位</small>
+      <small class="text-muted ms-2">${j.issn||''} · ${j.median}d median</small>
     </div>`
   ).join('');
   box.style.display='block';
@@ -213,7 +214,7 @@ document.addEventListener('click', e => {
 function addJournal(label) {
   document.getElementById('journal-suggestions').style.display='none';
   document.getElementById('journal-search-input').value='';
-  if (selectedJournals.length >= 8) { alert('最多同时对比 8 本期刊'); return; }
+  if (selectedJournals.length >= 8) { alert('You can compare up to 8 journals at once.'); return; }
   if (selectedJournals.find(j=>j.label===label)) return; // already added
   const journal = ALL_JOURNALS.find(j=>j.label===label);
   if (!journal) return;
@@ -253,18 +254,18 @@ function renderCharts() {
 // ── Summary table ─────────────────────────────────────────────────────────────
 function renderSummary() {
   const tbody = document.getElementById('summary-tbody');
-  const speedLabels = ['极快','快速','正常偏快','正常','偏慢','慢速'];
+  const speedLabels = ['Very fast','Fast','Fairly fast','Typical','Slow','Very slow'];
   tbody.innerHTML = selectedJournals.map((j,i) => {
     const idx = j.median<=30?0:j.median<=60?1:j.median<=90?2:j.median<=120?3:j.median<=180?4:5;
     const trendHtml = Math.abs(j.trend)<5
-      ? `<span class="trend-flat">→ 稳定</span>`
+      ? `<span class="trend-flat">→ Stable</span>`
       : j.trend<0
-        ? `<span class="trend-down">↓${j.trend}天</span>`
-        : `<span class="trend-up">↑+${j.trend}天</span>`;
+        ? `<span class="trend-down">↓${Math.abs(j.trend)}d</span>`
+        : `<span class="trend-up">↑+${j.trend}d</span>`;
     return `<tr>
       <td>
         <span style="width:10px;height:10px;border-radius:50%;background:${Charts.PALETTE[i%Charts.PALETTE.length]};display:inline-block;margin-right:6px;"></span>
-        <strong>${j.label}</strong>
+        <a href="journal.html?slug=${encodeURIComponent(j.slug)}" class="fw-semibold text-decoration-none">${j.label}</a>
       </td>
       <td><strong>${j.median}</strong></td>
       <td>${j.p25}</td>
@@ -302,7 +303,7 @@ function setWindow(months) {
 
 function exportCSV() {
   if (!selectedJournals.length) return;
-  const rows = [['期刊','ISSN','出版商','学科','中位天数','P25','P75','最小','最大','样本量','近6月中位','近24月中位','趋势变化']];
+  const rows = [['Journal','ISSN','Publisher','Subject','Median','P25','P75','Min','Max','Samples','6M Median','24M Median','Trend']];
   selectedJournals.forEach(j => rows.push([
     j.label, j.issn||'', j.publisher||'', j.subject||'',
     j.median, j.p25, j.p75, j.min, j.max, j.count,
@@ -334,7 +335,7 @@ async function main() {
     updateUI();
   } catch(err) {
     document.getElementById('loading-overlay').innerHTML =
-      `<div class="alert alert-danger mx-3"><strong>加载失败：</strong>${err.message}</div>`;
+      `<div class="alert alert-danger mx-3"><strong>Load failed:</strong> ${err.message}</div>`;
     return;
   }
   const ov = document.getElementById('loading-overlay');

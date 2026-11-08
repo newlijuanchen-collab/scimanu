@@ -1,6 +1,7 @@
 # ReviewTime — 可视化网站使用说明
 
-> 纯静态前端（Phase 1）+ 外部 API 工具（Phase 2），无需后端服务即可运行。
+> Phase 1 runs as a static frontend with no backend required.  
+> Recommended data mode: publish `web/data/*.json` aggregated snapshots only. Keep `data.xlsx` for local build or development only.
 
 ---
 
@@ -36,9 +37,55 @@ npx serve .          # 或 npx http-server -p 8765
 
 ---
 
+## 推荐数据模式
+
+### 方式一：静态 JSON 快照（推荐）
+
+The frontend should read:
+
+```text
+web/data/
+  global-summary.json
+  global-trend.json
+  journals.json
+  journal-trend.json
+  publisher-stats.json
+  subject-stats.json
+```
+
+Build snapshots with:
+
+```bash
+cd /Users/clj/Desktop/NewProject/reviewTime
+python3 web/build_static_data.py
+```
+
+After generation, the public site reads these JSON snapshots directly with `fetch()` and does not require a backend.
+
+### Local XLSX fallback
+
+If snapshots do not exist, local development can fall back to:
+
+- reading `web/data.xlsx`
+- parsing and aggregating it in the browser with SheetJS
+
+This path is for development only and should not be used in production.
+
+### Data protection note
+
+If `data.xlsx` is deployed under the public web root, users can download it directly.
+
+For a static production deployment:
+
+- publish only aggregated JSON snapshots under `web/data/`
+- do not deploy `data.xlsx`
+- do not publish article-level raw rows or per-article JSON files
+
+---
+
 ## data.xlsx 列定义
 
-`data.xlsx` 是唯一数据源，由 Python 后端（`reviewtime/jsonl_to_excel.py`）生成，需放在 `web/` 目录下。
+`data.xlsx` is the local input for snapshot generation and may be used as a development fallback. It should not be published in the production web root if you want to keep raw rows private.
 
 前端 `data-loader.js` 自动适配以下字段名（支持多种别名）：
 
@@ -80,9 +127,11 @@ web/
 ├── assets/
 │   ├── css/app.css         ← 全站自定义样式
 │   └── js/
-│       ├── data-loader.js  ← 核心：xlsx 读取 + 清洗 + 聚合
+│       ├── data-loader.js  ← 核心：静态 JSON 读取 + xlsx 兜底
 │       └── charts.js       ← ECharts 图表配置工厂
-├── data.xlsx               ← ⚠️ 数据文件（需手动放入或由后端生成）
+├── data/                   ← ✅ 推荐：Phase 1 静态快照目录
+├── data.xlsx               ← ⚠️ 兜底数据文件（可选）
+├── build_static_data.py    ← 从 xlsx 生成静态 JSON 快照
 ├── serve.py                ← 一键启动本地服务器
 ├── design.md               ← 完整设计文档
 └── README.md               ← 本文件
@@ -117,8 +166,8 @@ web/
 **Q: 打开 index.html 没有数据怎么办？**  
 A: 必须通过 HTTP 服务器访问（见快速启动），不能直接双击打开 HTML 文件。
 
-**Q: 控制台报 "Failed to load data.xlsx: 404" 怎么办？**  
-A: 确认 `data.xlsx` 已放入 `web/` 目录，与 `index.html` 同级。
+**Q: 控制台报静态数据加载失败怎么办？**  
+A: 先确认 `web/data/*.json` 是否存在；若没有，请运行 `python3 web/build_static_data.py` 生成。也可临时放入 `data.xlsx` 走兜底模式。
 
 **Q: 数据有但图表空白？**  
 A: 检查 `data.xlsx` 第一行是否为列名，且 `days_received_to_accepted` 列的值在 1–1000 之间。

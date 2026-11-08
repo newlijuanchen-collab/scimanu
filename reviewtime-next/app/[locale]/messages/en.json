@@ -1,6 +1,6 @@
 {
   "nav": {
-    "brand": "ReviewTime",
+    "brand": "SciManu",
     "dashboard": "Dashboard",
     "leaderboard": "Leaderboard",
     "explorer": "Journal Explorer",
@@ -17,7 +17,7 @@
     "kpi": {
       "journals": "Journals Tracked",
       "journalsSub": "journals tracked",
-      "articles": "Valid Samples",
+      "articles": "Timeline Records",
       "articlesSub": "articles analyzed",
       "median": "Global Median Review",
       "medianSub": "days (P25–P75: {iqr})",
@@ -77,7 +77,7 @@
     "title": "Journal Explorer",
     "subtitle": "Search and filter journals, expand for timeline and article details",
     "searchPlaceholder": "Search journal name / ISSN…",
-    "quality": "Data Quality",
+    "quality": "Article Evidence",
     "qualityAll": "All",
     "qualityHigh": "High Confidence Only",
     "results": "{count} journals found",
@@ -166,24 +166,24 @@
     "search": "Search"
   },
   "footer": {
-    "note": "ReviewTime — Data sourced from PubMed/PMC/Crossref, for reference only.",
+    "note": "SciManu — Journal-level timeline aggregates based on dates available through PubMed E-utilities.",
     "openSource": "Open Source Libraries"
   },
   "meta": {
     "home": {
-      "title": "ReviewTime — Academic Journal Review Cycle Visualization",
-      "description": "ReviewTime aggregates real review cycle data from PubMed/PMC/Crossref to help researchers find fast and high-quality journals."
+      "title": "SciManu — Academic Journal Review Cycle Visualization",
+      "description": "SciManu aggregates journal timeline statistics from dates available through PubMed E-utilities."
     },
     "leaderboard": {
-      "title": "Review Cycle Leaderboard — ReviewTime",
+      "title": "Review Cycle Leaderboard — SciManu",
       "description": "Browse rankings of fastest and slowest peer review journals based on real PubMed data."
     },
     "explorer": {
-      "title": "Journal Explorer — ReviewTime",
+      "title": "Journal Explorer — SciManu",
       "description": "Search and browse review cycle data for all tracked journals, filterable by publisher and subject."
     },
     "compare": {
-      "title": "Journal Comparison — ReviewTime",
+      "title": "Journal Comparison — SciManu",
       "description": "Compare review cycle distributions of multiple journals side by side with timeline trends."
     }
   }

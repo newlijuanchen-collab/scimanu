@@ -1,9 +1,10 @@
+import { Suspense, type ReactNode } from 'react'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-import type { ReactNode } from 'react'
 import { SiteHeader } from '@/components/layout/site-header'
 import { SiteFooter } from '@/components/layout/site-footer'
+import { SiteSidebar } from '@/components/layout/site-sidebar'
 import { isValidLocale, routing } from '@/i18n/routing'
 
 export function generateStaticParams() {
@@ -25,9 +26,16 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-[var(--rt-bg)] flex flex-col">
         <SiteHeader />
-        <main className="container-page py-6">{children}</main>
+        <div className="container-page flex-1 py-6 flex gap-6 lg:gap-8 items-start">
+          <Suspense fallback={<aside className="w-64 shrink-0 hidden lg:block h-96 animate-pulse rounded-2xl bg-slate-100" />}>
+            <SiteSidebar />
+          </Suspense>
+          <main className="flex-1 min-w-0">
+            {children}
+          </main>
+        </div>
         <SiteFooter />
       </div>
     </NextIntlClientProvider>

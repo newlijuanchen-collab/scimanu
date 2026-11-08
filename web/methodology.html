@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ReviewTime - Methodology</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"/>
+  <link rel="stylesheet" href="assets/css/app.css"/>
+</head>
+<body class="antialiased">
+
+<header class="navbar navbar-expand-md navbar-light d-print-none sticky-top bg-white border-bottom">
+  <div class="container-xl">
+    <a href="index.html" class="navbar-brand navbar-brand-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="me-2 text-primary"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <strong>ReviewTime</strong>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="explorer.html">Explore</a></li>
+        <li class="nav-item"><a class="nav-link" href="leaderboard.html">Rankings</a></li>
+        <li class="nav-item"><a class="nav-link" href="compare.html">Compare</a></li>
+        <li class="nav-item"><a class="nav-link active" href="methodology.html">Methodology</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Tools</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="tools/citation.html">Citation Checker</a></li>
+            <li><a class="dropdown-item" href="tools/impact.html">Impact Factor Lookup</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrapper">
+  <div class="page-body">
+    <div class="container-xl py-4">
+      <div class="mb-4">
+        <div class="text-uppercase text-muted small mb-2">Methodology</div>
+        <h1 class="page-title mb-2">Data Sources and Statistical Definitions</h1>
+        <p class="text-muted mb-0">This page explains how ReviewTime collects, cleans, aggregates, and interprets review-time data in Phase 1, and what the current numbers should and should not be used for.</p>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-12 col-lg-6">
+          <div class="card h-100">
+            <div class="card-header"><h3 class="card-title">Data Sources</h3></div>
+            <div class="card-body">
+              <ul class="mb-0">
+                <li>Phase 1 uses article-level timing metadata extracted from public sources such as PubMed, PMC, and related publisher metadata.</li>
+                <li>The primary time points are `received`, `revised`, and `accepted`.</li>
+                <li>Each record preserves provenance fields such as `source_channel`, `source_url`, and `confidence_score`.</li>
+                <li>The public site serves static aggregated snapshots and does not depend on a live backend.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+          <div class="card h-100">
+            <div class="card-header"><h3 class="card-title">What Phase 1 Shows</h3></div>
+            <div class="card-body">
+              <ul class="mb-0">
+                <li>Journal-level median review time, P25, P75, IQR, minimum, and maximum.</li>
+                <li>3 / 6 / 12 / 24 month trends and the change between recent 6 months and recent 24 months.</li>
+                <li>Coverage window, source mix, sample count, and median confidence.</li>
+                <li>Comparison views across journals, publishers, and subjects where metadata is available.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Core Metrics</h3></div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-vcenter table-reviewtime">
+                  <thead>
+                    <tr>
+                      <th>Metric</th>
+                      <th>Definition</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Median review time</td><td>The median of `days_received_to_accepted`, used as the primary speed indicator.</td></tr>
+                    <tr><td>P25 / P75</td><td>The 25th and 75th percentiles, describing the middle 50% of the sample.</td></tr>
+                    <tr><td>IQR</td><td>`P75 - P25`, used as a simple stability measure. Lower IQR means more consistency.</td></tr>
+                    <tr><td>Trend change</td><td>`recent 6-month median - recent 24-month median`; negative means faster recently, positive means slower recently.</td></tr>
+                    <tr><td>Revision share</td><td>The proportion of records that include revision information.</td></tr>
+                    <tr><td>Revision to accept</td><td>The median of `days_revised_last_to_accepted`, reflecting the final-stage handling time after the last revision.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+          <div class="card h-100">
+            <div class="card-header"><h3 class="card-title">Cleaning Rules</h3></div>
+            <div class="card-body">
+              <ul class="mb-0">
+                <li>Only records with usable journal keys and valid dates are included in public aggregates.</li>
+                <li>`days_received_to_accepted <= 0` and values above `1000` are excluded from default public statistics.</li>
+                <li>`journal_label` is preferred as the journal key, with fallback to `journal_name`.</li>
+                <li>Dates are normalised to `YYYY-MM-DD`, and trends are grouped by accepted month.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+          <div class="card h-100">
+            <div class="card-header"><h3 class="card-title">What Phase 1 Does Not Expose</h3></div>
+            <div class="card-body">
+              <ul class="mb-0">
+                <li>No public article-level timelines, DOI lists, or raw event rows are shown on the site.</li>
+                <li>No review report counts, review-quality scores, or editor ratings are fabricated from incomplete fields.</li>
+                <li>ReviewTime should not be interpreted as acceptance probability or editor friendliness.</li>
+                <li>For journals without complete public history, future phases will use overview mode rather than inventing missing detail.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">How to Read the Results</h3></div>
+            <div class="card-body">
+              <ul class="mb-0">
+                <li>Larger sample sizes generally support more robust conclusions.</li>
+                <li>Lower IQR usually means more stable handling time.</li>
+                <li>Recent trend should be interpreted together with the coverage window rather than in isolation.</li>
+                <li>Comparisons are most meaningful within similar subjects, publishers, and journal positions.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer footer-transparent d-print-none">
+    <div class="container-xl">
+      <div class="footer-note">ReviewTime - Built from public metadata sources. Aggregated metrics are for decision support only.</div>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+</body>
+</html>

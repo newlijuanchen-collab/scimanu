@@ -179,8 +179,8 @@ export function aggregateByJournal(rows: CleanRow[]): JournalStats[] {
 
 export function computeGlobalStats(rows: CleanRow[], journals: JournalStats[]): GlobalStats {
   const allDays = rows.map(r => r.days).sort((a, b) => a - b)
-  const publishers = [...new Set(rows.map(r => r.publisher).filter(Boolean))].sort()
-  const subjects   = [...new Set(rows.map(r => r.subject).filter(Boolean))].sort()
+  const publishers = Array.from(new Set(rows.map(r => r.publisher).filter(Boolean))).sort()
+  const subjects   = Array.from(new Set(rows.map(r => r.subject).filter(Boolean))).sort()
 
   const globalByYM: Record<string, number[]> = {}
   rows.forEach(r => {

@@ -1,0 +1,27 @@
+# Node/Next build artifacts
+node_modules/
+.next/
+out/
+.open-next/
+*.tsbuildinfo
+.DS_Store
+.env
+.env*.local
+*.env
+
+# Exclude raw data directories and competitor keyword research
+keyword/
+data/
+*.xlsx
+*.xlsm
+*.xls
+*.csv
+public/data/snapshots/
+
+# Local draft notes
+ADSENSE_AUDIT_*.md
+STATISTICS_REVIEW_*.md
+redesign_strategy_*.md
+design_*.md
+web_thinking.md
+.vercel/

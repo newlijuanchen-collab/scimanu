@@ -1,6 +1,6 @@
 {
   "nav": {
-    "brand": "ReviewTime",
+    "brand": "SciManu",
     "dashboard": "总览",
     "leaderboard": "榜单",
     "explorer": "期刊浏览",
@@ -17,7 +17,7 @@
     "kpi": {
       "journals": "覆盖期刊数",
       "journalsSub": "journals tracked",
-      "articles": "有效样本量",
+      "articles": "有效时间线记录",
       "articlesSub": "articles analyzed",
       "median": "全局中位审稿",
       "medianSub": "天 (P25–P75: {iqr})",
@@ -27,7 +27,7 @@
     "filter": {
       "publisher": "出版商",
       "subject": "学科",
-      "minCount": "最小样本量",
+      "minCount": "最小时间线记录",
       "topN": "显示数量",
       "apply": "应用筛选",
       "all": "全部"
@@ -38,7 +38,7 @@
       "trend": "全局审稿趋势",
       "trendSub": "月度中位数及P25–P75区间",
       "heatmap": "期刊 × 月份 审稿天数热力图",
-      "heatmapSub": "近 24 个月，样本量≥3 的单元格可见，绿=快 红=慢"
+      "heatmapSub": "近 24 个月，时间线记录≥3 的单元格可见，绿=快 红=慢"
     }
   },
   "leaderboard": {
@@ -58,7 +58,7 @@
       "median": "中位天数",
       "p25": "P25",
       "p75": "P75",
-      "count": "样本量",
+      "count": "时间线记录",
       "speed": "速度",
       "action": "操作",
       "med6": "近6月中位(天)",
@@ -88,7 +88,7 @@
       "subject": "学科",
       "median": "中位(天)",
       "iqr": "P25–P75",
-      "count": "样本量",
+      "count": "时间线记录",
       "trend": "趋势",
       "speed": "速度",
       "action": "操作"
@@ -126,7 +126,7 @@
       "p75": "P75",
       "min": "最小",
       "max": "最大",
-      "count": "样本量",
+      "count": "时间线记录",
       "med6": "近6月中位",
       "med24": "近24月中位",
       "trendChange": "趋势变化",
@@ -166,24 +166,24 @@
     "search": "搜索"
   },
   "footer": {
-    "note": "ReviewTime — 数据来自 PubMed/PMC/Crossref，仅供参考。",
+    "note": "SciManu — 基于 PubMed E-utilities 可用日期计算的期刊级时间统计。",
     "openSource": "开源库"
   },
   "meta": {
     "home": {
-      "title": "ReviewTime — 学术期刊审稿周期可视化",
-      "description": "ReviewTime 汇聚来自 PubMed/PMC/Crossref 的真实审稿周期数据，帮助研究者快速选刊、对比审稿效率。"
+      "title": "SciManu — 学术期刊审稿周期可视化",
+      "description": "SciManu 根据 PubMed E-utilities 可用日期生成期刊时间统计。"
     },
     "leaderboard": {
-      "title": "审稿周期榜单 — ReviewTime",
+      "title": "审稿周期榜单 — SciManu",
       "description": "查看最快、最慢审稿期刊排名及改善趋势，基于真实 PubMed 数据。"
     },
     "explorer": {
-      "title": "期刊浏览器 — ReviewTime",
+      "title": "期刊浏览器 — SciManu",
       "description": "搜索浏览所有期刊的审稿周期数据，支持按出版商、学科筛选。"
     },
     "compare": {
-      "title": "期刊横向对比 — ReviewTime",
+      "title": "期刊横向对比 — SciManu",
       "description": "并排对比多本期刊审稿周期分布，支持时序趋势对比。"
     }
   }

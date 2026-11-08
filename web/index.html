@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>ReviewTime — 期刊审稿周期可视化</title>
+  <title>ReviewTime - Journal Review Time Explorer</title>
   <!-- Tabler CSS (CDN) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"/>
   <link rel="stylesheet" href="assets/css/app.css"/>
@@ -13,7 +13,7 @@
 <!-- Loading overlay -->
 <div id="loading-overlay">
   <div class="spinner-border text-primary" style="width:3rem;height:3rem;"></div>
-  <div class="text-muted mt-2">正在加载数据，请稍候…</div>
+  <div class="text-muted mt-2">Loading data...</div>
 </div>
 
 <!-- Navbar -->
@@ -28,15 +28,16 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar-menu">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link active" href="index.html">📊 Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="leaderboard.html">🏆 榜单</a></li>
-        <li class="nav-item"><a class="nav-link" href="explorer.html">🔍 期刊浏览</a></li>
-        <li class="nav-item"><a class="nav-link" href="compare.html">⚖️ 对比</a></li>
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="explorer.html">Explore</a></li>
+        <li class="nav-item"><a class="nav-link" href="leaderboard.html">Rankings</a></li>
+        <li class="nav-item"><a class="nav-link" href="compare.html">Compare</a></li>
+        <li class="nav-item"><a class="nav-link" href="methodology.html">Methodology</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">🔬 工具</a>
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Tools</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="tools/citation.html">Citation Checker</a></li>
-            <li><a class="dropdown-item" href="tools/impact.html">Impact Factor 检索</a></li>
+            <li><a class="dropdown-item" href="tools/impact.html">Impact Factor Lookup</a></li>
           </ul>
         </li>
       </ul>
@@ -50,13 +51,13 @@
     <div class="container-xl">
       <div class="row align-items-center">
         <div class="col">
-          <h2 class="page-title">总览 Dashboard</h2>
-          <div class="text-muted mt-1 fs-6">从多维度分析学术期刊审稿周期</div>
+          <h2 class="page-title">Use real timing data to judge journal handling speed</h2>
+          <div class="text-muted mt-1 fs-6">Start with a target journal, then compare trend, stability, and public aggregate signals.</div>
         </div>
         <div class="col-auto ms-auto">
           <div class="d-flex gap-2 align-items-center">
             <span class="text-muted small" id="data-update-time"></span>
-            <button class="btn btn-sm btn-outline-primary" onclick="location.reload()">↺ 刷新</button>
+            <button class="btn btn-sm btn-outline-primary" onclick="location.reload()">↺ Refresh</button>
           </div>
         </div>
       </div>
@@ -66,12 +67,55 @@
   <div class="page-body">
     <div class="container-xl">
 
+      <div class="card mb-4">
+        <div class="card-body p-4">
+          <div class="row align-items-center g-4">
+            <div class="col-12 col-lg-7">
+              <div class="text-uppercase text-muted small mb-2">Phase 1</div>
+              <h1 class="mb-3" style="font-size:2rem;font-weight:700;">Help researchers make submission decisions, not just browse charts</h1>
+              <p class="text-muted mb-3">Search journals, discover faster candidates, compare shortlists, and inspect stable public timing signals.</p>
+              <div class="position-relative mb-3">
+                <input id="home-search-input" type="text" class="form-control form-control-lg" placeholder="Search journal name or ISSN to open the journal page" oninput="showHomeSuggestions()" autocomplete="off">
+                <div id="home-search-suggestions" class="list-group position-absolute w-100 shadow-sm" style="z-index:20;display:none;"></div>
+              </div>
+              <div class="d-flex flex-wrap gap-2">
+                <a class="btn btn-primary" href="explorer.html">Find a Journal</a>
+                <a class="btn btn-outline-primary" href="leaderboard.html">Find Faster Options</a>
+                <a class="btn btn-outline-secondary" href="compare.html">Compare Shortlist</a>
+              </div>
+            </div>
+            <div class="col-12 col-lg-5">
+              <div class="row g-3">
+                <div class="col-12">
+                  <div class="border rounded p-3 h-100">
+                    <div class="text-muted small">What Phase 1 does</div>
+                    <div class="mt-2 fw-semibold">View journal speed, stability, monthly trend, and coverage quality</div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="border rounded p-3 h-100">
+                    <div class="text-muted small">Best for</div>
+                    <div class="fw-semibold mt-2">Pre-submission filtering</div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="border rounded p-3 h-100">
+                    <div class="text-muted small">Current focus</div>
+                    <div class="fw-semibold mt-2">Speed and stability</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- KPI Cards -->
       <div class="row row-cards g-3 mb-3" id="kpi-row">
         <div class="col-6 col-md-3">
           <div class="card kpi-card">
             <div class="card-body">
-              <div class="kpi-label">覆盖期刊数</div>
+              <div class="kpi-label">Journals Covered</div>
               <div class="kpi-value" id="kpi-journals">—</div>
               <div class="kpi-sub">journals tracked</div>
             </div>
@@ -80,7 +124,7 @@
         <div class="col-6 col-md-3">
           <div class="card kpi-card" style="border-color:#2fb344">
             <div class="card-body">
-              <div class="kpi-label">有效样本量</div>
+              <div class="kpi-label">Valid Records</div>
               <div class="kpi-value" id="kpi-articles">—</div>
               <div class="kpi-sub">articles analyzed</div>
             </div>
@@ -89,7 +133,7 @@
         <div class="col-6 col-md-3">
           <div class="card kpi-card" style="border-color:#f59f00">
             <div class="card-body">
-              <div class="kpi-label">全局中位审稿</div>
+              <div class="kpi-label">Global Median</div>
               <div class="kpi-value" id="kpi-median">—</div>
               <div class="kpi-sub">days (P25–P75: <span id="kpi-iqr">—</span>)</div>
             </div>
@@ -98,10 +142,37 @@
         <div class="col-6 col-md-3">
           <div class="card kpi-card" style="border-color:#2b8a3e">
             <div class="card-body">
-              <div class="kpi-label">最快期刊</div>
+              <div class="kpi-label">Fastest Journal</div>
               <div class="kpi-value fs-5" id="kpi-fastest-name">—</div>
-              <div class="kpi-sub"><span id="kpi-fastest-days">—</span> 天中位数</div>
+              <div class="kpi-sub"><span id="kpi-fastest-days">—</span> day median</div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mb-4">
+        <div class="col-12 col-lg-3">
+          <div class="card h-100">
+            <div class="card-header"><h3 class="card-title">Fast with enough samples</h3></div>
+            <div class="card-body"><div id="home-fast-list" class="d-grid gap-2"></div></div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-3">
+          <div class="card h-100">
+            <div class="card-header"><h3 class="card-title">Recently faster</h3></div>
+            <div class="card-body"><div id="home-trend-down-list" class="d-grid gap-2"></div></div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-3">
+          <div class="card h-100">
+            <div class="card-header"><h3 class="card-title">Recently slower</h3></div>
+            <div class="card-body"><div id="home-trend-up-list" class="d-grid gap-2"></div></div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-3">
+          <div class="card h-100">
+            <div class="card-header"><h3 class="card-title">Most stable</h3></div>
+            <div class="card-body"><div id="home-stable-list" class="d-grid gap-2"></div></div>
           </div>
         </div>
       </div>
@@ -109,23 +180,23 @@
       <!-- Filter bar -->
       <div class="filter-bar" id="filter-bar">
         <div class="filter-item">
-          <label>出版商</label>
+          <label>Publisher</label>
           <select class="form-select form-select-sm" id="filter-publisher">
-            <option value="">全部</option>
+            <option value="">All</option>
           </select>
         </div>
         <div class="filter-item">
-          <label>学科</label>
+          <label>Subject</label>
           <select class="form-select form-select-sm" id="filter-subject">
-            <option value="">全部</option>
+            <option value="">All</option>
           </select>
         </div>
         <div class="filter-item">
-          <label>最小样本量</label>
+          <label>Min Samples</label>
           <input type="number" class="form-control form-control-sm" id="filter-mincount" value="3" min="1" max="100" style="width:80px">
         </div>
         <div class="filter-item">
-          <label>显示数量</label>
+          <label>Show</label>
           <select class="form-select form-select-sm" id="filter-topn" style="width:90px">
             <option value="15">Top 15</option>
             <option value="20" selected>Top 20</option>
@@ -134,7 +205,7 @@
           </select>
         </div>
         <div class="filter-item" style="justify-content:flex-end;flex-direction:row;align-items:flex-end;">
-          <button class="btn btn-sm btn-primary" onclick="applyFilters()">应用筛选</button>
+          <button class="btn btn-sm btn-primary" onclick="applyFilters()">Apply Filters</button>
         </div>
       </div>
 
@@ -143,9 +214,9 @@
         <div class="col-12 col-lg-7">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">期刊审稿周期分布（箱线图）</h3>
+              <h3 class="card-title">Journal Review Time Distribution</h3>
               <div class="card-options">
-                <span class="text-muted small">按中位数排序，颜色表示速度等级</span>
+                <span class="text-muted small">Sorted by median time, colour indicates speed bucket</span>
               </div>
             </div>
             <div class="card-body p-0">
@@ -156,9 +227,9 @@
         <div class="col-12 col-lg-5">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">全局审稿趋势</h3>
+              <h3 class="card-title">Global Trend</h3>
               <div class="card-options">
-                <span class="text-muted small">月度中位数及P25–P75区间</span>
+                <span class="text-muted small">Monthly median with P25–P75 range</span>
               </div>
             </div>
             <div class="card-body p-0">
@@ -173,9 +244,9 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">期刊 × 月份 审稿天数热力图</h3>
+              <h3 class="card-title">Journal by Month Heatmap</h3>
               <div class="card-options">
-                <span class="text-muted small">近 24 个月，样本量≥3 的单元格可见，绿=快 红=慢</span>
+                <span class="text-muted small">Last 24 months, cells require at least 3 samples</span>
               </div>
             </div>
             <div class="card-body p-0">
@@ -191,8 +262,8 @@
   <footer class="footer footer-transparent d-print-none">
     <div class="container-xl">
       <div class="footer-note">
-        ReviewTime — 数据来自 PubMed/PMC/Crossref，仅供参考。
-        开源库：<a href="https://tabler.io" target="_blank">Tabler</a> ·
+        ReviewTime - Built from public metadata sources. Aggregated metrics are for decision support only.
+        Libraries: <a href="https://tabler.io" target="_blank">Tabler</a> ·
         <a href="https://echarts.apache.org" target="_blank">ECharts</a> ·
         <a href="https://sheetjs.com" target="_blank">SheetJS</a>
       </div>
@@ -212,6 +283,67 @@ let ALL_JOURNALS = [];
 let GLOBAL_STATS  = {};
 let chartBoxplot, chartTrend, chartHeatmap;
 
+function journalLink(journal) {
+  return `journal.html?slug=${encodeURIComponent(journal.slug)}`;
+}
+
+function renderMiniJournalList(targetId, journals, emptyText) {
+  const container = document.getElementById(targetId);
+  if (!journals.length) {
+    container.innerHTML = `<div class="text-muted small">${emptyText}</div>`;
+    return;
+  }
+  container.innerHTML = journals.map(j => `
+    <a href="${journalLink(j)}" class="text-decoration-none border rounded p-2 d-block">
+      <div class="fw-semibold text-body">${j.label}</div>
+      <div class="text-muted small">${j.publisher || 'Unknown'} · ${j.subject || 'Unknown'}</div>
+      <div class="small mt-1 text-body">Median ${j.median} d · Samples ${j.count} · IQR ${j.iqr}</div>
+    </a>
+  `).join('');
+}
+
+function renderDiscoveryCards() {
+  const enoughSamples = ALL_JOURNALS.filter(j => j.count >= 8);
+  renderMiniJournalList('home-fast-list',
+    [...enoughSamples].sort((a, b) => a.median - b.median).slice(0, 5),
+    'No recommendation yet');
+  renderMiniJournalList('home-trend-down-list',
+    [...enoughSamples].filter(j => j.trend <= -5).sort((a, b) => a.trend - b.trend).slice(0, 5),
+    'No clear accelerators');
+  renderMiniJournalList('home-trend-up-list',
+    [...enoughSamples].filter(j => j.trend >= 5).sort((a, b) => b.trend - a.trend).slice(0, 5),
+    'No clear slowdowns');
+  renderMiniJournalList('home-stable-list',
+    [...enoughSamples].sort((a, b) => a.iqr - b.iqr || a.median - b.median).slice(0, 5),
+    'No stability recommendation');
+}
+
+function showHomeSuggestions() {
+  const q = document.getElementById('home-search-input').value.trim().toLowerCase();
+  const box = document.getElementById('home-search-suggestions');
+  if (!q) { box.style.display = 'none'; return; }
+  const matches = ALL_JOURNALS.filter(j =>
+    j.label.toLowerCase().includes(q) ||
+    (j.name || '').toLowerCase().includes(q) ||
+    (j.issn || '').toLowerCase().includes(q)
+  ).slice(0, 8);
+  if (!matches.length) { box.style.display = 'none'; return; }
+  box.innerHTML = matches.map(j => `
+    <a class="list-group-item list-group-item-action" href="${journalLink(j)}">
+      <div class="fw-semibold">${j.label}</div>
+      <div class="small text-muted">${j.issn || '—'} · ${j.publisher || 'Unknown'} · ${j.median} d median</div>
+    </a>
+  `).join('');
+  box.style.display = 'block';
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#home-search-input') && !e.target.closest('#home-search-suggestions')) {
+    const box = document.getElementById('home-search-suggestions');
+    if (box) box.style.display = 'none';
+  }
+});
+
 // ── Init charts ───────────────────────────────────────────────────────────────
 function initCharts() {
   chartBoxplot = echarts.init(document.getElementById('chart-boxplot'));
@@ -226,7 +358,7 @@ function initCharts() {
 function renderKPI(stats) {
   document.getElementById('kpi-journals').textContent  = stats.totalJournals.toLocaleString();
   document.getElementById('kpi-articles').textContent  = stats.totalArticles.toLocaleString();
-  document.getElementById('kpi-median').textContent    = stats.globalMedian + ' 天';
+  document.getElementById('kpi-median').textContent    = stats.globalMedian + ' d';
   document.getElementById('kpi-iqr').textContent       = `${stats.globalP25}–${stats.globalP75}`;
   if (stats.fastest) {
     document.getElementById('kpi-fastest-name').textContent = stats.fastest.label;
@@ -289,6 +421,7 @@ async function main() {
 
     renderKPI(stats);
     populateFilters(stats);
+    renderDiscoveryCards();
     renderCharts(journals, 20);
 
     // Trend always uses global data
@@ -296,12 +429,14 @@ async function main() {
 
     // Data update time
     document.getElementById('data-update-time').textContent =
-      '数据更新于 ' + new Date().toLocaleDateString('zh-CN');
+      'Updated ' + (stats.generatedAt
+        ? new Date(stats.generatedAt).toLocaleDateString('en-US')
+        : new Date().toLocaleDateString('en-US'));
   } catch(err) {
     document.getElementById('loading-overlay').innerHTML =
       `<div class="alert alert-danger mx-3">
-        <strong>加载失败：</strong>${err.message}<br/>
-        <small>请确保 data.xlsx 存在于 web/ 目录下，且通过 HTTP 服务器访问（不能直接双击打开）。</small>
+        <strong>Load failed:</strong> ${err.message}<br/>
+        <small>Use an HTTP server and provide <code>web/data/*.json</code> snapshots. Local XLSX fallback is intended for development only.</small>
        </div>`;
     return;
   }
