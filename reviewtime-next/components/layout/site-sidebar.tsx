@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useLocale } from 'next-intl'
 import { Link, usePathname } from '@/i18n/navigation'
-import { useSearchParams } from 'next/navigation'
 
 interface NavItem {
   href: string
@@ -60,32 +59,48 @@ const SPEED_TIERS: SpeedItem[] = [
 export function SiteSidebar() {
   const rawPathname = usePathname()
   const pathname = rawPathname || '/'
-  const searchParams = useSearchParams()
   const locale = useLocale()
   const isZh = locale === 'zh'
 
-  const currentDiscipline = searchParams?.get('discipline') || 'all'
-  const currentSpeed = searchParams?.get('speed') || ''
-
-  // Collapsible state with localStorage persistence
-  const [collapsed, setCollapsed] = useState<boolean>(false)
+  const [currentDiscipline, setCurrentDiscipline] = useState('all')
+  const [currentSpeed, setCurrentSpeed] = useState('')
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('rt_sidebar_collapsed')
+      const sp = new URLSearchParams(window.location.search)
+      setCurrentDiscipline(sp.get('discipline') || 'all')
+      setCurrentSpeed(sp.get('speed') || '')
+    } catch {
+      // ignore SSR
+    }
+  }, [pathname])
+
+  const isHomePage = pathname === '/' || pathname === ''
+
+  // Collapsible state with localStorage persistence
+  // Default to collapsed (narrow icon rail) on homepage, expanded on other pages
+  const [collapsed, setCollapsed] = useState<boolean>(isHomePage)
+
+  useEffect(() => {
+    try {
+      const storageKey = isHomePage ? 'rt_sidebar_collapsed_home' : 'rt_sidebar_collapsed'
+      const saved = localStorage.getItem(storageKey)
       if (saved !== null) {
         setCollapsed(saved === 'true')
+      } else {
+        setCollapsed(isHomePage)
       }
     } catch {
       // ignore SSR or restricted localStorage
     }
-  }, [])
+  }, [isHomePage])
 
   const toggleCollapse = () => {
     setCollapsed(prev => {
       const next = !prev
       try {
-        localStorage.setItem('rt_sidebar_collapsed', String(next))
+        const storageKey = isHomePage ? 'rt_sidebar_collapsed_home' : 'rt_sidebar_collapsed'
+        localStorage.setItem(storageKey, String(next))
       } catch {
         // ignore
       }

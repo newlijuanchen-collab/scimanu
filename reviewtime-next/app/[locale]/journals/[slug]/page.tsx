@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Link } from '@/i18n/navigation'
-import { buildLocaleAlternates } from '@/lib/seo'
+import { buildDatasetJsonLd, buildLocaleAlternates } from '@/lib/seo'
 import { getJournalSlug } from '@/lib/journal-slug'
 import { loadPublicJournals } from '@/lib/repositories/review-data'
 import { loadStatistics } from '@/lib/repositories/statistics'
@@ -77,14 +77,13 @@ export default async function JournalPage({ params }: { params: { slug: string; 
   const isZh = params.locale === 'zh'
   const start = data.scope.start ?? data.scope.end
   const sourceUrl = `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(`"${journal.label}"[Journal]`)}`
-  const datasetJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Dataset',
-    name: `${journal.label} PubMed date aggregates`,
-    description: `Journal-level timing summaries from PubMed EFetch dates for ${journal.label}.`,
-    variableMeasured: ['Received-to-accepted duration', 'P25', 'Median', 'P75', 'P90'],
-    temporalCoverage: `${start}/${data.scope.end}`,
-  }
+  const datasetJsonLd = buildDatasetJsonLd({
+    journalName: journal.label,
+    slug: params.slug,
+    locale: params.locale,
+    startDate: start,
+    endDate: data.scope.end,
+  })
 
   return (
     <main className="mx-auto max-w-6xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">

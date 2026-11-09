@@ -1,4 +1,4 @@
-import { Suspense, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
@@ -29,9 +29,7 @@ export default async function LocaleLayout({
       <div className="min-h-screen bg-[var(--rt-bg)] flex flex-col">
         <SiteHeader />
         <div className="container-page flex-1 py-6 flex gap-6 lg:gap-8 items-start">
-          <Suspense fallback={<aside className="w-64 shrink-0 hidden lg:block h-96 animate-pulse rounded-2xl bg-slate-100" />}>
-            <SiteSidebar />
-          </Suspense>
+          <SiteSidebar />
           <main className="flex-1 min-w-0">
             {children}
           </main>

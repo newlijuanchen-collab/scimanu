@@ -44,3 +44,44 @@ export function buildWebSiteJsonLd(locale: string) {
   }
 }
 
+export function buildDatasetJsonLd({
+  journalName,
+  slug,
+  locale,
+  startDate,
+  endDate,
+}: {
+  journalName: string
+  slug: string
+  locale: string
+  startDate: string
+  endDate: string
+}) {
+  const site = getSiteUrl()
+  const isDefault = locale === routing.defaultLocale
+  const pageUrl = isDefault ? `${site}/journals/${slug}` : `${site}/${locale}/journals/${slug}`
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: `${journalName} PubMed date aggregates`,
+    description: `Journal-level timing summaries from PubMed EFetch dates for ${journalName}.`,
+    url: pageUrl,
+    isAccessibleForFree: true,
+    license: 'https://creativecommons.org/licenses/by/4.0/',
+    creator: {
+      '@type': 'Organization',
+      name: 'SciManu',
+      url: site,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'SciManu',
+      url: site,
+    },
+    variableMeasured: ['Received-to-accepted duration', 'P25', 'Median', 'P75', 'P90'],
+    temporalCoverage: `${startDate}/${endDate}`,
+  }
+}
+
+
