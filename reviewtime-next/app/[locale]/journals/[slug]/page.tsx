@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { Link } from '@/i18n/navigation'
 import { buildDatasetJsonLd, buildFaqJsonLd, buildLocaleAlternates } from '@/lib/seo'
 import { getJournalSlug } from '@/lib/journal-slug'
+import { getOfficialJournalMetrics } from '@/lib/data/journal-official-metrics'
 import { loadPublicJournals } from '@/lib/repositories/review-data'
 import { loadStatistics } from '@/lib/repositories/statistics'
 import type { StageKey, StageSummary } from '@/lib/statistics-types'
@@ -27,18 +28,21 @@ export async function generateMetadata({ params }: { params: { locale: string; s
   const resolved = await resolveJournal(params.slug)
   if (!resolved) return { title: 'Journal timeline | SciManu' }
   const { data, journal } = resolved
+  const nlmId = journal.key.split(':').pop()
+  const official = getOfficialJournalMetrics(nlmId)
   const isZh = params.locale === 'zh'
   const acceptance = journal.stages.acceptance
   const medianDays = acceptance.median !== null ? Math.round(acceptance.median) : null
   const medianWeeks = medianDays !== null ? (medianDays / 7).toFixed(1) : null
+  const ifText = official?.impact_factor.value ? ` (IF ${official.impact_factor.value})` : ''
 
   const title = isZh
-    ? `${journal.label} 审稿周期与发表时间统计 [2026]`
-    : `${journal.label} Review Time & Acceptance Timeline [2026]`
+    ? `${journal.label} 审稿周期与发表时间统计 [2026]${ifText}`
+    : `${journal.label} Review Time & Acceptance Timeline [2026]${ifText}`
 
   const description = isZh
-    ? `${journal.label} 审稿周期与投稿发表时间统计（基于 PubMed ${acceptance.count} 篇文献）：从收稿至接收中位数 ${medianDays ?? '—'} 天${medianWeeks ? `（约 ${medianWeeks} 周）` : ''}，P25–P75 耗时 ${acceptance.p25 ?? '—'}–${acceptance.p75 ?? '—'} 天。`
-    : `${journal.label} review time & acceptance timeline from PubMed published articles (n = ${acceptance.count}): median submission-to-acceptance duration ${medianDays ?? '—'} days${medianWeeks ? ` (~${medianWeeks} weeks)` : ''}, IQR ${acceptance.p25 ?? '—'}–${acceptance.p75 ?? '—'} days.`
+    ? `${journal.label} 审稿周期、发表时间与官方指标${ifText}：收稿至接收中位数 ${medianDays ?? '—'} 天${medianWeeks ? `（约 ${medianWeeks} 周）` : ''}，样本量 ${acceptance.count}，官方初审约 ${official?.publisher_reported_speed.first_decision ?? '2–4 周'}。`
+    : `${journal.label} review time, submission timeline & official metrics${ifText}: median submission-to-acceptance ${medianDays ?? '—'} days${medianWeeks ? ` (~${medianWeeks} weeks)` : ''} (n = ${acceptance.count}), publisher 1st decision ${official?.publisher_reported_speed.first_decision ?? '~2–4 weeks'}.`
 
   return {
     title,
@@ -88,6 +92,8 @@ export default async function JournalPage({ params }: { params: { slug: string; 
   const resolved = await resolveJournal(params.slug)
   if (!resolved) notFound()
   const { data, journal, timeline } = resolved
+  const nlmId = journal.key.split(':').pop()
+  const official = getOfficialJournalMetrics(nlmId)
   const isZh = params.locale === 'zh'
   const start = data.scope.start ?? data.scope.end
   const sourceUrl = `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(`"${journal.label}"[Journal]`)}`
@@ -109,7 +115,7 @@ export default async function JournalPage({ params }: { params: { slug: string; 
           question: `${journal.label} 审稿周期大概多久？从投稿到正式接收需要多少时间？`,
           answer:
             medianDays !== null
-              ? `根据 PubMed 收录的 ${acceptance.count} 篇文献真实日期统计，${journal.label} 从收稿（Received）到接收（Accepted）的中位数时间约为 ${medianDays} 天（约 ${medianWeeks} 周）。50% 的稿件在 ${acceptance.p25 ?? '—'} 至 ${acceptance.p75 ?? '—'} 天内处理完毕。`
+              ? `根据 PubMed 收录的 ${acceptance.count} 篇文献真实日期统计，${journal.label} 从收稿（Received）到接收（Accepted）的中位数时间约为 ${medianDays} 天（约 ${medianWeeks} 周）。50% 的稿件在 ${acceptance.p25 ?? '—'} 至 ${acceptance.p75 ?? '—'} 天内处理完毕。相比期刊官方宣称的初审周期（${official?.publisher_reported_speed.first_decision ?? '约 2–4 周'}），完整从投到录通常需要经历修回与多轮同行评审。`
               : `目前统计样本中暂无足够的完整日期记录，通常生物医学期刊常规审稿周期在 4 至 12 周之间。`,
         },
         {
@@ -120,8 +126,10 @@ export default async function JournalPage({ params }: { params: { slug: string; 
               : `初审及审稿人意见反馈耗时通常在 4 至 8 周左右，具体取决于当期投稿量与同行评审专家回复进度。`,
         },
         {
-          question: `如何查询 ${journal.label} 的官方影响因子（Impact Factor）与投稿须知？`,
-          answer: `SciManu 专注于挖掘 PubMed 公开文献中的真实审稿与接收耗时数据。关于 ${journal.label} 的最新官方影响因子（Clarivate JCR IF）、中科院分区、版面费（APC）及作者投稿须知，请直接通过官方出版社网站或 PubMed 官方页面核对。`,
+          question: `如何查询 ${journal.label} 的最新影响因子（Impact Factor）与官方投稿须知？`,
+          answer: official
+            ? `${journal.label} 最新影响因子为 ${official.impact_factor.value}（${official.impact_factor.quartile}，数据源自 ${official.impact_factor.source}），CiteScore 为 ${official.citescore}。出版模式为 ${official.publishing_model.type}${official.publishing_model.apc_usd !== null ? `，文章处理版面费 (APC) 为 $${official.publishing_model.apc_usd.toLocaleString()}` : ''}。官方投稿须知与作者指南可直接通过其官方出版社门户（${official.publisher}）查阅。`
+            : `SciManu 专注于挖掘 PubMed 公开文献中的真实审稿与接收耗时数据。关于 ${journal.label} 的最新官方影响因子（Clarivate JCR IF）、中科院分区、版面费（APC）及作者投稿须知，请直接通过官方出版社网站或 PubMed 官方页面核对。`,
         },
       ]
     : [
@@ -129,7 +137,7 @@ export default async function JournalPage({ params }: { params: { slug: string; 
           question: `How long is the review time for ${journal.label}?`,
           answer:
             medianDays !== null
-              ? `Based on ${acceptance.count} published articles in PubMed, the median duration from submission (received) to acceptance for ${journal.label} is ${medianDays} days (~${medianWeeks} weeks). The interquartile range (IQR, P25–P75) is ${acceptance.p25 ?? '—'} to ${acceptance.p75 ?? '—'} days.`
+              ? `Based on ${acceptance.count} published articles in PubMed, the median duration from submission (received) to acceptance for ${journal.label} is ${medianDays} days (~${medianWeeks} weeks). The interquartile range (IQR, P25–P75) is ${acceptance.p25 ?? '—'} to ${acceptance.p75 ?? '—'} days. While the publisher advertises initial triage in ${official?.publisher_reported_speed.first_decision ?? '~2–4 weeks'}, complete acceptance accounts for multiple peer-review and revision loops.`
               : `Date records are currently limited for this journal cohort. Peer review turnaround typically spans 4 to 12 weeks for biomedical publications.`,
         },
         {
@@ -141,7 +149,9 @@ export default async function JournalPage({ params }: { params: { slug: string; 
         },
         {
           question: `Where can I find ${journal.label}'s official Impact Factor and author guidelines?`,
-          answer: `SciManu focuses on empirical submission-to-acceptance timelines extracted from PubMed records. For the official Journal Impact Factor (Clarivate JCR), CiteScore, Article Processing Charges (APC), and Author Guidelines, please visit the official ${journal.label} publisher portal or the PubMed catalog entry.`,
+          answer: official
+            ? `${journal.label} holds an official Journal Impact Factor of ${official.impact_factor.value} (${official.impact_factor.quartile}, source: ${official.impact_factor.source}), with a CiteScore of ${official.citescore}. It operates as ${official.publishing_model.type}${official.publishing_model.apc_usd !== null ? ` with an Article Processing Charge (APC) of $${official.publishing_model.apc_usd.toLocaleString()}` : ''}. Official submission guidelines and author instructions can be accessed directly via ${official.publisher}.`
+            : `SciManu focuses on empirical submission-to-acceptance timelines extracted from PubMed records. For the official Journal Impact Factor (Clarivate JCR), CiteScore, Article Processing Charges (APC), and Author Guidelines, please visit the official ${journal.label} publisher portal or the PubMed catalog entry.`,
         },
       ]
 
@@ -161,30 +171,119 @@ export default async function JournalPage({ params }: { params: { slug: string; 
       </nav>
 
       <header className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
-        <p className="text-xs font-bold uppercase tracking-wider text-orange-700">PubMed E-utilities · {isZh ? '六个月试点' : 'Six-month pilot'}</p>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <p className="text-xs font-bold uppercase tracking-wider text-orange-700">
+            {official?.publisher || 'PubMed E-utilities'} · {isZh ? '六个月统计队列' : 'Six-month cohort'}
+          </p>
+          {official?.homepage_url && (
+            <a href={official.homepage_url} target="_blank" rel="noreferrer" className="text-xs font-semibold text-slate-500 hover:text-orange-700">
+              {isZh ? '访问官方期刊网站 ↗' : 'Official Journal Portal ↗'}
+            </a>
+          )}
+        </div>
         <div className="mt-3 flex flex-wrap items-start justify-between gap-5">
           <div>
             <h1 className="text-3xl font-black tracking-tight text-slate-950 md:text-4xl">{journal.label}</h1>
             <p className="mt-2 text-sm text-slate-600">
-              {isZh ? `队列：${start} 至 ${data.scope.end}` : `Cohort: ${start} to ${data.scope.end}`}
+              {isZh ? `统计队列：${start} 至 ${data.scope.end}` : `Cohort: ${start} to ${data.scope.end}`}
               {journal.issn && <> · ISSN {journal.issn}</>}
+              {official?.impact_factor.value && <> · <strong className="text-slate-800">IF {official.impact_factor.value}</strong></>}
             </p>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
               {isZh
-                ? '本页展示按期刊汇总的时间统计。不同阶段分别使用可用的 PubMed 日期记录，因此样本量会不同。'
-                : 'This page shows journal-level timing aggregates. Each stage uses its available PubMed date records, so sample counts vary by stage.'}
+                ? '本页对比期刊官方公布指标与 PubMed 真实文献汇总的时间统计。不同阶段分别使用可用的 PubMed 日期记录，因此样本量会有所不同。'
+                : 'This page aggregates empirical PubMed timing records alongside official publisher-reported metrics. Sample counts vary by stage depending on available date tags.'}
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <Link href={`/compare?journals=${encodeURIComponent(getJournalSlug(journal.label, journal.key))}`} className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition shadow-sm">
               {isZh ? '加入期刊对比' : 'Compare journal'}
             </Link>
+            {official?.submission_url && (
+              <a href={official.submission_url} target="_blank" rel="noreferrer" className="rounded-xl border border-orange-200 bg-orange-50/70 px-4 py-2 text-sm font-semibold text-orange-800 hover:bg-orange-100 transition shadow-sm">
+                {isZh ? '官方投稿入口' : 'Submit Manuscript'} ↗
+              </a>
+            )}
             <a href={sourceUrl} target="_blank" rel="noreferrer" className="rounded-xl bg-orange-600 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-700 transition shadow-sm">
               {isZh ? '查看 PubMed 记录' : 'View PubMed records'} ↗
             </a>
           </div>
         </div>
       </header>
+
+      {/* Dual-Track Core Metrics */}
+      <section aria-label={isZh ? '核心指标' : 'Core Journal Metrics'} className="grid gap-4 sm:grid-cols-3">
+        {/* Card 1: Official Impact & Reputation */}
+        <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{isZh ? '影响因子 (JCR)' : 'Impact Factor (JCR)'}</span>
+              <span className="rounded-md bg-emerald-50 px-2 py-0.5 text-[11px] font-bold text-emerald-700">
+                {official?.impact_factor.quartile.split('·')[0].trim() || 'Q1'}
+              </span>
+            </div>
+            <p className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+              {official?.impact_factor.value ?? '—'}
+            </p>
+            <p className="mt-1 text-xs text-slate-500 line-clamp-1">
+              {official?.impact_factor.quartile || (isZh ? 'PubMed 核心收录' : 'PubMed Indexed')}
+            </p>
+          </div>
+          <div className="mt-4 border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-slate-500">
+            <span>CiteScore: <strong className="text-slate-800">{official?.citescore ?? '—'}</strong></span>
+            <span className="text-[11px] text-slate-400">{official?.impact_factor.source || 'Clarivate JCR'}</span>
+          </div>
+        </article>
+
+        {/* Card 2: Dual-Track Review Duration (Empirical vs Claimed) */}
+        <article className="rounded-2xl border border-orange-200/80 bg-orange-50/30 p-5 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-orange-800">{isZh ? '审稿周期对照' : 'Review Timeline'}</span>
+              <span className="rounded-md bg-orange-100 px-2 py-0.5 text-[11px] font-bold text-orange-800">
+                {isZh ? 'PubMed 实测' : 'PubMed Empirical'}
+              </span>
+            </div>
+            <p className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+              {formatDays(acceptance.median, isZh)} <span className="text-sm font-medium text-slate-500">{isZh ? '天' : 'days'}</span>
+              {medianWeeks && <span className="ml-1.5 text-xs font-semibold text-orange-700">(~{medianWeeks} {isZh ? '周' : 'wks'})</span>}
+            </p>
+            <p className="mt-1 text-xs text-slate-600">
+              {isZh ? '收稿至接收实测中位 · n = ' : 'Submission to acceptance median · n = '}{acceptance.count}
+            </p>
+          </div>
+          <div className="mt-4 border-t border-orange-200/50 pt-3 flex items-center justify-between text-xs">
+            <span className="text-slate-600">{isZh ? '官方宣称初审:' : 'Claimed 1st decision:'}</span>
+            <span className="font-semibold text-slate-800">{official?.publisher_reported_speed.first_decision || (isZh ? '约 2–4 周' : '~2–4 wks')}</span>
+          </div>
+        </article>
+
+        {/* Card 3: Acceptance Rate & Publishing Model */}
+        <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{isZh ? '录用与出版模式' : 'Acceptance & Model'}</span>
+              <span className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-bold text-slate-700">
+                {official?.publishing_model.type.includes('Open Access') ? 'Open Access' : 'Subscription'}
+              </span>
+            </div>
+            <p className="mt-3 text-2xl font-black tracking-tight text-slate-950 line-clamp-1">
+              {official?.acceptance_rate.rate || (isZh ? '官方未公开' : 'Not Publicly Disclosed')}
+            </p>
+            <p className="mt-1 text-xs text-slate-500">
+              {isZh ? '录用率口径' : 'Acceptance metric'}: {official?.acceptance_rate.source || (isZh ? '出版商标准' : 'Publisher standard')}
+            </p>
+          </div>
+          <div className="mt-4 border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-slate-500">
+            <span>APC: <strong className="text-slate-800">{official?.publishing_model.apc_usd !== null && official?.publishing_model.apc_usd !== undefined ? (official.publishing_model.apc_usd === 0 ? (isZh ? '免费 / 赞助' : 'Free / Sponsored') : `$${official.publishing_model.apc_usd.toLocaleString()}`) : (isZh ? '见官网' : 'See site')}</strong></span>
+            {official?.homepage_url && (
+              <a href={official.homepage_url} target="_blank" rel="noreferrer" className="text-orange-700 hover:underline">
+                {isZh ? '出版商主页 ↗' : 'Publisher ↗'}
+              </a>
+            )}
+          </div>
+        </article>
+      </section>
 
       <section aria-labelledby="journal-stage-stats">
         <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
@@ -241,6 +340,33 @@ export default async function JournalPage({ params }: { params: { slug: string; 
             {isZh ? '当前样本量不足以生成月度明细。' : 'There are not enough available records for monthly detail.'}
           </p>
         )}
+      </section>
+
+      {/* Service CTA: Objective, Pre-submission Audit for specific manuscript drafts */}
+      <section className="rounded-2xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-6 shadow-sm md:p-8 text-white">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="max-w-2xl">
+            <span className="inline-block rounded-md bg-orange-500/20 px-2.5 py-1 text-xs font-bold text-orange-300 border border-orange-500/30">
+              {isZh ? '深度选刊诊断服务' : 'Manuscript Submission Advisory'}
+            </span>
+            <h3 className="mt-3 text-xl font-bold text-white md:text-2xl">
+              {isZh ? `计划向 ${journal.label} 投稿？` : `Planning to submit to ${journal.label}?`}
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-300">
+              {isZh
+                ? `针对具体论文手稿，全面评估其在 ${journal.label} 的学科契合度评分、同行评审送审几率与初审拒稿风险。公域详情仅展示客观事实数据，针对具体论文的适合度与送审建议在独立报告中交付。`
+                : `Evaluate your manuscript draft against ${journal.label}'s publication scope, desk rejection risk factors, and method reporting standards. Public journal pages display empirical statistics; specific suitability and submission recommendations are delivered via customized paper audit reports.`}
+            </p>
+          </div>
+          <div className="shrink-0">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center rounded-xl bg-orange-600 px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-orange-500 transition"
+            >
+              {isZh ? '申请稿件适配诊断报告 →' : 'Request Manuscript Audit Report →'}
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* Frequently Asked Questions */}
