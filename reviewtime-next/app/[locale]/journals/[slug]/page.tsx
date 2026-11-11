@@ -193,8 +193,8 @@ export default async function JournalPage({ params }: { params: { slug: string; 
               {official?.summary
                 ? (isZh ? official.summary.zh : official.summary.en)
                 : (isZh
-                    ? `${journal.label} 是相关学科核心期刊，最新官方影响因子 IF ${official?.impact_factor.value ?? '—'}（${official?.impact_factor.quartile ?? 'JCR Q1'}），官方初审周期约 ${official?.publisher_reported_speed.first_decision ?? '2–4 周'}。下方汇总 PubMed 真实文献审稿耗时与官方出版指标。`
-                    : `${journal.label} features an official Journal Impact Factor of ${official?.impact_factor.value ?? '—'} (${official?.impact_factor.quartile ?? 'JCR Q1'}), with publisher-reported first decisions in ${official?.publisher_reported_speed.first_decision ?? '~2–4 weeks'}. Explore empirical PubMed peer-review timelines and publication metrics below.`)}
+                    ? `${journal.label} 是相关生物医学与生命科学领域的重要学术期刊，致力于发表同行评审的原创科研成果与前沿学术综述。下方汇总客观文献审稿耗时与官方出版指标。`
+                    : `${journal.label} is an authoritative peer-reviewed journal dedicated to advancing discoveries across biomedical and life sciences. Explore empirical review timelines and official publication metrics below.`)}
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -213,13 +213,13 @@ export default async function JournalPage({ params }: { params: { slug: string; 
         </div>
       </header>
 
-      {/* Dual-Track Core Metrics */}
-      <section aria-label={isZh ? '核心指标' : 'Core Journal Metrics'} className="grid gap-4 sm:grid-cols-3">
-        {/* Card 1: Official Impact & Citation Ranks */}
+      {/* 4 Core Dual-Track Metric Cards */}
+      <section aria-label={isZh ? '核心指标' : 'Core Journal Metrics'} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Card 1: Official Impact Factor */}
         <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{isZh ? '影响因子与学科排名' : 'Impact & Ranking'}</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{isZh ? '影响因子 (JCR)' : 'Impact Factor (JCR)'}</span>
               <span className="rounded-md bg-emerald-50 px-2 py-0.5 text-[11px] font-bold text-emerald-700">
                 {official?.impact_factor.quartile.split('·')[0].trim() || 'Q1'}
               </span>
@@ -227,28 +227,45 @@ export default async function JournalPage({ params }: { params: { slug: string; 
             <p className="mt-3 text-3xl font-black tracking-tight text-slate-950">
               {official?.impact_factor.value ?? '—'}
             </p>
-            <p className="mt-1 text-xs text-slate-500 line-clamp-1">
-              {official?.impact_factor.quartile || (isZh ? 'PubMed 核心收录' : 'PubMed Indexed')}
+            <p className="mt-1 text-xs text-slate-500 line-clamp-1" title={official?.impact_factor.quartile}>
+              {official?.impact_factor.quartile || (isZh ? 'Clarivate JCR 索引' : 'Clarivate JCR')}
             </p>
           </div>
-          <div className="mt-4 border-t border-slate-100 pt-3 flex flex-wrap items-center justify-between gap-y-1 text-xs text-slate-500">
+          <div className="mt-4 border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-slate-500">
             <span>CiteScore: <strong className="text-slate-800">{official?.citescore ?? '—'}</strong></span>
-            {official?.scimago ? (
-              <span className="text-slate-600">
-                SJR: <strong className="text-slate-800">{official.scimago.sjr}</strong> ({official.scimago.quartile})
-                {official.scimago.url && (
-                  <a href={official.scimago.url} target="_blank" rel="noreferrer" className="ml-1 text-orange-700 hover:underline">
-                    SCImago ↗
-                  </a>
-                )}
+            <span className="text-[11px] text-slate-400">Web of Science</span>
+          </div>
+        </article>
+
+        {/* Card 2: SCImago & Scopus Rank (Dedicated Card) */}
+        <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{isZh ? '学术评级 (SCImago)' : 'SCImago & Scopus'}</span>
+              <span className="rounded-md bg-blue-50 px-2 py-0.5 text-[11px] font-bold text-blue-700">
+                {official?.scimago?.quartile ? `Scopus ${official.scimago.quartile}` : 'Q1'}
               </span>
+            </div>
+            <p className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+              {official?.scimago?.sjr ?? '—'}
+            </p>
+            <p className="mt-1 text-xs text-slate-600">
+              SJR 指标 · <strong className="text-slate-900 font-bold">H-Index {official?.scimago?.h_index ?? '—'}</strong>
+            </p>
+          </div>
+          <div className="mt-4 border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-slate-500">
+            <span>Scopus 权威索引</span>
+            {official?.scimago?.url ? (
+              <a href={official.scimago.url} target="_blank" rel="noreferrer" className="text-orange-700 font-medium hover:underline">
+                SCImago 详情 ↗
+              </a>
             ) : (
-              <span className="text-[11px] text-slate-400">{official?.impact_factor.source || 'Clarivate JCR'}</span>
+              <span className="text-[11px] text-slate-400">Scopus DB</span>
             )}
           </div>
         </article>
 
-        {/* Card 2: Dual-Track Review Duration (Empirical vs Claimed) */}
+        {/* Card 3: Dual-Track Review Duration (Empirical vs Claimed) */}
         <article className="rounded-2xl border border-orange-200/80 bg-orange-50/30 p-5 shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
@@ -272,14 +289,14 @@ export default async function JournalPage({ params }: { params: { slug: string; 
             </div>
             {official?.publisher_reported_speed.acceptance_to_publication && (
               <div>
-                <span className="text-slate-600">{isZh ? '录用至上线: ' : 'To publish: '}</span>
+                <span className="text-slate-600">{isZh ? '上线: ' : 'Publish: '}</span>
                 <strong className="text-slate-800">{official.publisher_reported_speed.acceptance_to_publication}</strong>
               </div>
             )}
           </div>
         </article>
 
-        {/* Card 3: Publishing Model & APC */}
+        {/* Card 4: Publishing Model & APC */}
         <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
@@ -298,16 +315,16 @@ export default async function JournalPage({ params }: { params: { slug: string; 
             <p className="mt-1 text-xs text-slate-500 line-clamp-1" title={official?.publishing_model.apc_details ? (isZh ? official.publishing_model.apc_details.zh : official.publishing_model.apc_details.en) : undefined}>
               {official?.publishing_model.apc_details
                 ? (isZh ? official.publishing_model.apc_details.zh : official.publishing_model.apc_details.en)
-                : (isZh ? '标准原创论著与综述版面费' : 'Standard article processing charge')}
+                : (isZh ? '标准原创论著版面费' : 'Standard article processing charge')}
             </p>
           </div>
           <div className="mt-4 border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-slate-500">
-            <span>
-              {isZh ? '录用规则: ' : 'Acceptance: '}
+            <span className="line-clamp-1">
+              {isZh ? '录用: ' : 'Rule: '}
               <strong className="text-slate-800">{official?.acceptance_rate.rate || (isZh ? '同行评议择优录用' : 'Selective Peer Review')}</strong>
             </span>
             {official?.homepage_url && (
-              <a href={official.homepage_url} target="_blank" rel="noreferrer" className="text-orange-700 hover:underline">
+              <a href={official.homepage_url} target="_blank" rel="noreferrer" className="text-orange-700 hover:underline shrink-0 ml-1">
                 {isZh ? '官网详情 ↗' : 'Publisher ↗'}
               </a>
             )}
