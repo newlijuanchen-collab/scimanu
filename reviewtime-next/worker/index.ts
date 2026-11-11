@@ -15,6 +15,11 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url)
 
+    // 0. Canonical domain: redirect www.scimanu.com to scimanu.com (301 Permanent Redirect)
+    if (url.hostname === 'www.scimanu.com') {
+      return Response.redirect(`https://scimanu.com${url.pathname}${url.search}`, 301)
+    }
+
     // 1. Default language is English -> Strip '/en' prefix (301 Permanent Redirect for SEO)
     if (url.pathname === '/en' || url.pathname === '/en/') {
       return Response.redirect(`${url.origin}/${url.search}`, 301)
