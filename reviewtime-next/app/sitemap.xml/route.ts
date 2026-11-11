@@ -1,9 +1,22 @@
 import { routing } from '@/i18n/routing'
 import type { AppLocale } from '@/i18n/routing'
 import { loadPublicJournals, loadPublicManifest } from '@/lib/repositories/review-data'
+import { getJournalSlug } from '@/lib/journal-slug'
 import { getSiteUrl } from '@/lib/site'
 
-const ROUTES = ['', '/journals', '/fast-review-journals', '/compare', '/statistics', '/about', '/contact', '/privacy']
+const ROUTES = [
+  '',
+  '/journals',
+  '/fast-review-journals',
+  '/compare',
+  '/statistics',
+  '/statistics/biomedical',
+  '/leaderboard',
+  '/explorer',
+  '/about',
+  '/contact',
+  '/privacy',
+]
 
 function escapeXml(value: string) {
   return value
@@ -39,12 +52,13 @@ export async function GET() {
 
   const journalEntries = routing.locales.flatMap((locale: AppLocale) =>
     journals
-      .filter(journal => journal.is_indexable && journal.url_slug)
+      .filter(journal => journal.is_public !== false)
       .map(journal => {
+        const slug = getJournalSlug(journal.label || journal.name, journal.journal_key)
         const fullUrl =
           locale === routing.defaultLocale
-            ? `${baseUrl}/journals/${journal.url_slug}`
-            : `${baseUrl}/${locale}/journals/${journal.url_slug}`
+            ? `${baseUrl}/journals/${slug}`
+            : `${baseUrl}/${locale}/journals/${slug}`
         return urlEntry(
           fullUrl,
           journal.latest_fetched_at ? new Date(journal.latest_fetched_at) : fallbackDate,

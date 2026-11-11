@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Link } from '@/i18n/navigation'
-import { buildDatasetJsonLd, buildLocaleAlternates } from '@/lib/seo'
+import { buildDatasetJsonLd, buildFaqJsonLd, buildLocaleAlternates } from '@/lib/seo'
 import { getJournalSlug } from '@/lib/journal-slug'
 import { loadPublicJournals } from '@/lib/repositories/review-data'
 import { loadStatistics } from '@/lib/repositories/statistics'
@@ -29,13 +29,27 @@ export async function generateMetadata({ params }: { params: { locale: string; s
   const { data, journal } = resolved
   const isZh = params.locale === 'zh'
   const acceptance = journal.stages.acceptance
+  const medianDays = acceptance.median !== null ? Math.round(acceptance.median) : null
+  const medianWeeks = medianDays !== null ? (medianDays / 7).toFixed(1) : null
+
   const title = isZh
-    ? `${journal.label} 时间统计 | SciManu`
-    : `${journal.label} Journal Timeline | SciManu`
+    ? `${journal.label} 审稿周期与发表时间统计 [2026]`
+    : `${journal.label} Review Time & Acceptance Timeline [2026]`
+
   const description = isZh
-    ? `PubMed 六个月试点中的 ${journal.label} 期刊时间统计：收稿至接收中位数 ${acceptance.median ?? '—'} 天，样本量 ${acceptance.count}。`
-    : `${journal.label} in the six-month PubMed pilot: median received-to-accepted duration ${acceptance.median ?? '—'} days across ${acceptance.count} records.`
-  return { title, description, alternates: buildLocaleAlternates(`/journals/${params.slug}`, params.locale) }
+    ? `${journal.label} 审稿周期与投稿发表时间统计（基于 PubMed ${acceptance.count} 篇文献）：从收稿至接收中位数 ${medianDays ?? '—'} 天${medianWeeks ? `（约 ${medianWeeks} 周）` : ''}，P25–P75 耗时 ${acceptance.p25 ?? '—'}–${acceptance.p75 ?? '—'} 天。`
+    : `${journal.label} review time & acceptance timeline from PubMed published articles (n = ${acceptance.count}): median submission-to-acceptance duration ${medianDays ?? '—'} days${medianWeeks ? ` (~${medianWeeks} weeks)` : ''}, IQR ${acceptance.p25 ?? '—'}–${acceptance.p75 ?? '—'} days.`
+
+  return {
+    title,
+    description,
+    alternates: buildLocaleAlternates(`/journals/${params.slug}`, params.locale),
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+    },
+  }
 }
 
 const stageKeys: StageKey[] = ['acceptance', 'first_revision', 'last_revision', 'publication']
@@ -77,6 +91,10 @@ export default async function JournalPage({ params }: { params: { slug: string; 
   const isZh = params.locale === 'zh'
   const start = data.scope.start ?? data.scope.end
   const sourceUrl = `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(`"${journal.label}"[Journal]`)}`
+  const acceptance = journal.stages.acceptance
+  const medianDays = acceptance.median !== null ? Math.round(acceptance.median) : null
+  const medianWeeks = medianDays !== null ? (medianDays / 7).toFixed(1) : null
+
   const datasetJsonLd = buildDatasetJsonLd({
     journalName: journal.label,
     slug: params.slug,
@@ -85,9 +103,58 @@ export default async function JournalPage({ params }: { params: { slug: string; 
     endDate: data.scope.end,
   })
 
+  const faqItems = isZh
+    ? [
+        {
+          question: `${journal.label} 审稿周期大概多久？从投稿到正式接收需要多少时间？`,
+          answer:
+            medianDays !== null
+              ? `根据 PubMed 收录的 ${acceptance.count} 篇文献真实日期统计，${journal.label} 从收稿（Received）到接收（Accepted）的中位数时间约为 ${medianDays} 天（约 ${medianWeeks} 周）。50% 的稿件在 ${acceptance.p25 ?? '—'} 至 ${acceptance.p75 ?? '—'} 天内处理完毕。`
+              : `目前统计样本中暂无足够的完整日期记录，通常生物医学期刊常规审稿周期在 4 至 12 周之间。`,
+        },
+        {
+          question: `${journal.label} 的初审与修回阶段耗时情况如何？`,
+          answer:
+            journal.stages.first_revision.median !== null
+              ? `在具备修回日期记录的文献中，从收稿至首个修订日期（First Revision）的中位数为 ${Math.round(journal.stages.first_revision.median)} 天。末次修回至最终接收中位数为 ${journal.stages.last_revision.median !== null ? Math.round(journal.stages.last_revision.median) : '—'} 天。`
+              : `初审及审稿人意见反馈耗时通常在 4 至 8 周左右，具体取决于当期投稿量与同行评审专家回复进度。`,
+        },
+        {
+          question: `如何查询 ${journal.label} 的官方影响因子（Impact Factor）与投稿须知？`,
+          answer: `SciManu 专注于挖掘 PubMed 公开文献中的真实审稿与接收耗时数据。关于 ${journal.label} 的最新官方影响因子（Clarivate JCR IF）、中科院分区、版面费（APC）及作者投稿须知，请直接通过官方出版社网站或 PubMed 官方页面核对。`,
+        },
+      ]
+    : [
+        {
+          question: `How long is the review time for ${journal.label}?`,
+          answer:
+            medianDays !== null
+              ? `Based on ${acceptance.count} published articles in PubMed, the median duration from submission (received) to acceptance for ${journal.label} is ${medianDays} days (~${medianWeeks} weeks). The interquartile range (IQR, P25–P75) is ${acceptance.p25 ?? '—'} to ${acceptance.p75 ?? '—'} days.`
+              : `Date records are currently limited for this journal cohort. Peer review turnaround typically spans 4 to 12 weeks for biomedical publications.`,
+        },
+        {
+          question: `What is the timeline for first revision and decision for ${journal.label}?`,
+          answer:
+            journal.stages.first_revision.median !== null
+              ? `For articles with reported revision milestones, the median time from receipt to first revision date is ${Math.round(journal.stages.first_revision.median)} days. The final revision to acceptance median is ${journal.stages.last_revision.median !== null ? Math.round(journal.stages.last_revision.median) : '—'} days.`
+              : `First decision times depend on reviewer availability and editorial review, usually ranging between 4 to 8 weeks.`,
+        },
+        {
+          question: `Where can I find ${journal.label}'s official Impact Factor and author guidelines?`,
+          answer: `SciManu focuses on empirical submission-to-acceptance timelines extracted from PubMed records. For the official Journal Impact Factor (Clarivate JCR), CiteScore, Article Processing Charges (APC), and Author Guidelines, please visit the official ${journal.label} publisher portal or the PubMed catalog entry.`,
+        },
+      ]
+
+  const faqJsonLd = buildFaqJsonLd(faqItems)
+
+  const relatedJournals = data.scope.journals
+    .filter(j => j.key !== journal.key && j.stages.acceptance.count > 0)
+    .slice(0, 4)
+
   return (
     <main className="mx-auto max-w-6xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <nav className="text-sm text-slate-500" aria-label={isZh ? '面包屑' : 'Breadcrumb'}>
         <Link href="/journals" className="hover:text-orange-700">{isZh ? '期刊目录' : 'Journal directory'}</Link>
         <span className="mx-2">/</span><span className="text-slate-800">{journal.label}</span>
@@ -175,6 +242,68 @@ export default async function JournalPage({ params }: { params: { slug: string; 
           </p>
         )}
       </section>
+
+      {/* Frequently Asked Questions */}
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8" aria-labelledby="journal-faq-heading">
+        <div className="mb-6">
+          <p className="text-xs font-bold uppercase tracking-wider text-orange-700">{isZh ? '常见问答' : 'Frequently Asked Questions'}</p>
+          <h2 id="journal-faq-heading" className="mt-1 text-2xl font-bold text-slate-950">
+            {isZh ? `${journal.label} 投稿与审稿问答` : `${journal.label} Review & Submission FAQ`}
+          </h2>
+        </div>
+        <div className="space-y-4">
+          {faqItems.map((item, idx) => (
+            <div key={idx} className="rounded-xl border border-slate-100 bg-slate-50/70 p-5">
+              <h3 className="text-base font-bold text-slate-900">{item.question}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Related & Comparable Journals */}
+      {relatedJournals.length > 0 && (
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8" aria-labelledby="related-journals-heading">
+          <div className="mb-5 flex flex-wrap items-end justify-between gap-2">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-500">{isZh ? '期刊探索' : 'Journal Exploration'}</p>
+              <h2 id="related-journals-heading" className="mt-1 text-xl font-bold text-slate-950">
+                {isZh ? '其他同行评审候选期刊' : 'Comparable Peer-Reviewed Journals'}
+              </h2>
+            </div>
+            <Link href="/journals" className="text-xs font-semibold text-orange-700 hover:underline">
+              {isZh ? '查看全部期刊 →' : 'View all journals →'}
+            </Link>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {relatedJournals.map(cand => {
+              const candSlug = getJournalSlug(cand.label, cand.key)
+              return (
+                <div key={cand.key} className="flex flex-col justify-between rounded-xl border border-slate-100 bg-slate-50/60 p-4 transition hover:border-slate-200 hover:bg-slate-50">
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 line-clamp-2">
+                      <Link href={`/journals/${candSlug}`} className="hover:text-orange-700">
+                        {cand.label}
+                      </Link>
+                    </h3>
+                    <p className="mt-2 text-xs text-slate-500">
+                      {isZh ? '接收中位数' : 'Median Acceptance'}: <strong className="text-slate-800">{cand.stages.acceptance.median !== null ? `${Math.round(cand.stages.acceptance.median)} ${isZh ? '天' : 'days'}` : '—'}</strong>
+                    </p>
+                  </div>
+                  <div className="mt-4 flex items-center justify-between gap-2 border-t border-slate-200/60 pt-3">
+                    <Link href={`/journals/${candSlug}`} className="text-xs font-semibold text-orange-700 hover:underline">
+                      {isZh ? '查看详情' : 'Timeline'}
+                    </Link>
+                    <Link href={`/compare?journals=${encodeURIComponent(getJournalSlug(journal.label, journal.key))},${encodeURIComponent(candSlug)}`} className="text-xs text-slate-500 hover:text-slate-800">
+                      {isZh ? '与此期刊对比' : 'Compare'}
+                    </Link>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </section>
+      )}
 
       <p className="mt-8 text-center text-xs text-slate-400">
         {isZh ? '数据源自 PubMed 公开记录汇总 · ' : 'Aggregated from public PubMed records · '}
