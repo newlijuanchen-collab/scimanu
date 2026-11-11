@@ -128,7 +128,7 @@ export default async function JournalPage({ params }: { params: { slug: string; 
         {
           question: `如何查询 ${journal.label} 的最新影响因子（Impact Factor）与官方投稿须知？`,
           answer: official
-            ? `${journal.label} 最新影响因子为 ${official.impact_factor.value}（${official.impact_factor.quartile}，数据源自 ${official.impact_factor.source}），CiteScore 为 ${official.citescore}。出版模式为 ${official.publishing_model.type}${official.publishing_model.apc_usd !== null ? `，文章处理版面费 (APC) 为 $${official.publishing_model.apc_usd.toLocaleString()}` : ''}。官方投稿须知与作者指南可直接通过其官方出版社门户（${official.publisher}）查阅。`
+            ? `${journal.label} 最新影响因子为 ${official.impact_factor.value}（${official.impact_factor.quartile}，数据源自 ${official.impact_factor.source}），CiteScore 为 ${official.citescore}${official.scimago ? `，SCImago SJR 为 ${official.scimago.sjr}（${official.scimago.quartile}，H-Index ${official.scimago.h_index}）` : ''}。出版模式为 ${official.publishing_model.type}${official.publishing_model.apc_usd !== null ? `，文章处理版面费 (APC) 为 $${official.publishing_model.apc_usd.toLocaleString()} USD${official.publishing_model.apc_details ? `（${official.publishing_model.apc_details.zh}）` : ''}` : ''}。官方投稿须知与作者指南可直接通过其官方门户（${official.publisher}）查阅。`
             : `SciManu 专注于挖掘 PubMed 公开文献中的真实审稿与接收耗时数据。关于 ${journal.label} 的最新官方影响因子（Clarivate JCR IF）、中科院分区、版面费（APC）及作者投稿须知，请直接通过官方出版社网站或 PubMed 官方页面核对。`,
         },
       ]
@@ -150,7 +150,7 @@ export default async function JournalPage({ params }: { params: { slug: string; 
         {
           question: `Where can I find ${journal.label}'s official Impact Factor and author guidelines?`,
           answer: official
-            ? `${journal.label} holds an official Journal Impact Factor of ${official.impact_factor.value} (${official.impact_factor.quartile}, source: ${official.impact_factor.source}), with a CiteScore of ${official.citescore}. It operates as ${official.publishing_model.type}${official.publishing_model.apc_usd !== null ? ` with an Article Processing Charge (APC) of $${official.publishing_model.apc_usd.toLocaleString()}` : ''}. Official submission guidelines and author instructions can be accessed directly via ${official.publisher}.`
+            ? `${journal.label} holds an official Journal Impact Factor of ${official.impact_factor.value} (${official.impact_factor.quartile}, source: ${official.impact_factor.source}), with a CiteScore of ${official.citescore}${official.scimago ? `, and an SCImago SJR of ${official.scimago.sjr} (${official.scimago.quartile}, H-Index ${official.scimago.h_index})` : ''}. It operates as ${official.publishing_model.type}${official.publishing_model.apc_usd !== null ? ` with an Article Processing Charge (APC) of $${official.publishing_model.apc_usd.toLocaleString()} USD${official.publishing_model.apc_details ? ` (${official.publishing_model.apc_details.en})` : ''}` : ''}. Official submission guidelines and author instructions can be accessed directly via ${official.publisher}.`
             : `SciManu focuses on empirical submission-to-acceptance timelines extracted from PubMed records. For the official Journal Impact Factor (Clarivate JCR), CiteScore, Article Processing Charges (APC), and Author Guidelines, please visit the official ${journal.label} publisher portal or the PubMed catalog entry.`,
         },
       ]
@@ -189,10 +189,12 @@ export default async function JournalPage({ params }: { params: { slug: string; 
               {journal.issn && <> · ISSN {journal.issn}</>}
               {official?.impact_factor.value && <> · <strong className="text-slate-800">IF {official.impact_factor.value}</strong></>}
             </p>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
-              {isZh
-                ? '本页对比期刊官方公布指标与 PubMed 真实文献汇总的时间统计。不同阶段分别使用可用的 PubMed 日期记录，因此样本量会有所不同。'
-                : 'This page aggregates empirical PubMed timing records alongside official publisher-reported metrics. Sample counts vary by stage depending on available date tags.'}
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-700">
+              {official?.summary
+                ? (isZh ? official.summary.zh : official.summary.en)
+                : (isZh
+                    ? `${journal.label} 是相关学科核心期刊，最新官方影响因子 IF ${official?.impact_factor.value ?? '—'}（${official?.impact_factor.quartile ?? 'JCR Q1'}），官方初审周期约 ${official?.publisher_reported_speed.first_decision ?? '2–4 周'}。下方汇总 PubMed 真实文献审稿耗时与官方出版指标。`
+                    : `${journal.label} features an official Journal Impact Factor of ${official?.impact_factor.value ?? '—'} (${official?.impact_factor.quartile ?? 'JCR Q1'}), with publisher-reported first decisions in ${official?.publisher_reported_speed.first_decision ?? '~2–4 weeks'}. Explore empirical PubMed peer-review timelines and publication metrics below.`)}
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -213,11 +215,11 @@ export default async function JournalPage({ params }: { params: { slug: string; 
 
       {/* Dual-Track Core Metrics */}
       <section aria-label={isZh ? '核心指标' : 'Core Journal Metrics'} className="grid gap-4 sm:grid-cols-3">
-        {/* Card 1: Official Impact & Reputation */}
+        {/* Card 1: Official Impact & Citation Ranks */}
         <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{isZh ? '影响因子 (JCR)' : 'Impact Factor (JCR)'}</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{isZh ? '影响因子与学科排名' : 'Impact & Ranking'}</span>
               <span className="rounded-md bg-emerald-50 px-2 py-0.5 text-[11px] font-bold text-emerald-700">
                 {official?.impact_factor.quartile.split('·')[0].trim() || 'Q1'}
               </span>
@@ -229,9 +231,20 @@ export default async function JournalPage({ params }: { params: { slug: string; 
               {official?.impact_factor.quartile || (isZh ? 'PubMed 核心收录' : 'PubMed Indexed')}
             </p>
           </div>
-          <div className="mt-4 border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-slate-500">
+          <div className="mt-4 border-t border-slate-100 pt-3 flex flex-wrap items-center justify-between gap-y-1 text-xs text-slate-500">
             <span>CiteScore: <strong className="text-slate-800">{official?.citescore ?? '—'}</strong></span>
-            <span className="text-[11px] text-slate-400">{official?.impact_factor.source || 'Clarivate JCR'}</span>
+            {official?.scimago ? (
+              <span className="text-slate-600">
+                SJR: <strong className="text-slate-800">{official.scimago.sjr}</strong> ({official.scimago.quartile})
+                {official.scimago.url && (
+                  <a href={official.scimago.url} target="_blank" rel="noreferrer" className="ml-1 text-orange-700 hover:underline">
+                    SCImago ↗
+                  </a>
+                )}
+              </span>
+            ) : (
+              <span className="text-[11px] text-slate-400">{official?.impact_factor.source || 'Clarivate JCR'}</span>
+            )}
           </div>
         </article>
 
@@ -252,33 +265,50 @@ export default async function JournalPage({ params }: { params: { slug: string; 
               {isZh ? '收稿至接收实测中位 · n = ' : 'Submission to acceptance median · n = '}{acceptance.count}
             </p>
           </div>
-          <div className="mt-4 border-t border-orange-200/50 pt-3 flex items-center justify-between text-xs">
-            <span className="text-slate-600">{isZh ? '官方宣称初审:' : 'Claimed 1st decision:'}</span>
-            <span className="font-semibold text-slate-800">{official?.publisher_reported_speed.first_decision || (isZh ? '约 2–4 周' : '~2–4 wks')}</span>
+          <div className="mt-4 border-t border-orange-200/50 pt-3 flex flex-wrap items-center justify-between gap-y-1 text-xs">
+            <div>
+              <span className="text-slate-600">{isZh ? '官方初审: ' : '1st decision: '}</span>
+              <strong className="text-slate-800">{official?.publisher_reported_speed.first_decision || (isZh ? '约 2–4 周' : '~2–4 wks')}</strong>
+            </div>
+            {official?.publisher_reported_speed.acceptance_to_publication && (
+              <div>
+                <span className="text-slate-600">{isZh ? '录用至上线: ' : 'To publish: '}</span>
+                <strong className="text-slate-800">{official.publisher_reported_speed.acceptance_to_publication}</strong>
+              </div>
+            )}
           </div>
         </article>
 
-        {/* Card 3: Acceptance Rate & Publishing Model */}
+        {/* Card 3: Publishing Model & APC */}
         <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{isZh ? '录用与出版模式' : 'Acceptance & Model'}</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{isZh ? '出版模式与版面费' : 'Publishing & APC'}</span>
               <span className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-bold text-slate-700">
                 {official?.publishing_model.type.includes('Open Access') ? 'Open Access' : 'Subscription'}
               </span>
             </div>
-            <p className="mt-3 text-2xl font-black tracking-tight text-slate-950 line-clamp-1">
-              {official?.acceptance_rate.rate || (isZh ? '官方未公开' : 'Not Publicly Disclosed')}
+            <p className="mt-3 text-2xl font-black tracking-tight text-slate-950">
+              {official?.publishing_model.apc_usd !== null && official?.publishing_model.apc_usd !== undefined
+                ? (official.publishing_model.apc_usd === 0
+                    ? (isZh ? '免费 / 学会资助' : 'Free / Society Sponsored')
+                    : `$${official.publishing_model.apc_usd.toLocaleString()} USD`)
+                : (isZh ? '见官网详情' : 'See Publisher Site')}
             </p>
-            <p className="mt-1 text-xs text-slate-500">
-              {isZh ? '录用率口径' : 'Acceptance metric'}: {official?.acceptance_rate.source || (isZh ? '出版商标准' : 'Publisher standard')}
+            <p className="mt-1 text-xs text-slate-500 line-clamp-1" title={official?.publishing_model.apc_details ? (isZh ? official.publishing_model.apc_details.zh : official.publishing_model.apc_details.en) : undefined}>
+              {official?.publishing_model.apc_details
+                ? (isZh ? official.publishing_model.apc_details.zh : official.publishing_model.apc_details.en)
+                : (isZh ? '标准原创论著与综述版面费' : 'Standard article processing charge')}
             </p>
           </div>
           <div className="mt-4 border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-slate-500">
-            <span>APC: <strong className="text-slate-800">{official?.publishing_model.apc_usd !== null && official?.publishing_model.apc_usd !== undefined ? (official.publishing_model.apc_usd === 0 ? (isZh ? '免费 / 赞助' : 'Free / Sponsored') : `$${official.publishing_model.apc_usd.toLocaleString()}`) : (isZh ? '见官网' : 'See site')}</strong></span>
+            <span>
+              {isZh ? '录用规则: ' : 'Acceptance: '}
+              <strong className="text-slate-800">{official?.acceptance_rate.rate || (isZh ? '同行评议择优录用' : 'Selective Peer Review')}</strong>
+            </span>
             {official?.homepage_url && (
               <a href={official.homepage_url} target="_blank" rel="noreferrer" className="text-orange-700 hover:underline">
-                {isZh ? '出版商主页 ↗' : 'Publisher ↗'}
+                {isZh ? '官网详情 ↗' : 'Publisher ↗'}
               </a>
             )}
           </div>

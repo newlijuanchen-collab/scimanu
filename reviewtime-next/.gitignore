@@ -11,7 +11,8 @@ out/
 
 # Exclude raw data directories and competitor keyword research
 keyword/
-data/
+/data/
+public/data/
 *.xlsx
 *.xlsm
 *.xls
