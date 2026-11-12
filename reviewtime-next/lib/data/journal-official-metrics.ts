@@ -31,7 +31,10 @@ export interface OfficialJournalMetrics {
     source: string
   }
   acceptance_rate: {
-    rate: string
+    rate: string | {
+      en: string
+      zh: string
+    }
     source: string
   }
   publishing_model: {
@@ -74,7 +77,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'Publisher website',
     },
     acceptance_rate: {
-      rate: '~8%–12% (Highly selective)',
+      rate: {
+        zh: '~8%–12% (高度择优)',
+        en: '~8%–12% (Highly selective)',
+      },
       source: 'Independent bibliometric estimate',
     },
     publishing_model: {
@@ -116,7 +122,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'Publisher website',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {
@@ -158,7 +167,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'Publisher insights',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {
@@ -205,7 +217,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'Official Journal Metrics (e-cmh.org)',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'KASL society peer review',
     },
     publishing_model: {
@@ -247,7 +262,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'BioMed Central metrics',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {
@@ -289,7 +307,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'BioMed Central metrics',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {
@@ -331,7 +352,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'BioMed Central metrics',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {
@@ -373,7 +397,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'Elsevier Journal Insights',
     },
     acceptance_rate: {
-      rate: '~18% (Elsevier reported)',
+      rate: {
+        zh: '~18% (出版商统计)',
+        en: '~18% (Elsevier reported)',
+      },
       source: 'Publisher reported',
     },
     publishing_model: {
@@ -415,7 +442,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'Elsevier Journal Insights',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {
@@ -457,7 +487,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'Cell Press guidelines',
     },
     acceptance_rate: {
-      rate: '极高学术门槛择优录用 (Highly selective)',
+      rate: {
+        zh: '极高门槛择优录用',
+        en: 'Highly selective peer review',
+      },
       source: 'Editorial board policy',
     },
     publishing_model: {
@@ -499,7 +532,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'Wiley metrics',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {
@@ -541,7 +577,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'Publisher website',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {
@@ -583,7 +622,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'Publisher website',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {
@@ -625,7 +667,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'BioMed Central metrics',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {
@@ -667,7 +712,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'BioMed Central metrics',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {
@@ -709,7 +757,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'Elsevier / ACC guidelines',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {
@@ -751,7 +802,10 @@ export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = 
       source: 'Publisher guidelines',
     },
     acceptance_rate: {
-      rate: '同行评议择优录用 (Selective Peer Review)',
+      rate: {
+        zh: '同行评议择优录用',
+        en: 'Selective Peer Review',
+      },
       source: 'Publisher policy',
     },
     publishing_model: {

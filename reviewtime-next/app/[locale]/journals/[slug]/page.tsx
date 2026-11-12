@@ -322,8 +322,14 @@ export default async function JournalPage({ params }: { params: { slug: string; 
           </div>
           <div className="mt-4 border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-slate-500">
             <span className="line-clamp-1">
-              {isZh ? '录用: ' : 'Rule: '}
-              <strong className="text-slate-800">{official?.acceptance_rate.rate || (isZh ? '同行评议择优录用' : 'Selective Peer Review')}</strong>
+              {isZh ? '录用机制: ' : 'Acceptance: '}
+              <strong className="text-slate-800">
+                {official?.acceptance_rate.rate
+                  ? (typeof official.acceptance_rate.rate === 'object'
+                      ? (isZh ? official.acceptance_rate.rate.zh : official.acceptance_rate.rate.en)
+                      : official.acceptance_rate.rate)
+                  : (isZh ? '同行评议择优录用' : 'Selective Peer Review')}
+              </strong>
             </span>
             {official?.homepage_url && (
               <a href={official.homepage_url} target="_blank" rel="noreferrer" className="text-orange-700 hover:underline shrink-0 ml-1">
