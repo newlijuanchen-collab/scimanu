@@ -186,7 +186,9 @@ export default async function JournalPage({ params }: { params: { slug: string; 
             <h1 className="text-3xl font-black tracking-tight text-slate-950 md:text-4xl">{journal.label}</h1>
             <p className="mt-2 text-sm text-slate-600">
               {isZh ? `统计队列：${start} 至 ${data.scope.end}` : `Cohort: ${start} to ${data.scope.end}`}
-              {journal.issn && <> · ISSN {journal.issn}</>}
+              {(journal.issn || official?.issn?.online || official?.issn?.print) && (
+                <> · ISSN {journal.issn || official?.issn?.online || official?.issn?.print}</>
+              )}
               {official?.impact_factor.value && <> · <strong className="text-slate-800">IF {official.impact_factor.value}</strong></>}
             </p>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-700">
@@ -250,14 +252,14 @@ export default async function JournalPage({ params }: { params: { slug: string; 
               {official?.scimago?.sjr ?? '—'}
             </p>
             <p className="mt-1 text-xs text-slate-600">
-              SJR 指标 · <strong className="text-slate-900 font-bold">H-Index {official?.scimago?.h_index ?? '—'}</strong>
+              {isZh ? 'SJR 指标 · ' : 'SJR Metric · '}<strong className="text-slate-900 font-bold">H-Index {official?.scimago?.h_index ?? '—'}</strong>
             </p>
           </div>
           <div className="mt-4 border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-slate-500">
-            <span>Scopus 权威索引</span>
+            <span>{isZh ? 'Scopus 权威索引' : 'Scopus Indexed'}</span>
             {official?.scimago?.url ? (
               <a href={official.scimago.url} target="_blank" rel="noreferrer" className="text-orange-700 font-medium hover:underline">
-                SCImago 详情 ↗
+                {isZh ? 'SCImago 详情 ↗' : 'SCImago Profile ↗'}
               </a>
             ) : (
               <span className="text-[11px] text-slate-400">Scopus DB</span>
