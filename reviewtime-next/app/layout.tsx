@@ -11,7 +11,6 @@ export const metadata: Metadata = {
     template: '%s | SciManu',
   },
   description: 'Academic journal review timeline analytics & manuscript publishing insights for smarter journal selection.',
-  keywords: ['scimanu', 'manuscript review time', 'journal review time', 'peer review speed', 'academic publishing', 'journal ranking'],
   openGraph: {
     title: 'SciManu',
     description: 'Academic journal review timeline analytics & manuscript publishing insights for smarter journal selection.',
@@ -36,7 +35,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{

@@ -20,6 +20,24 @@ function copyRecursive(src, dest) {
   }
 }
 
+function setHtmlLang(target, lang) {
+  if (!fs.existsSync(target)) return
+  const stat = fs.statSync(target)
+  if (stat.isDirectory()) {
+    for (const entry of fs.readdirSync(target)) {
+      setHtmlLang(path.join(target, entry), lang)
+    }
+    return
+  }
+  if (!target.endsWith('.html')) return
+
+  const html = fs.readFileSync(target, 'utf8')
+  const localized = /<html\b[^>]*\blang="[^"]*"/i.test(html)
+    ? html.replace(/\blang="[^"]*"/i, `lang="${lang}"`)
+    : html.replace(/<html\b/i, `<html lang="${lang}"`)
+  if (localized !== html) fs.writeFileSync(target, localized)
+}
+
 function run() {
   if (!fs.existsSync(outDir)) {
     console.warn('[postbuild] out directory does not exist, skipping.')
@@ -46,6 +64,12 @@ function run() {
     copyRecursive(enDir, outDir)
     console.log('[postbuild] Synchronized out/en/* to out/ root.')
   }
+
+  // Next's root layout is emitted with the default language. Rewrite the
+  // localized static HTML so user agents see the correct language immediately.
+  setHtmlLang(path.join(outDir, 'zh.html'), 'zh')
+  setHtmlLang(path.join(outDir, 'zh'), 'zh')
+  console.log('[postbuild] Set lang="zh" on Chinese HTML exports.')
 
   console.log('[postbuild] Completed postbuild static asset synchronization.')
 }

@@ -13,6 +13,7 @@ export function buildLocaleAlternates(pathname: string, locale?: string) {
   const languages = Object.fromEntries(
     routing.locales.map((loc: AppLocale) => [loc, `${site}${getLocalePath(loc, cleanPath)}`]),
   )
+  languages['x-default'] = `${site}${getLocalePath(routing.defaultLocale, cleanPath)}`
 
   const normalized = routing.locales.includes(locale as AppLocale)
     ? (locale as AppLocale)
@@ -28,19 +29,56 @@ export function buildWebSiteJsonLd(locale: string) {
   const site = getSiteUrl()
   const isDefault = locale === routing.defaultLocale
   const rootUrl = isDefault ? site : `${site}/${locale}`
-  const searchUrl = isDefault ? `${site}/journals` : `${site}/${locale}/journals`
 
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'SciManu',
+    alternateName: 'SciManu Journal Review Time',
     url: rootUrl,
     inLanguage: locale,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${searchUrl}?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
-    },
+  }
+}
+
+export function buildJournalBreadcrumbJsonLd({
+  journalName,
+  slug,
+  locale,
+}: {
+  journalName: string
+  slug: string
+  locale: string
+}) {
+  const site = getSiteUrl()
+  const isDefault = locale === routing.defaultLocale
+  const localeRoot = isDefault ? site : `${site}/${locale}`
+  const directoryUrl = `${localeRoot}/journals`
+  const pageUrl = `${directoryUrl}/${slug}`
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': `${pageUrl}#breadcrumb`,
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: isDefault ? 'Home' : '首页',
+        item: localeRoot,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: isDefault ? 'Journal directory' : '期刊目录',
+        item: directoryUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: journalName,
+        item: pageUrl,
+      },
+    ],
   }
 }
 
@@ -83,20 +121,3 @@ export function buildDatasetJsonLd({
     temporalCoverage: `${startDate}/${endDate}`,
   }
 }
-
-export function buildFaqJsonLd(items: Array<{ question: string; answer: string }>) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: items.map(item => ({
-      '@type': 'Question',
-      name: item.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.answer,
-      },
-    })),
-  }
-}
-
-

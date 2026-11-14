@@ -47,6 +47,10 @@ export interface OfficialJournalMetrics {
   }
 }
 
+// Date when the publication metrics below were last reviewed as a set.
+// Keep this tied to a real editorial verification pass rather than build time.
+export const OFFICIAL_JOURNAL_METRICS_VERIFIED_AT = '2026-11-12'
+
 export const OFFICIAL_JOURNAL_METRICS: Record<string, OfficialJournalMetrics> = {
   // 1. Nature Communications
   '101528555': {

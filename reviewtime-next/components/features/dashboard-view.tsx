@@ -57,6 +57,15 @@ export function DashboardView({ initialData }: { initialData?: LoadedData | null
   const [reliabilityFilter, setReliabilityFilter] = useState<ReliabilityFilter>('all')
   const [disciplineFilter, setDisciplineFilter] = useState('all')
 
+  const applyWaitFilter = (filter: WaitFilter, showResults = false) => {
+    setWaitFilter(filter)
+    if (!showResults) return
+
+    window.requestAnimationFrame(() => {
+      document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+  }
+
   // Multi-dimensional aggregated benchmarks
   const speedTiers = useMemo(() => computeSpeedTiers(journals), [journals])
   const disciplineStats = useMemo(() => computeDisciplineBenchmarks(journals), [journals])
@@ -241,7 +250,7 @@ export function DashboardView({ initialData }: { initialData?: LoadedData | null
           {waitFilter !== 'all' && (
             <button
               type="button"
-              onClick={() => setWaitFilter('all')}
+              onClick={() => applyWaitFilter('all', true)}
               className="text-xs font-semibold text-orange-600 hover:text-orange-700 underline"
             >
               {isZh ? '清除分段筛选 (查看全部)' : 'Clear Tier Filter (Show All)'}
@@ -256,7 +265,9 @@ export function DashboardView({ initialData }: { initialData?: LoadedData | null
               <button
                 key={tier.key}
                 type="button"
-                onClick={() => setWaitFilter(isSelected ? 'all' : tier.key)}
+                onClick={() => applyWaitFilter(isSelected ? 'all' : tier.key, true)}
+                aria-pressed={isSelected}
+                aria-controls="directory-results"
                 className={`group flex flex-col justify-between rounded-2xl border p-4 text-left shadow-sm transition hover:shadow-md ${
                   isSelected
                     ? 'border-orange-500 ring-2 ring-orange-500/20 bg-white'
@@ -508,7 +519,7 @@ export function DashboardView({ initialData }: { initialData?: LoadedData | null
               </span>
               <select
                 value={waitFilter}
-                onChange={event => setWaitFilter(event.target.value as WaitFilter)}
+                onChange={event => applyWaitFilter(event.target.value as WaitFilter)}
                 className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-900 shadow-sm outline-none transition focus:border-orange-500"
               >
                 <option value="all">{isZh ? '全部时长区间' : 'All durations'}</option>
@@ -551,10 +562,13 @@ export function DashboardView({ initialData }: { initialData?: LoadedData | null
               </select>
             </label>
           </div>
+          <p className="mt-3 text-xs font-semibold text-slate-600" role="status" aria-live="polite">
+            {isZh ? `当前显示 ${matched.length} 本期刊` : `Showing ${matched.length} journals`}
+          </p>
         </div>
 
         {/* Results List */}
-        <div className="divide-y divide-slate-100">
+        <div id="directory-results" className="divide-y divide-slate-100">
           {matched.map(journal => (
             <div
               key={getJournalSlug(journal.label, journal.journal_key)}

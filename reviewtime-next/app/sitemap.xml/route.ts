@@ -27,13 +27,11 @@ function escapeXml(value: string) {
     .replaceAll("'", '&apos;')
 }
 
-function urlEntry(url: string, lastModified: Date, changeFrequency: string, priority: number) {
+function urlEntry(url: string, lastModified: Date) {
   return [
     '<url>',
     `<loc>${escapeXml(url)}</loc>`,
     `<lastmod>${lastModified.toISOString()}</lastmod>`,
-    `<changefreq>${changeFrequency}</changefreq>`,
-    `<priority>${priority}</priority>`,
     '</url>',
   ].join('')
 }
@@ -46,13 +44,13 @@ export async function GET() {
   const staticEntries = routing.locales.flatMap((locale: AppLocale) =>
     ROUTES.map(path => {
       const fullUrl = locale === routing.defaultLocale ? `${baseUrl}${path || '/'}` : `${baseUrl}/${locale}${path}`
-      return urlEntry(fullUrl, fallbackDate, 'weekly', path === '' ? 1 : 0.8)
+      return urlEntry(fullUrl, fallbackDate)
     }),
   )
 
   const journalEntries = routing.locales.flatMap((locale: AppLocale) =>
     journals
-      .filter(journal => journal.is_public !== false)
+      .filter(journal => journal.is_public !== false && journal.is_indexable === true)
       .map(journal => {
         const slug = getJournalSlug(journal.label || journal.name, journal.journal_key)
         const fullUrl =
@@ -62,8 +60,6 @@ export async function GET() {
         return urlEntry(
           fullUrl,
           journal.latest_fetched_at ? new Date(journal.latest_fetched_at) : fallbackDate,
-          'monthly',
-          journal.count >= 20 ? 0.7 : 0.55,
         )
       }),
   )
